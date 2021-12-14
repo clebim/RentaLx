@@ -1,12 +1,12 @@
 import express, { Request, Response } from 'express';
 import http from 'http';
 
-import { appConfig } from './config/app';
+import AppConfig from '../config/app';
 
 export default class App {
-  public express: express.Application = null;
+  public express: express.Application;
 
-  private httpServer: http.Server = null;
+  private httpServer: http.Server;
 
   public constructor() {
     this.express = express();
@@ -20,11 +20,15 @@ export default class App {
   }
 
   public async start(): Promise<void> {
-    const { expressHostName, expressPort } = appConfig;
-
     this.httpServer = http.createServer(this.express);
-    this.httpServer.listen(expressPort, expressHostName, (): void => {
-      console.log(`running server ${expressHostName}:${expressPort}`);
-    });
+    this.httpServer.listen(
+      AppConfig.SERVER.http.port,
+      AppConfig.SERVER.http.hostname,
+      (): void => {
+        console.log(
+          `running server ${AppConfig.SERVER.http.hostname}:${AppConfig.SERVER.http.port}`,
+        );
+      },
+    );
   }
 }

@@ -1,4 +1,4 @@
-import App from './app';
+import App from './startup/app';
 
 function startApp() {
   Promise.resolve().then(() => {
