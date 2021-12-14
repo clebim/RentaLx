@@ -1,3 +1,9 @@
+import env from 'dotenv';
+import path from 'path';
+
+env.config({ path: path.resolve(`./env/.env.${process.env.NODE_ENV}`) });
+
+process.env.ENVIRONMENT = process.env.ENVIRONMENT || process.env.NODE_ENV;
 class AppConfig {
   public static TEST: boolean = process.env.ENVIRONMENT === 'test';
 

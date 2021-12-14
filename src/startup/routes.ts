@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import express, { RequestHandler, Router } from 'express';
 import { readdirSync, statSync, existsSync } from 'fs';
 import { join, resolve } from 'path';
@@ -6,7 +5,7 @@ import { join, resolve } from 'path';
 import AppConfig from '../config/app';
 
 export type IRouteProps = {
-  method: string;
+  method: 'get' | 'post' | 'put' | 'delete' | 'patch';
   path: string;
   handlers: Array<RequestHandler>;
 };

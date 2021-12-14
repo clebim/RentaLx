@@ -1,7 +1,8 @@
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import http from 'http';
 
 import AppConfig from '../config/app';
+import Routes from './routes';
 
 export default class App {
   public express: express.Application;
@@ -10,12 +11,22 @@ export default class App {
 
   public constructor() {
     this.express = express();
-    this.express.use(express.json());
+    this.middleware();
+    console.log();
+    this.express.use('/api', Routes());
+
+    this.express.use((request: Request, response: Response) => {
+      response.status(404).send();
+    });
 
     this.express.use((err: Error, req: Request, res: Response) => {
       console.log('error', err);
 
-      res.status(500).json(err);
+      res.status(500).json({
+        message: 'Internal server error',
+        error: err.message,
+        errorName: err.name,
+      });
     });
   }
 
@@ -28,6 +39,25 @@ export default class App {
         console.log(
           `running server ${AppConfig.SERVER.http.hostname}:${AppConfig.SERVER.http.port}`,
         );
+      },
+    );
+  }
+
+  private middleware(): void {
+    this.express.use(express.json());
+    this.express.use(express.urlencoded({ extended: true }));
+    this.express.use(
+      (req: Request, res: Response, next: NextFunction): void => {
+        res.header('Access-Control-Allow-Origin', '*');
+
+        res.header('Access-Control-Allow-Methods', [
+          'GET',
+          'PATCH',
+          'POST',
+          'PUT',
+          'DELETE',
+        ]);
+        next();
       },
     );
   }
