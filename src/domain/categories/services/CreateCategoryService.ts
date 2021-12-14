@@ -1,5 +1,5 @@
-import { ICategoriesRepository } from '../contracts/ICategoriesRepository';
-import { Category } from '../entities/Category';
+import { ICategoriesRepository } from '../infra/contracts/ICategoriesRepository';
+import { Category } from '../infra/entities/Category';
 import { ICreateCategoryDTO } from '../interfaces/ICreateCategory';
 
 export class CreateCategoryService {

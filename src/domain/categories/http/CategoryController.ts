@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { CategoriesRepository } from '../repositories/CategoriesRepository';
+import { CategoriesRepository } from '../infra/repositories/CategoriesRepository';
 import { CreateCategoryService } from '../services/CreateCategoryService';
 
 const repository = new CategoriesRepository();

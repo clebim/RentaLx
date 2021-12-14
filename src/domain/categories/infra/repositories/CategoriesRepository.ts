@@ -1,6 +1,6 @@
+import { ICreateCategoryDTO } from '../../interfaces/ICreateCategory';
 import { ICategoriesRepository } from '../contracts/ICategoriesRepository';
 import { Category } from '../entities/Category';
-import { ICreateCategoryDTO } from '../interfaces/ICreateCategory';
 
 export class CategoriesRepository implements ICategoriesRepository {
   private categories: Category[];
