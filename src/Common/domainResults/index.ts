@@ -7,7 +7,7 @@ export type IServiceError = {
   message: string;
 };
 
-export type IDomainResult<S, F> = {
+export type Either<S, F> = {
   value: S | null;
   isSuccess: boolean;
   isFailure: boolean;

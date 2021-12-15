@@ -15,11 +15,15 @@ const createCategoryController = (
 
     const service = new CreateCategoryService(repository);
 
-    const result = service.execute({ name, description });
+    const { value, isFailure, error } = service.execute({ name, description });
 
-    response.status(201).json(result);
+    if (isFailure) {
+      return response.status(error.statusCode).json({ messaeg: error.message });
+    }
+
+    return response.status(201).json(value);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 

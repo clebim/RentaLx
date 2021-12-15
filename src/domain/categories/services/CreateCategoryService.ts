@@ -1,4 +1,4 @@
-import { IDomainResult, IServiceError } from '../../../Common/domainResults';
+import { Either, IServiceError } from '../../../Common/domainResults';
 import { createDomainResult } from '../../../Common/domainResults/CreateDomainResults';
 import { logger } from '../../../Common/logger';
 import { ICategoriesRepository } from '../infra/contracts/ICategoriesRepository';
@@ -20,7 +20,7 @@ export class CreateCategoryService {
 
   execute(
     createCategoryData: ICreateCategoryDTO,
-  ): IDomainResult<Category, IServiceError> {
+  ): Either<Category, IServiceError> {
     try {
       const { value, isFailure, error } =
         this.repository.create(createCategoryData);

@@ -1,7 +1,4 @@
-import {
-  IDomainResult,
-  IRepositoryError,
-} from '../../../../Common/domainResults';
+import { Either, IRepositoryError } from '../../../../Common/domainResults';
 import { createDomainResult } from '../../../../Common/domainResults/CreateDomainResults';
 import { logger } from '../../../../Common/logger';
 import { ICreateCategoryDTO } from '../../interfaces/ICreateCategory';
@@ -26,7 +23,7 @@ export class CategoriesRepository implements ICategoriesRepository {
 
   create(
     createCategoryData: ICreateCategoryDTO,
-  ): IDomainResult<Category, IRepositoryError> {
+  ): Either<Category, IRepositoryError> {
     try {
       const { name, description } = createCategoryData;
 
