@@ -1,6 +1,6 @@
-import { Either, IRepositoryError } from '../../../../Common/domainResults';
-import { createDomainResult } from '../../../../Common/domainResults/CreateDomainResults';
-import { logger } from '../../../../Common/logger';
+import { Either, IRepositoryError } from '../../../../common/domainResults';
+import { createDomainResult } from '../../../../common/domainResults/CreateDomainResults';
+import { logger } from '../../../../common/logger';
 import { ICreateCategoryDTO } from '../../interfaces/ICreateCategory';
 import { ICategoriesRepository } from '../contracts/ICategoriesRepository';
 import { Category } from '../entities/Category';

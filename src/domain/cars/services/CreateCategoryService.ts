@@ -1,6 +1,6 @@
-import { Either, IServiceError } from '../../../Common/domainResults';
-import { createDomainResult } from '../../../Common/domainResults/CreateDomainResults';
-import { logger } from '../../../Common/logger';
+import { Either, IServiceError } from '../../../common/domainResults';
+import { createDomainResult } from '../../../common/domainResults/CreateDomainResults';
+import { logger } from '../../../common/logger';
 import { ICategoriesRepository } from '../infra/contracts/ICategoriesRepository';
 import { Category } from '../infra/entities/Category';
 import { ICreateCategoryDTO } from '../interfaces/ICreateCategory';

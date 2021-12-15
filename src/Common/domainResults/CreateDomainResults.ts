@@ -1,9 +1,9 @@
-import { IDomainResult } from './index';
+import { Either } from './index';
 
 export const createDomainResult = <S, F>(
   value: S | F,
   isError: boolean,
-): IDomainResult<S, F> => {
+): Either<S, F> => {
   return {
     value: isError ? null : (value as S),
     isSuccess: !isError,
