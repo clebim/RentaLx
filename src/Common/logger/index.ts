@@ -1,5 +1,5 @@
 type ErrorProps = {
-  type: 'RepositotyError' | 'ServiceError' | 'ControllerError';
+  type: 'DatabaseError' | 'DefaultError';
   error: Error;
 };
 

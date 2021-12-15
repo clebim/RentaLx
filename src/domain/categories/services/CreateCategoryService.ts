@@ -33,7 +33,7 @@ export class CreateCategoryService {
     } catch (error) {
       logger({
         error,
-        type: 'ServiceError',
+        type: 'DefaultError',
       });
       return this.buildError(error, 400);
     }

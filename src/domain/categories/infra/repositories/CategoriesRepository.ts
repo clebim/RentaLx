@@ -15,6 +15,15 @@ export class CategoriesRepository implements ICategoriesRepository {
     this.categories = [];
   }
 
+  private buildError(message: string) {
+    return createDomainResult<Category, IRepositoryError>(
+      {
+        message,
+      },
+      true,
+    );
+  }
+
   create(
     createCategoryData: ICreateCategoryDTO,
   ): IDomainResult<Category, IRepositoryError> {
@@ -33,15 +42,10 @@ export class CategoriesRepository implements ICategoriesRepository {
       return createDomainResult<Category, IRepositoryError>(category, false);
     } catch (error) {
       logger({
-        type: 'RepositotyError',
+        type: 'DatabaseError',
         error,
       });
-      return createDomainResult<Category, IRepositoryError>(
-        {
-          message: 'Error in create category',
-        },
-        true,
-      );
+      return this.buildError('Error inserting category in database');
     }
   }
 }
