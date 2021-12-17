@@ -1,5 +1,12 @@
-import { Either, IServiceError } from '../../../common/domainResults';
-import { createDomainResult } from '../../../common/domainResults/CreateDomainResults';
+import {
+  createServiceError,
+  createServiceSuccess,
+} from '../../../common/domainResults/CreateServiceResults';
+import { getFileName } from '../../../common/domainResults/GetFileName';
+import {
+  Either,
+  IServiceError,
+} from '../../../common/domainResults/interfaces';
 import { logger } from '../../../common/logger';
 import { ICategoriesRepository } from '../infra/contracts/ICategoriesRepository';
 import { Category } from '../infra/entities/Category';
@@ -9,13 +16,10 @@ export class CreateCategoryService {
   constructor(private repository: ICategoriesRepository) {}
 
   private buildError(error, statusCode: 400 | 404 | 409) {
-    return createDomainResult<Category, IServiceError>(
-      {
-        message: error.message,
-        statusCode,
-      },
-      true,
-    );
+    return createServiceError<Category>({
+      message: error.message,
+      statusCode,
+    });
   }
 
   execute(
@@ -29,13 +33,14 @@ export class CreateCategoryService {
         this.buildError(error, 400);
       }
 
-      return createDomainResult<Category, IServiceError>(value, false);
+      return createServiceSuccess<Category>(value);
     } catch (error) {
       logger({
         error,
         type: 'DefaultError',
+        fileName: getFileName(),
       });
-      return this.buildError(error, 400);
+      return error;
     }
   }
 }

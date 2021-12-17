@@ -1,5 +1,6 @@
 export type IRepositoryError = {
   message: string;
+  repository: string;
 };
 
 export type IServiceError = {

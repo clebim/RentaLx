@@ -1,5 +1,12 @@
-import { Either, IRepositoryError } from '../../../../common/domainResults';
-import { createDomainResult } from '../../../../common/domainResults/CreateDomainResults';
+import {
+  createRepositoryError,
+  createRepositorySuccess,
+} from '../../../../common/domainResults/CreateRepositoryError';
+import { getFileName } from '../../../../common/domainResults/GetFileName';
+import {
+  Either,
+  IRepositoryError,
+} from '../../../../common/domainResults/interfaces';
 import { logger } from '../../../../common/logger';
 import { ICreateCategoryDTO } from '../../interfaces/ICreateCategory';
 import { ICategoriesRepository } from '../contracts/ICategoriesRepository';
@@ -13,12 +20,10 @@ export class CategoriesRepository implements ICategoriesRepository {
   }
 
   private buildError(message: string) {
-    return createDomainResult<Category, IRepositoryError>(
-      {
-        message,
-      },
-      true,
-    );
+    return createRepositoryError<Category>({
+      message,
+      repository: getFileName().split('.')[0],
+    });
   }
 
   create(
@@ -36,11 +41,12 @@ export class CategoriesRepository implements ICategoriesRepository {
       });
 
       this.categories.push(category);
-      return createDomainResult<Category, IRepositoryError>(category, false);
+      return createRepositorySuccess<Category>(category);
     } catch (error) {
       logger({
         type: 'DatabaseError',
         error,
+        fileName: getFileName(),
       });
       return this.buildError('Error inserting category in database');
     }

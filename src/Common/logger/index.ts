@@ -1,6 +1,7 @@
 type ErrorProps = {
   type: 'DatabaseError' | 'DefaultError';
   error: Error;
+  fileName: string;
 };
 
 export const logger = (data: ErrorProps) => {
@@ -10,6 +11,6 @@ export const logger = (data: ErrorProps) => {
     errorName: data.error.name,
     dateTime: new Date(),
   };
-  console.log('Error in application \n', fullError);
+  console.log(`Error in ${data.fileName} \n`, fullError);
   console.error(data.error);
 };

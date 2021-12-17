@@ -1,5 +1,12 @@
-import { Either, IServiceError } from '../../../common/domainResults';
-import { createDomainResult } from '../../../common/domainResults/CreateDomainResults';
+import {
+  createServiceError,
+  createServiceSuccess,
+} from '../../../common/domainResults/CreateServiceResults';
+import { getFileName } from '../../../common/domainResults/GetFileName';
+import {
+  Either,
+  IServiceError,
+} from '../../../common/domainResults/interfaces';
 import { logger } from '../../../common/logger';
 import { ISpecificationsRepository } from '../infra/contracts/ISpecificationsRepository';
 import { Specification } from '../infra/entities/Specification';
@@ -9,13 +16,10 @@ export class CreateSpecificationService {
   constructor(private repository: ISpecificationsRepository) {}
 
   private buildError(error, statusCode: 400 | 404 | 409) {
-    return createDomainResult<Specification, IServiceError>(
-      {
-        message: error.message,
-        statusCode,
-      },
-      true,
-    );
+    return createServiceError<Specification>({
+      message: error.message,
+      statusCode,
+    });
   }
 
   execute(
@@ -29,13 +33,14 @@ export class CreateSpecificationService {
         this.buildError(error, 400);
       }
 
-      return createDomainResult<Specification, IServiceError>(value, false);
+      return createServiceSuccess<Specification>(value);
     } catch (error) {
       logger({
         error,
         type: 'DefaultError',
+        fileName: getFileName(),
       });
-      return this.buildError(error, 400);
+      return error;
     }
   }
 }

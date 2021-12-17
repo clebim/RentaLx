@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { CategoriesRepository } from '../infra/repositories/CategoriesRepository';
-import { CreateCategoryService } from '../services/CreateCategoryService';
+import { SpecificationRepository } from '../infra/repositories/SpeficicationRepository';
+import { CreateSpecificationService } from '../services/CreateSpecificationService';
 
-const repository = new CategoriesRepository();
+const repository = new SpecificationRepository();
 
-export const createCategoryController = (
+export const CreateSpecificationController = (
   request: Request,
   response: Response,
   next: NextFunction,
@@ -13,7 +13,7 @@ export const createCategoryController = (
   try {
     const { name, description } = request.body;
 
-    const service = new CreateCategoryService(repository);
+    const service = new CreateSpecificationService(repository);
 
     const { value, isFailure, error } = service.execute({ name, description });
 

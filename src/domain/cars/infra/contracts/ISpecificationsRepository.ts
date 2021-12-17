@@ -1,4 +1,7 @@
-import { Either, IRepositoryError } from '../../../../common/domainResults';
+import {
+  Either,
+  IRepositoryError,
+} from '../../../../common/domainResults/interfaces';
 import { ICreateSpecificationDTO } from '../../interfaces/ICreateSpecification';
 import { Specification } from '../entities/Specification';
 

@@ -1,4 +1,7 @@
-import { Either, IRepositoryError } from '../../../../common/domainResults';
+import {
+  Either,
+  IRepositoryError,
+} from '../../../../common/domainResults/interfaces';
 import { ICreateCategoryDTO } from '../../interfaces/ICreateCategory';
 import { Category } from '../entities/Category';
 

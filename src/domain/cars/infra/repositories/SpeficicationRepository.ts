@@ -1,5 +1,12 @@
-import { Either, IRepositoryError } from '../../../../common/domainResults';
-import { createDomainResult } from '../../../../common/domainResults/CreateDomainResults';
+import {
+  createRepositoryError,
+  createRepositorySuccess,
+} from '../../../../common/domainResults/CreateRepositoryError';
+import { getFileName } from '../../../../common/domainResults/GetFileName';
+import {
+  Either,
+  IRepositoryError,
+} from '../../../../common/domainResults/interfaces';
 import { logger } from '../../../../common/logger';
 import { ICreateSpecificationDTO } from '../../interfaces/ICreateSpecification';
 import { ISpecificationsRepository } from '../contracts/ISpecificationsRepository';
@@ -13,12 +20,10 @@ export class SpecificationRepository implements ISpecificationsRepository {
   }
 
   private buildError(message: string) {
-    return createDomainResult<Specification, IRepositoryError>(
-      {
-        message,
-      },
-      true,
-    );
+    return createRepositoryError<Specification>({
+      message,
+      repository: getFileName().split('.')[0],
+    });
   }
 
   create(
@@ -36,14 +41,12 @@ export class SpecificationRepository implements ISpecificationsRepository {
       });
 
       this.specifications.push(specification);
-      return createDomainResult<Specification, IRepositoryError>(
-        specification,
-        false,
-      );
+      return createRepositorySuccess<Specification>(specification);
     } catch (error) {
       logger({
         type: 'DatabaseError',
         error,
+        fileName: getFileName(),
       });
       return this.buildError('Error inserting category in database');
     }
