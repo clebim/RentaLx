@@ -10,9 +10,8 @@ import {
 import { logger } from '../../../../common/logger';
 import { ICategoriesRepository } from '../../infra/contracts/ICategoriesRepository';
 import { Category } from '../../infra/entities/Category';
-import { ICreateCategoryDTO } from '../../interfaces/ICreateCategory';
 
-export class CreateCategoryUseCase {
+export class ListCategoriesUseCase {
   constructor(private repository: ICategoriesRepository) {}
 
   private buildError(error, statusCode: 400 | 404 | 409) {
@@ -22,18 +21,15 @@ export class CreateCategoryUseCase {
     });
   }
 
-  execute(
-    createCategoryData: ICreateCategoryDTO,
-  ): Either<Category, IServiceError> {
+  execute(): Either<Category[], IServiceError> {
     try {
-      const { data, isFailure, error } =
-        this.repository.create(createCategoryData);
+      const { data, isFailure, error } = this.repository.list();
 
       if (isFailure) {
         this.buildError(error, 400);
       }
 
-      return createServiceSuccess<Category>(data);
+      return createServiceSuccess<Category[]>(data);
     } catch (error) {
       logger({
         error,

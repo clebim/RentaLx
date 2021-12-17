@@ -9,4 +9,5 @@ export interface ICategoriesRepository {
   create(
     createCategoryData: ICreateCategoryDTO,
   ): Either<Category, IRepositoryError>;
+  list(): Either<Category[], IRepositoryError>;
 }

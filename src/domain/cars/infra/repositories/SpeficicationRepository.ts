@@ -15,12 +15,22 @@ import { Specification } from '../entities/Specification';
 export class SpecificationRepository implements ISpecificationsRepository {
   private specifications: Specification[];
 
-  constructor() {
+  private static INSTANCE: SpecificationRepository;
+
+  private constructor() {
     this.specifications = [];
   }
 
-  private buildError(message: string) {
-    return createRepositoryError<Specification>({
+  public static getInstance(): ISpecificationsRepository {
+    if (!SpecificationRepository.INSTANCE) {
+      SpecificationRepository.INSTANCE = new SpecificationRepository();
+    }
+
+    return SpecificationRepository.INSTANCE;
+  }
+
+  private buildError<T>(message: string) {
+    return createRepositoryError<T>({
       message,
       repository: getFileName().split('.')[0],
     });
@@ -48,7 +58,9 @@ export class SpecificationRepository implements ISpecificationsRepository {
         error,
         fileName: getFileName(),
       });
-      return this.buildError('Error inserting category in database');
+      return this.buildError<Specification>(
+        'Error inserting category in database',
+      );
     }
   }
 }

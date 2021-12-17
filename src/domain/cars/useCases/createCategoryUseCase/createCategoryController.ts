@@ -1,28 +1,31 @@
 import { NextFunction, Request, Response } from 'express';
 
+import { CategoriesRepository } from '../../infra/repositories/CategoriesRepository';
 import { CreateCategoryUseCase } from './createCategoryUseCase';
 
-export class CreateCategoryController {
-  constructor(private createCategoryUseCase: CreateCategoryUseCase) {}
+export const createCategoryController = (
+  request: Request,
+  response: Response,
+  next: NextFunction,
+) => {
+  const categoriesRepository = CategoriesRepository.getInstance();
 
-  handle(request: Request, response: Response, next: NextFunction) {
-    try {
-      const { name, description } = request.body;
+  const createCategoryUseCase = new CreateCategoryUseCase(categoriesRepository);
 
-      const { value, isFailure, error } = this.createCategoryUseCase.execute({
-        name,
-        description,
-      });
+  try {
+    const { name, description } = request.body;
 
-      if (isFailure) {
-        return response
-          .status(error.statusCode)
-          .json({ messaeg: error.message });
-      }
+    const { data, isFailure, error } = createCategoryUseCase.execute({
+      name,
+      description,
+    });
 
-      return response.status(201).json(value);
-    } catch (error) {
-      return next(error);
+    if (isFailure) {
+      return response.status(error.statusCode).json({ messaeg: error.message });
     }
+
+    return response.status(201).json(data);
+  } catch (error) {
+    return next(error);
   }
-}
+};

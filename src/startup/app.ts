@@ -19,15 +19,18 @@ export default class App {
       response.status(404).send();
     });
 
-    this.express.use((err: Error, req: Request, res: Response) => {
-      console.log('error', err);
+    this.express.use(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      (err: Error, req: Request, res: Response, next: NextFunction) => {
+        console.log('error', err);
 
-      res.status(500).json({
-        message: 'Internal server error',
-        error: err.message,
-        errorName: err.name,
-      });
-    });
+        return res.status(500).json({
+          message: 'Internal server error',
+          error: err.message,
+          errorName: err.name,
+        });
+      },
+    );
   }
 
   public async start(): Promise<void> {

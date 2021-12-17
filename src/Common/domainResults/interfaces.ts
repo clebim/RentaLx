@@ -9,7 +9,7 @@ export type IServiceError = {
 };
 
 export type Either<S, F> = {
-  value: S | null;
+  data: S | null;
   isSuccess: boolean;
   isFailure: boolean;
   error: F | null;

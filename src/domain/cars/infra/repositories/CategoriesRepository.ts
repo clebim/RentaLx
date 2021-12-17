@@ -15,12 +15,22 @@ import { Category } from '../entities/Category';
 export class CategoriesRepository implements ICategoriesRepository {
   private categories: Category[];
 
-  constructor() {
+  private static INSTANCE: CategoriesRepository;
+
+  private constructor() {
     this.categories = [];
   }
 
-  private buildError(message: string) {
-    return createRepositoryError<Category>({
+  public static getInstance(): ICategoriesRepository {
+    if (!CategoriesRepository.INSTANCE) {
+      CategoriesRepository.INSTANCE = new CategoriesRepository();
+    }
+
+    return CategoriesRepository.INSTANCE;
+  }
+
+  private buildError<T>(message: string) {
+    return createRepositoryError<T>({
       message,
       repository: getFileName().split('.')[0],
     });
@@ -49,6 +59,19 @@ export class CategoriesRepository implements ICategoriesRepository {
         fileName: getFileName(),
       });
       return this.buildError('Error inserting category in database');
+    }
+  }
+
+  list(): Either<Category[], IRepositoryError> {
+    try {
+      return createRepositorySuccess<Category[]>(this.categories);
+    } catch (error) {
+      logger({
+        type: 'DatabaseError',
+        error,
+        fileName: getFileName(),
+      });
+      return this.buildError<Category[]>('Error list categories in database');
     }
   }
 }

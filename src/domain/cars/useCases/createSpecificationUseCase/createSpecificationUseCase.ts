@@ -26,14 +26,14 @@ export class CreateSpecificationUseCase {
     createCategoryData: ICreateSpecificationDTO,
   ): Either<Specification, IServiceError> {
     try {
-      const { value, isFailure, error } =
+      const { data, isFailure, error } =
         this.repository.create(createCategoryData);
 
       if (isFailure) {
         this.buildError(error, 400);
       }
 
-      return createServiceSuccess<Specification>(value);
+      return createServiceSuccess<Specification>(data);
     } catch (error) {
       logger({
         error,

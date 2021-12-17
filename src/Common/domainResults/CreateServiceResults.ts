@@ -1,8 +1,8 @@
 import { Either, IServiceError } from './interfaces';
 
-export const createServiceSuccess = <S>(value: S): Either<S, IServiceError> => {
+export const createServiceSuccess = <S>(data: S): Either<S, IServiceError> => {
   return {
-    value,
+    data,
     isSuccess: true,
     isFailure: false,
     error: null,
@@ -13,7 +13,7 @@ export const createServiceError = <S>(
   error: IServiceError,
 ): Either<S, IServiceError> => {
   return {
-    value: null,
+    data: null,
     isSuccess: false,
     isFailure: true,
     error,
