@@ -1,17 +1,17 @@
 import { IRouteProps } from '../../startup/routes';
-import { createCategoryController } from './http/CategoryController';
-import { CreateSpecificationController } from './http/SpecificationController';
+import { createCategoryController } from './useCases/createCategoryUseCase';
+import { createSpecificationController } from './useCases/createSpecificationUseCase';
 
 const routes: IRouteProps[] = [
   {
     method: 'post',
     path: '/categories',
-    handlers: [createCategoryController],
+    handlers: [createCategoryController.handle],
   },
   {
     method: 'post',
     path: '/specifications',
-    handlers: [CreateSpecificationController],
+    handlers: [createSpecificationController.handle],
   },
 ];
 

@@ -1,18 +1,18 @@
 import {
   createServiceError,
   createServiceSuccess,
-} from '../../../common/domainResults/CreateServiceResults';
-import { getFileName } from '../../../common/domainResults/GetFileName';
+} from '../../../../common/domainResults/CreateServiceResults';
+import { getFileName } from '../../../../common/domainResults/GetFileName';
 import {
   Either,
   IServiceError,
-} from '../../../common/domainResults/interfaces';
-import { logger } from '../../../common/logger';
-import { ISpecificationsRepository } from '../infra/contracts/ISpecificationsRepository';
-import { Specification } from '../infra/entities/Specification';
-import { ICreateSpecificationDTO } from '../interfaces/ICreateSpecification';
+} from '../../../../common/domainResults/interfaces';
+import { logger } from '../../../../common/logger';
+import { ISpecificationsRepository } from '../../infra/contracts/ISpecificationsRepository';
+import { Specification } from '../../infra/entities/Specification';
+import { ICreateSpecificationDTO } from '../../interfaces/ICreateSpecification';
 
-export class CreateSpecificationService {
+export class CreateSpecificationUseCase {
   constructor(private repository: ISpecificationsRepository) {}
 
   private buildError(error, statusCode: 400 | 404 | 409) {

@@ -1,18 +1,18 @@
 import {
   createServiceError,
   createServiceSuccess,
-} from '../../../common/domainResults/CreateServiceResults';
-import { getFileName } from '../../../common/domainResults/GetFileName';
+} from '../../../../common/domainResults/CreateServiceResults';
+import { getFileName } from '../../../../common/domainResults/GetFileName';
 import {
   Either,
   IServiceError,
-} from '../../../common/domainResults/interfaces';
-import { logger } from '../../../common/logger';
-import { ICategoriesRepository } from '../infra/contracts/ICategoriesRepository';
-import { Category } from '../infra/entities/Category';
-import { ICreateCategoryDTO } from '../interfaces/ICreateCategory';
+} from '../../../../common/domainResults/interfaces';
+import { logger } from '../../../../common/logger';
+import { ICategoriesRepository } from '../../infra/contracts/ICategoriesRepository';
+import { Category } from '../../infra/entities/Category';
+import { ICreateCategoryDTO } from '../../interfaces/ICreateCategory';
 
-export class CreateCategoryService {
+export class CreateCategoryUseCase {
   constructor(private repository: ICategoriesRepository) {}
 
   private buildError(error, statusCode: 400 | 404 | 409) {
