@@ -1,7 +1,9 @@
 import express, { NextFunction, Request, Response } from 'express';
 import http from 'http';
+import swaggerUi from 'swagger-ui-express';
 
 import AppConfig from '../config/app';
+import { swaggerConfig } from '../docs';
 import Routes from './routes';
 
 export default class App {
@@ -12,7 +14,7 @@ export default class App {
   public constructor() {
     this.express = express();
     this.middleware();
-    console.log();
+    this.swagger();
     this.express.use('/api', Routes());
 
     this.express.use((request: Request, response: Response) => {
@@ -62,6 +64,14 @@ export default class App {
         ]);
         next();
       },
+    );
+  }
+
+  private swagger(): void {
+    this.express.use(
+      '/api-docs',
+      swaggerUi.serve,
+      swaggerUi.setup(swaggerConfig),
     );
   }
 }

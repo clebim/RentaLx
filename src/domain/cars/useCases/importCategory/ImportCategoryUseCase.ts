@@ -36,7 +36,6 @@ export class ImportCategoryUseCase {
 
   private proccessImportLine(line: string[]): void {
     const [name, description] = line;
-    console.log(line);
 
     this.categories.push({
       name,
@@ -46,8 +45,15 @@ export class ImportCategoryUseCase {
 
   async execute(
     file: Express.Multer.File,
-  ): Promise<Either<IImportCategory[], IServiceError>> {
+  ): Promise<Either<null, IServiceError>> {
     try {
+      if (!file) {
+        return createServiceError<null>({
+          statusCode: 400,
+          message: 'does not contain file',
+        });
+      }
+
       const stream = fs.createReadStream(file.path);
 
       stream.pipe(this.parseFile);
@@ -55,13 +61,22 @@ export class ImportCategoryUseCase {
       await new Promise((resolve, reject) => {
         this.parseFile
           .on('data', line => this.proccessImportLine(line))
-          .on('end', () => resolve(this.categories))
+          .on('end', () => {
+            fs.promises.unlink(file.path);
+            resolve(this.categories);
+          })
           .on('error', error => reject(error));
       });
 
-      console.log(this.categories);
+      this.categories.forEach(category => {
+        const { name, description } = category;
+        this.repository.create({
+          name,
+          description,
+        });
+      });
 
-      return createServiceSuccess(this.categories);
+      return createServiceSuccess(null);
     } catch (error) {
       logger({
         error,
