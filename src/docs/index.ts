@@ -28,7 +28,6 @@ export type IPathProps = {
 export type ISchemaProps = {
   type: string;
   properties: object;
-  examples?: object;
   required?: string[];
 };
 

@@ -1,10 +1,15 @@
+import 'reflect-metadata';
 import App from './startup/app';
 
 function startApp() {
-  Promise.resolve().then(() => {
-    const app = new App();
-    app.start();
-  });
+  const app = new App();
+  Promise.resolve()
+    .then(() => {
+      app.start();
+    })
+    .catch(() => {
+      app.close();
+    });
 }
 
 startApp();

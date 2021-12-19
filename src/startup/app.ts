@@ -4,6 +4,7 @@ import swaggerUi from 'swagger-ui-express';
 
 import AppConfig from '../config/app';
 import { swaggerConfig } from '../docs';
+import { startConnection, closeConnection } from '../infra/database';
 import Routes from './routes';
 
 export default class App {
@@ -36,6 +37,7 @@ export default class App {
   }
 
   public async start(): Promise<void> {
+    startConnection();
     this.httpServer = http.createServer(this.express);
     this.httpServer.listen(
       AppConfig.SERVER.http.port,
@@ -46,6 +48,13 @@ export default class App {
         );
       },
     );
+  }
+
+  public close(): void {
+    if (this.httpServer !== null) {
+      this.httpServer.close();
+    }
+    closeConnection();
   }
 
   private middleware(): void {

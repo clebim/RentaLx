@@ -1,4 +1,6 @@
-export const createCategorySchema = {
+import { ISchemaProps } from '../../index';
+
+export const createCategorySchema: ISchemaProps = {
   type: 'object',
   properties: {
     name: {
@@ -13,7 +15,7 @@ export const createCategorySchema = {
   required: ['name', 'description'],
 };
 
-export const createCategoryResponseSchema = {
+export const createCategoryResponseSchema: ISchemaProps = {
   type: 'object',
   properties: {
     id: {
