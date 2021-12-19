@@ -15,7 +15,7 @@ const basePath = process.env.ENVIRONMENT === 'dev' ? './src/' : './dist/';
 
 module.exports = {
   type: process.env.DATABASE_TYPE || 'postgres',
-  host: process.env.DATABASE_URL,
+  host: process.env.DATABASE_URL || 'localhost',
   port: parseInt(process.env.DATABASE_PORT, 10),
   username: process.env.DATABASE_USERNAME,
   password: process.env.DATABASE_PASSWORD,
@@ -23,11 +23,6 @@ module.exports = {
   migrationsRun: true,
   synchronize: false,
   logging: process.env.DATABASE_LOGGING === 'true',
-  extra: {
-    ssl: {
-      rejectUnauthorized: false,
-    },
-  },
   entities: [`${basePath}domain/**/infra/entities/*{.ts,.js}`],
   migrations: [`${basePath}/infra/database/migrations/*{.ts,.js}`],
   cli: {

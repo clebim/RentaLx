@@ -8,6 +8,7 @@ export const createCategoryController = (
   response: Response,
   next: NextFunction,
 ) => {
+  console.log('chegou');
   const categoriesRepository = CategoriesRepository.getInstance();
 
   const createCategoryUseCase = new CreateCategoryUseCase(categoriesRepository);

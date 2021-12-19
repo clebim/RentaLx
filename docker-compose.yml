@@ -1,10 +1,43 @@
 version: '3.7'
 
+networks:
+  rentalx-network:
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24
+
 services:
+  database:
+    image: postgres
+    container_name: rentalx_database
+    restart: always
+    ports: 
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=rentalx
+    volumes:
+      - pgdata:/data/postgres 
+    networks:
+      rentalx-network:
+        ipv4_address: 172.30.0.7
+
   app:  
     build: .
     container_name: rentalx
+    depends_on:
+      - database
+    links:
+      - database  
     ports: 
       - 3333:3333
     volumes: 
-      - .:/usr/app 
+      - .:/usr/app
+    networks:
+      rentalx-network:
+        ipv4_address: 172.30.0.8
+
+volumes:
+  pgdata:
+    driver: local
