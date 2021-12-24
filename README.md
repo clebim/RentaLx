@@ -30,6 +30,8 @@ Technologies that I used to develop this api
   - [Eslint](https://eslint.org/)
   - [Prettier](https://prettier.io/)
   - [EditorConfig](https://editorconfig.org/)
+  - [Docker](https://www.docker.com)
+  - [Docker-Compose](https://docs.docker.com/compose/)
 
 ### Requirements
 
