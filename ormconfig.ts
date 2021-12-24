@@ -26,7 +26,7 @@ module.exports = {
   entities: [`${basePath}domain/**/infra/entities/*{.ts,.js}`],
   migrations: [`${basePath}/infra/database/migrations/*{.ts,.js}`],
   cli: {
-    entitiesDir: 'src/domain/**/infra/entities',
-    migrationsDir: 'src/infra/database/migrations',
+    entitiesDir: './src/domain/**/infra/entities',
+    migrationsDir: './src/infra/database/migrations',
   },
 };

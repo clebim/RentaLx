@@ -1,3 +1,5 @@
+import { getRepository, Repository } from 'typeorm';
+
 import {
   createRepositoryError,
   createRepositorySuccess,
@@ -13,12 +15,12 @@ import { ISpecificationsRepository } from '../contracts/ISpecificationsRepositor
 import { Specification } from '../entities/Specification';
 
 export class SpecificationRepository implements ISpecificationsRepository {
-  private specifications: Specification[];
+  private repository: Repository<Specification>;
 
   private static INSTANCE: SpecificationRepository;
 
   private constructor() {
-    this.specifications = [];
+    this.repository = getRepository(Specification);
   }
 
   public static getInstance(): ISpecificationsRepository {
@@ -36,21 +38,15 @@ export class SpecificationRepository implements ISpecificationsRepository {
     });
   }
 
-  create(
+  async create(
     createSpecificationData: ICreateSpecificationDTO,
-  ): Either<Specification, IRepositoryError> {
+  ): Promise<Either<Specification, IRepositoryError>> {
     try {
       const { name, description } = createSpecificationData;
 
-      const specification = new Specification();
+      const specification = this.repository.create({ name, description });
 
-      Object.assign(specification, {
-        name,
-        description,
-        createdAt: new Date(),
-      });
-
-      this.specifications.push(specification);
+      await this.repository.save(specification);
       return createRepositorySuccess<Specification>(specification);
     } catch (error) {
       logger({

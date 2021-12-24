@@ -5,7 +5,11 @@
   "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=dev ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn ./src/index.ts",
-    "start": "ls && cross-env NODE_ENV=prod node ./dist/index.js",
+    "start": "cross-env NODE_ENV=prod node ./dist/index.js",
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
+    "migration:generate": "cross-env NODE_ENV=dev yarn run typeorm migration:generate -n",
+    "migration:run": "cross-env NODE_ENV=prod yarn run typeorm migration:run",
+    "migration:run:dev": "cross-env NODE_ENV=dev yarn run typeorm migration:run",
     "build": "tsc"
   },
   "dependencies": {

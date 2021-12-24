@@ -1,3 +1,5 @@
+import { getRepository, Repository } from 'typeorm';
+
 import {
   createRepositoryError,
   createRepositorySuccess,
@@ -13,12 +15,12 @@ import { ICategoriesRepository } from '../contracts/ICategoriesRepository';
 import { Category } from '../entities/Category';
 
 export class CategoriesRepository implements ICategoriesRepository {
-  private categories: Category[];
-
   private static INSTANCE: CategoriesRepository;
 
+  private repository: Repository<Category>;
+
   private constructor() {
-    this.categories = [];
+    this.repository = getRepository(Category);
   }
 
   public static getInstance(): ICategoriesRepository {
@@ -36,21 +38,19 @@ export class CategoriesRepository implements ICategoriesRepository {
     });
   }
 
-  create(
+  async create(
     createCategoryData: ICreateCategoryDTO,
-  ): Either<Category, IRepositoryError> {
+  ): Promise<Either<Category, IRepositoryError>> {
     try {
       const { name, description } = createCategoryData;
 
-      const category = new Category();
-
-      Object.assign(category, {
+      const category = this.repository.create({
         name,
         description,
-        createdAt: new Date(),
       });
 
-      this.categories.push(category);
+      await this.repository.save(category);
+
       return createRepositorySuccess<Category>(category);
     } catch (error) {
       logger({
@@ -62,9 +62,11 @@ export class CategoriesRepository implements ICategoriesRepository {
     }
   }
 
-  list(): Either<Category[], IRepositoryError> {
+  async list(): Promise<Either<Category[], IRepositoryError>> {
     try {
-      return createRepositorySuccess<Category[]>(this.categories);
+      const categories = await this.repository.find();
+
+      return createRepositorySuccess<Category[]>(categories);
     } catch (error) {
       logger({
         type: 'DatabaseError',
@@ -72,6 +74,29 @@ export class CategoriesRepository implements ICategoriesRepository {
         fileName: getFileName(),
       });
       return this.buildError<Category[]>('Error list categories in database');
+    }
+  }
+
+  async findByName(
+    name: string,
+  ): Promise<Either<Category[], IRepositoryError>> {
+    try {
+      const categories = await this.repository.find({
+        where: {
+          name,
+        },
+      });
+
+      return createRepositorySuccess<Category[]>(categories);
+    } catch (error) {
+      logger({
+        type: 'DatabaseError',
+        error,
+        fileName: getFileName(),
+      });
+      return this.buildError<Category[]>(
+        'Error list categories by name in database',
+      );
     }
   }
 }

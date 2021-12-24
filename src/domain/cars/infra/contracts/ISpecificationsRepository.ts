@@ -8,5 +8,5 @@ import { Specification } from '../entities/Specification';
 export interface ISpecificationsRepository {
   create(
     createSpecificationData: ICreateSpecificationDTO,
-  ): Either<Specification, IRepositoryError>;
+  ): Promise<Either<Specification, IRepositoryError>>;
 }

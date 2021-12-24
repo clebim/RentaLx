@@ -8,6 +8,7 @@ import { Category } from '../entities/Category';
 export interface ICategoriesRepository {
   create(
     createCategoryData: ICreateCategoryDTO,
-  ): Either<Category, IRepositoryError>;
-  list(): Either<Category[], IRepositoryError>;
+  ): Promise<Either<Category, IRepositoryError>>;
+  list(): Promise<Either<Category[], IRepositoryError>>;
+  findByName(name: string): Promise<Either<Category[], IRepositoryError>>;
 }
