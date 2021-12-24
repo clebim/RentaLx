@@ -12,7 +12,7 @@
 This api provides a car rent.
 
 This project contains: sending emails, auth JWT
-image uploads, injection of dependencies.
+file uploads, injection of dependencies.
 
 ## 🚀 Technologies
 
