@@ -1,28 +1,32 @@
 import { parse, Parser } from 'csv-parse';
 import fs from 'fs';
+import { injectable, inject } from 'tsyringe';
 
 import {
   createServiceError,
   createServiceSuccess,
-} from '../../../../common/domainResults/CreateServiceResults';
-import { getFileName } from '../../../../common/domainResults/GetFileName';
+} from '../../../../common-methods/domainResults/CreateServiceResults';
+import { getFileName } from '../../../../common-methods/domainResults/GetFileName';
 import {
   Either,
   IServiceError,
-} from '../../../../common/domainResults/interfaces';
-import { logger } from '../../../../common/logger';
+} from '../../../../common-methods/domainResults/interfaces';
+import { logger } from '../../../../common-methods/logger';
 import { ICategoriesRepository } from '../../infra/contracts/ICategoriesRepository';
 
 type IImportCategory = {
   name: string;
   description: string;
 };
-
+@injectable()
 export class ImportCategoryUseCase {
   private parseFile: Parser;
   private categories: IImportCategory[];
 
-  constructor(private repository: ICategoriesRepository) {
+  constructor(
+    @inject('CategoriesRepository')
+    private repository: ICategoriesRepository,
+  ) {
     this.parseFile = parse();
     this.categories = [];
   }
@@ -68,9 +72,9 @@ export class ImportCategoryUseCase {
           .on('error', error => reject(error));
       });
 
-      this.categories.forEach(category => {
+      this.categories.forEach(async category => {
         const { name, description } = category;
-        this.repository.create({
+        await this.repository.create({
           name,
           description,
         });

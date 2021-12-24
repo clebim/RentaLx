@@ -1,25 +1,26 @@
 import { NextFunction, Request, Response } from 'express';
+import { container } from 'tsyringe';
 
-import { SpecificationRepository } from '../../infra/repositories/SpeficicationRepository';
 import { CreateSpecificationUseCase } from './createSpecificationUseCase';
 
-export const createSpecificationController = (
+export const createSpecificationController = async (
   request: Request,
   response: Response,
   next: NextFunction,
 ) => {
-  const specificationRepository = SpecificationRepository.getInstance();
-  const createSpecificationUseCase = new CreateSpecificationUseCase(
-    specificationRepository,
+  const createSpecificationUseCase = container.resolve(
+    CreateSpecificationUseCase,
   );
 
   try {
     const { name, description } = request.body;
 
-    const { data, isFailure, error } = createSpecificationUseCase.execute({
-      name,
-      description,
-    });
+    const { data, isFailure, error } = await createSpecificationUseCase.execute(
+      {
+        name,
+        description,
+      },
+    );
 
     if (isFailure) {
       return response.status(error.statusCode).json({ messaeg: error.message });

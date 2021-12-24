@@ -1,21 +1,19 @@
 import { NextFunction, Request, Response } from 'express';
+import { container } from 'tsyringe';
 
-import { CategoriesRepository } from '../../infra/repositories/CategoriesRepository';
 import { CreateCategoryUseCase } from './createCategoryUseCase';
 
-export const createCategoryController = (
+export const createCategoryController = async (
   request: Request,
   response: Response,
   next: NextFunction,
 ) => {
-  const categoriesRepository = CategoriesRepository.getInstance();
-
-  const createCategoryUseCase = new CreateCategoryUseCase(categoriesRepository);
+  const createCategoryUseCase = container.resolve(CreateCategoryUseCase);
 
   try {
     const { name, description } = request.body;
 
-    const { data, isFailure, error } = createCategoryUseCase.execute({
+    const { data, isFailure, error } = await createCategoryUseCase.execute({
       name,
       description,
     });

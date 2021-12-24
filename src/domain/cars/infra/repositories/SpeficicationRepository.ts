@@ -3,13 +3,13 @@ import { getRepository, Repository } from 'typeorm';
 import {
   createRepositoryError,
   createRepositorySuccess,
-} from '../../../../common/domainResults/CreateRepositoryError';
-import { getFileName } from '../../../../common/domainResults/GetFileName';
+} from '../../../../common-methods/domainResults/CreateRepositoryError';
+import { getFileName } from '../../../../common-methods/domainResults/GetFileName';
 import {
   Either,
   IRepositoryError,
-} from '../../../../common/domainResults/interfaces';
-import { logger } from '../../../../common/logger';
+} from '../../../../common-methods/domainResults/interfaces';
+import { logger } from '../../../../common-methods/logger';
 import { ICreateSpecificationDTO } from '../../interfaces/ICreateSpecification';
 import { ISpecificationsRepository } from '../contracts/ISpecificationsRepository';
 import { Specification } from '../entities/Specification';
@@ -17,18 +17,8 @@ import { Specification } from '../entities/Specification';
 export class SpecificationRepository implements ISpecificationsRepository {
   private repository: Repository<Specification>;
 
-  private static INSTANCE: SpecificationRepository;
-
-  private constructor() {
+  constructor() {
     this.repository = getRepository(Specification);
-  }
-
-  public static getInstance(): ISpecificationsRepository {
-    if (!SpecificationRepository.INSTANCE) {
-      SpecificationRepository.INSTANCE = new SpecificationRepository();
-    }
-
-    return SpecificationRepository.INSTANCE;
   }
 
   private buildError<T>(message: string) {

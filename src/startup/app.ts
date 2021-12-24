@@ -6,6 +6,7 @@ import AppConfig from '../config/app';
 import { swaggerConfig } from '../docs';
 import { startConnection, closeConnection } from '../infra/database';
 import Routes from './routes';
+import '../shared/container';
 
 export default class App {
   public express: express.Application;

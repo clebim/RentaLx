@@ -3,32 +3,22 @@ import { getRepository, Repository } from 'typeorm';
 import {
   createRepositoryError,
   createRepositorySuccess,
-} from '../../../../common/domainResults/CreateRepositoryError';
-import { getFileName } from '../../../../common/domainResults/GetFileName';
+} from '../../../../common-methods/domainResults/CreateRepositoryError';
+import { getFileName } from '../../../../common-methods/domainResults/GetFileName';
 import {
   Either,
   IRepositoryError,
-} from '../../../../common/domainResults/interfaces';
-import { logger } from '../../../../common/logger';
+} from '../../../../common-methods/domainResults/interfaces';
+import { logger } from '../../../../common-methods/logger';
 import { ICreateCategoryDTO } from '../../interfaces/ICreateCategory';
 import { ICategoriesRepository } from '../contracts/ICategoriesRepository';
 import { Category } from '../entities/Category';
 
 export class CategoriesRepository implements ICategoriesRepository {
-  private static INSTANCE: CategoriesRepository;
-
   private repository: Repository<Category>;
 
-  private constructor() {
+  constructor() {
     this.repository = getRepository(Category);
-  }
-
-  public static getInstance(): ICategoriesRepository {
-    if (!CategoriesRepository.INSTANCE) {
-      CategoriesRepository.INSTANCE = new CategoriesRepository();
-    }
-
-    return CategoriesRepository.INSTANCE;
   }
 
   private buildError<T>(message: string) {

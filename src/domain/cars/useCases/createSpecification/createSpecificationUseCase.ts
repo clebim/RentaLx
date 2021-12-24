@@ -1,19 +1,25 @@
+import { injectable, inject } from 'tsyringe';
+
 import {
   createServiceError,
   createServiceSuccess,
-} from '../../../../common/domainResults/CreateServiceResults';
-import { getFileName } from '../../../../common/domainResults/GetFileName';
+} from '../../../../common-methods/domainResults/CreateServiceResults';
+import { getFileName } from '../../../../common-methods/domainResults/GetFileName';
 import {
   Either,
   IServiceError,
-} from '../../../../common/domainResults/interfaces';
-import { logger } from '../../../../common/logger';
+} from '../../../../common-methods/domainResults/interfaces';
+import { logger } from '../../../../common-methods/logger';
 import { ISpecificationsRepository } from '../../infra/contracts/ISpecificationsRepository';
 import { Specification } from '../../infra/entities/Specification';
 import { ICreateSpecificationDTO } from '../../interfaces/ICreateSpecification';
 
+@injectable()
 export class CreateSpecificationUseCase {
-  constructor(private repository: ISpecificationsRepository) {}
+  constructor(
+    @inject('SpecificationRepository')
+    private repository: ISpecificationsRepository,
+  ) {}
 
   private buildError(error, statusCode: 400 | 404 | 409) {
     return createServiceError<Specification>({
@@ -22,12 +28,13 @@ export class CreateSpecificationUseCase {
     });
   }
 
-  execute(
+  async execute(
     createCategoryData: ICreateSpecificationDTO,
-  ): Either<Specification, IServiceError> {
+  ): Promise<Either<Specification, IServiceError>> {
     try {
-      const { data, isFailure, error } =
-        this.repository.create(createCategoryData);
+      const { data, isFailure, error } = await this.repository.create(
+        createCategoryData,
+      );
 
       if (isFailure) {
         this.buildError(error, 400);

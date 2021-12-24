@@ -1,7 +1,7 @@
 import {
   Either,
   IRepositoryError,
-} from '../../../../common/domainResults/interfaces';
+} from '../../../../common-methods/domainResults/interfaces';
 import { ICreateCategoryDTO } from '../../interfaces/ICreateCategory';
 import { Category } from '../entities/Category';
 

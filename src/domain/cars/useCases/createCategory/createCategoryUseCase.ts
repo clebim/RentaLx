@@ -1,19 +1,25 @@
+import { injectable, inject } from 'tsyringe';
+
 import {
   createServiceError,
   createServiceSuccess,
-} from '../../../../common/domainResults/CreateServiceResults';
-import { getFileName } from '../../../../common/domainResults/GetFileName';
+} from '../../../../common-methods/domainResults/CreateServiceResults';
+import { getFileName } from '../../../../common-methods/domainResults/GetFileName';
 import {
   Either,
   IServiceError,
-} from '../../../../common/domainResults/interfaces';
-import { logger } from '../../../../common/logger';
+} from '../../../../common-methods/domainResults/interfaces';
+import { logger } from '../../../../common-methods/logger';
 import { ICategoriesRepository } from '../../infra/contracts/ICategoriesRepository';
 import { Category } from '../../infra/entities/Category';
 import { ICreateCategoryDTO } from '../../interfaces/ICreateCategory';
 
+@injectable()
 export class CreateCategoryUseCase {
-  constructor(private repository: ICategoriesRepository) {}
+  constructor(
+    @inject('CategoriesRepository')
+    private repository: ICategoriesRepository,
+  ) {}
 
   private buildError(error, statusCode: 400 | 404 | 409) {
     return createServiceError<Category>({
@@ -22,12 +28,13 @@ export class CreateCategoryUseCase {
     });
   }
 
-  execute(
+  async execute(
     createCategoryData: ICreateCategoryDTO,
-  ): Either<Category, IServiceError> {
+  ): Promise<Either<Category, IServiceError>> {
     try {
-      const { data, isFailure, error } =
-        this.repository.create(createCategoryData);
+      const { data, isFailure, error } = await this.repository.create(
+        createCategoryData,
+      );
 
       if (isFailure) {
         this.buildError(error, 400);
