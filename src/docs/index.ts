@@ -1,5 +1,5 @@
-import paths from './paths';
-import schemas from './schemas';
+import paths from './Paths';
+import schemas from './Schemas';
 
 export type IPathProps = {
   [key: string]: {
@@ -19,7 +19,7 @@ export type IPathProps = {
     responses: {
       [key: number]: {
         description: string;
-        content: object;
+        content?: object;
       };
     };
   };

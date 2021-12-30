@@ -2,10 +2,10 @@ import multer from 'multer';
 
 import { multerConfig } from '../../config/multer';
 import { IRouteProps } from '../../startup/routes';
-import { createCategoryController } from './useCases/createCategory/createCategoryController';
-import { createSpecificationController } from './useCases/createSpecification/createSpecificationController';
+import { createCategoryController } from './useCases/createCategory/CreateCategoryController';
+import { createSpecificationController } from './useCases/createSpecification/CreateSpecificationController';
 import { importCategoryController } from './useCases/importCategory/ImportCategoryController';
-import { listCategoriesController } from './useCases/listCategories/listCategoriesController';
+import { listCategoriesController } from './useCases/listCategories/ListCategoriesController';
 
 const uploadMulter = multer(multerConfig);
 
