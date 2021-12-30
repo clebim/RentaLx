@@ -5,7 +5,9 @@ const path = require('path');
 env.config({
   path: path.join(
     __dirname,
-    process.env.NODE_ENV ? `./env/.env.${process.env.NODE_ENV}` : '',
+    process.env.NODE_ENV
+      ? `./env/.env.${process.env.NODE_ENV}`
+      : '/env/.env.dev',
   ),
 });
 

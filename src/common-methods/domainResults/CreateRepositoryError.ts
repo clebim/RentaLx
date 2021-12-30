@@ -16,8 +16,8 @@ export const createRepositoryError = <S>(
 ): Either<S, IRepositoryError> => {
   return {
     data: null,
-    isSuccess: true,
-    isFailure: false,
+    isSuccess: false,
+    isFailure: true,
     error,
   };
 };

@@ -19,7 +19,7 @@ export const createCategoryController = async (
     });
 
     if (isFailure) {
-      return response.status(error.statusCode).json({ messaeg: error.message });
+      return response.status(error.statusCode).json({ message: error.message });
     }
 
     return response.status(201).json(data);

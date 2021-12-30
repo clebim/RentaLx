@@ -4,7 +4,6 @@ import {
   createServiceError,
   createServiceSuccess,
 } from '../../../../common-methods/domainResults/CreateServiceResults';
-import { getFileName } from '../../../../common-methods/domainResults/GetFileName';
 import {
   Either,
   IServiceError,
@@ -37,7 +36,7 @@ export class CreateSpecificationUseCase {
       );
 
       if (isFailure) {
-        this.buildError(error, 400);
+        return this.buildError(error, 400);
       }
 
       return createServiceSuccess<Specification>(data);
@@ -45,7 +44,6 @@ export class CreateSpecificationUseCase {
       logger({
         error,
         type: 'DefaultError',
-        fileName: getFileName(),
       });
       return error;
     }

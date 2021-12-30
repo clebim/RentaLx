@@ -4,7 +4,6 @@ import {
   createRepositoryError,
   createRepositorySuccess,
 } from '../../../../common-methods/domainResults/CreateRepositoryError';
-import { getFileName } from '../../../../common-methods/domainResults/GetFileName';
 import {
   Either,
   IRepositoryError,
@@ -24,7 +23,7 @@ export class CategoriesRepository implements ICategoriesRepository {
   private buildError<T>(message: string) {
     return createRepositoryError<T>({
       message,
-      repository: getFileName().split('.')[0],
+      repository: 'CategoriesRepository',
     });
   }
 
@@ -46,7 +45,6 @@ export class CategoriesRepository implements ICategoriesRepository {
       logger({
         type: 'DatabaseError',
         error,
-        fileName: getFileName(),
       });
       return this.buildError('Error inserting category in database');
     }
@@ -61,7 +59,6 @@ export class CategoriesRepository implements ICategoriesRepository {
       logger({
         type: 'DatabaseError',
         error,
-        fileName: getFileName(),
       });
       return this.buildError<Category[]>('Error list categories in database');
     }
@@ -82,11 +79,8 @@ export class CategoriesRepository implements ICategoriesRepository {
       logger({
         type: 'DatabaseError',
         error,
-        fileName: getFileName(),
       });
-      return this.buildError<Category[]>(
-        'Error list categories by name in database',
-      );
+      return this.buildError('Error list categories by name in database');
     }
   }
 }

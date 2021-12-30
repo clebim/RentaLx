@@ -9,38 +9,39 @@ import {
   IServiceError,
 } from '../../../../common-methods/domainResults/interfaces';
 import { logger } from '../../../../common-methods/logger';
-import { ICategoriesRepository } from '../../infra/contracts/ICategoriesRepository';
-import { Category } from '../../infra/entities/Category';
-import { ICreateCategoryDTO } from '../../interfaces/ICreateCategory';
+import { IUsersRepository } from '../../infra/contracts/IUsersRepository';
+import { User } from '../../infra/entities/User';
+import { ICreateUserDTO } from '../../interfaces/ICreateUser';
 
 @injectable()
-export class CreateCategoryUseCase {
+export class CreateUserUseCase {
   constructor(
-    @inject('CategoriesRepository')
-    private repository: ICategoriesRepository,
+    @inject('UserRepository')
+    private repository: IUsersRepository,
   ) {}
 
   private buildError(error, statusCode: 400 | 404 | 409) {
-    return createServiceError<Category>({
+    return createServiceError<User>({
       message: error.message,
       statusCode,
     });
   }
 
   async execute(
-    createCategoryData: ICreateCategoryDTO,
-  ): Promise<Either<Category, IServiceError>> {
+    createUserData: ICreateUserDTO,
+  ): Promise<Either<User, IServiceError>> {
     try {
       const { data, isFailure, error } = await this.repository.create(
-        createCategoryData,
+        createUserData,
       );
 
       if (isFailure) {
         return this.buildError(error, 400);
       }
 
-      return createServiceSuccess<Category>(data);
+      return createServiceSuccess<User>(data);
     } catch (error) {
+      console.log('caiu aaquqi otarios');
       logger({
         error,
         type: 'DefaultError',

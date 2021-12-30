@@ -4,7 +4,6 @@ import {
   createRepositoryError,
   createRepositorySuccess,
 } from '../../../../common-methods/domainResults/CreateRepositoryError';
-import { getFileName } from '../../../../common-methods/domainResults/GetFileName';
 import {
   Either,
   IRepositoryError,
@@ -24,7 +23,7 @@ export class SpecificationRepository implements ISpecificationsRepository {
   private buildError<T>(message: string) {
     return createRepositoryError<T>({
       message,
-      repository: getFileName().split('.')[0],
+      repository: 'SpecificationRepository',
     });
   }
 
@@ -42,7 +41,6 @@ export class SpecificationRepository implements ISpecificationsRepository {
       logger({
         type: 'DatabaseError',
         error,
-        fileName: getFileName(),
       });
       return this.buildError<Specification>(
         'Error inserting category in database',

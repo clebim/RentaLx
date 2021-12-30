@@ -4,7 +4,6 @@ import {
   createServiceError,
   createServiceSuccess,
 } from '../../../../common-methods/domainResults/CreateServiceResults';
-import { getFileName } from '../../../../common-methods/domainResults/GetFileName';
 import {
   Either,
   IServiceError,
@@ -21,7 +20,7 @@ export class ListCategoriesUseCase {
   ) {}
 
   private buildError(error, statusCode: 400 | 404 | 409) {
-    return createServiceError<Category>({
+    return createServiceError<Category[]>({
       message: error.message,
       statusCode,
     });
@@ -32,7 +31,7 @@ export class ListCategoriesUseCase {
       const { data, isFailure, error } = await this.repository.list();
 
       if (isFailure) {
-        this.buildError(error, 400);
+        return this.buildError(error, 400);
       }
 
       return createServiceSuccess<Category[]>(data);
@@ -40,7 +39,6 @@ export class ListCategoriesUseCase {
       logger({
         error,
         type: 'DefaultError',
-        fileName: getFileName(),
       });
       return error;
     }

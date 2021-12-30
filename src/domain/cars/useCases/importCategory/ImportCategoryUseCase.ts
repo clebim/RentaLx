@@ -6,7 +6,6 @@ import {
   createServiceError,
   createServiceSuccess,
 } from '../../../../common-methods/domainResults/CreateServiceResults';
-import { getFileName } from '../../../../common-methods/domainResults/GetFileName';
 import {
   Either,
   IServiceError,
@@ -29,13 +28,6 @@ export class ImportCategoryUseCase {
   ) {
     this.parseFile = parse();
     this.categories = [];
-  }
-
-  private buildError(error, statusCode: 400 | 404 | 409) {
-    return createServiceError({
-      message: error.message,
-      statusCode,
-    });
   }
 
   private proccessImportLine(line: string[]): void {
@@ -85,7 +77,6 @@ export class ImportCategoryUseCase {
       logger({
         error,
         type: 'DefaultError',
-        fileName: getFileName(),
       });
       return error;
     }
