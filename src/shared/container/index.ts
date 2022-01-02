@@ -1,11 +1,11 @@
 import { container } from 'tsyringe';
 
 import { IUsersRepository } from '../../domain/accounts/infra/contracts/IUsersRepository';
-import { UserRepository } from '../../domain/accounts/infra/repositories/UserRepository';
+import { UsersRepository } from '../../domain/accounts/infra/repositories/UsersRepository';
 import { ICategoriesRepository } from '../../domain/cars/infra/contracts/ICategoriesRepository';
 import { ISpecificationsRepository } from '../../domain/cars/infra/contracts/ISpecificationsRepository';
 import { CategoriesRepository } from '../../domain/cars/infra/repositories/CategoriesRepository';
-import { SpecificationRepository } from '../../domain/cars/infra/repositories/SpeficicationRepository';
+import { SpecificationsRepository } from '../../domain/cars/infra/repositories/SpeficicationsRepository';
 
 container.registerSingleton<ICategoriesRepository>(
   'CategoriesRepository',
@@ -13,8 +13,11 @@ container.registerSingleton<ICategoriesRepository>(
 );
 
 container.registerSingleton<ISpecificationsRepository>(
-  'SpecificationRepository',
-  SpecificationRepository,
+  'SpecificationsRepository',
+  SpecificationsRepository,
 );
 
-container.registerSingleton<IUsersRepository>('UserRepository', UserRepository);
+container.registerSingleton<IUsersRepository>(
+  'UsersRepository',
+  UsersRepository,
+);

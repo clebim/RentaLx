@@ -16,7 +16,7 @@ import { ICreateUserDTO } from '../../interfaces/ICreateUser';
 @injectable()
 export class CreateUserUseCase {
   constructor(
-    @inject('UserRepository')
+    @inject('UsersRepository')
     private repository: IUsersRepository,
   ) {}
 
@@ -27,10 +27,35 @@ export class CreateUserUseCase {
     });
   }
 
+  async userAlreadyExists(email: string): Promise<boolean> {
+    try {
+      const { data } = await this.repository.findByEmail(email);
+
+      return !!data;
+    } catch (error) {
+      logger({
+        error,
+        type: 'DefaultError',
+      });
+      return false;
+    }
+  }
+
   async execute(
     createUserData: ICreateUserDTO,
   ): Promise<Either<User, IServiceError>> {
     try {
+      const userAlreadyExists = await this.userAlreadyExists(
+        createUserData.email,
+      );
+
+      if (userAlreadyExists) {
+        return this.buildError(
+          { message: 'Email already registered on the platform' },
+          400,
+        );
+      }
+
       const { data, isFailure, error } = await this.repository.create(
         createUserData,
       );
@@ -39,9 +64,10 @@ export class CreateUserUseCase {
         return this.buildError(error, 400);
       }
 
+      delete data.password;
+
       return createServiceSuccess<User>(data);
     } catch (error) {
-      console.log('caiu aaquqi otarios');
       logger({
         error,
         type: 'DefaultError',

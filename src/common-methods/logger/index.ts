@@ -11,5 +11,4 @@ export const logger = (data: ErrorProps) => {
     dateTime: new Date(),
   };
   console.log(`Error in server \n`, fullError);
-  console.error(data.error);
 };

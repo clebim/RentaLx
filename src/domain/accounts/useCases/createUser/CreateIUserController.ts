@@ -18,8 +18,6 @@ export const createUserController = async (
       body as ICreateUserDTO,
     );
 
-    console.log(isFailure, error);
-
     if (isFailure) {
       return response.status(error.statusCode).json({ message: error.message });
     }

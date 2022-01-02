@@ -13,11 +13,26 @@ import { ICreateUserDTO } from '../../interfaces/ICreateUser';
 import { IUsersRepository } from '../contracts/IUsersRepository';
 import { User } from '../entities/User';
 
-export class UserRepository implements IUsersRepository {
+export class UsersRepository implements IUsersRepository {
   private repository: Repository<User>;
 
   constructor() {
     this.repository = getRepository(User);
+  }
+  async findByEmail(
+    email: string,
+  ): Promise<Either<User | undefined, IRepositoryError>> {
+    try {
+      const user = await this.repository.findOne({ where: { email } });
+
+      return createRepositorySuccess<User | undefined>(user);
+    } catch (error) {
+      logger({
+        type: 'DatabaseError',
+        error,
+      });
+      return this.buildError('Error inserting a new user in database');
+    }
   }
 
   private buildError<T>(message: string) {

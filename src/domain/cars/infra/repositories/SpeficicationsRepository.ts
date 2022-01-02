@@ -13,7 +13,7 @@ import { ICreateSpecificationDTO } from '../../interfaces/ICreateSpecification';
 import { ISpecificationsRepository } from '../contracts/ISpecificationsRepository';
 import { Specification } from '../entities/Specification';
 
-export class SpecificationRepository implements ISpecificationsRepository {
+export class SpecificationsRepository implements ISpecificationsRepository {
   private repository: Repository<Specification>;
 
   constructor() {

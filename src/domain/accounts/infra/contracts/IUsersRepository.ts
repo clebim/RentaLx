@@ -9,4 +9,7 @@ export interface IUsersRepository {
   create(
     createUserData: ICreateUserDTO,
   ): Promise<Either<User, IRepositoryError>>;
+  findByEmail(
+    email: string,
+  ): Promise<Either<User | undefined, IRepositoryError>>;
 }
