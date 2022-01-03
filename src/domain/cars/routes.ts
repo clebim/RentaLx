@@ -1,6 +1,7 @@
 import multer from 'multer';
 
 import { multerConfig } from '../../config/Multer';
+import { ensureAuthenticated } from '../../middlewares/EnsureAuthenticated';
 import { IRouteProps } from '../../startup/routes';
 import { createCategoryController } from './useCases/createCategory/CreateCategoryController';
 import { createSpecificationController } from './useCases/createSpecification/CreateSpecificationController';
@@ -13,22 +14,26 @@ const routes: IRouteProps[] = [
   {
     method: 'post',
     path: '/categories',
-    handlers: [createCategoryController],
+    handlers: [ensureAuthenticated, createCategoryController],
   },
   {
     method: 'get',
     path: '/categories',
-    handlers: [listCategoriesController],
+    handlers: [ensureAuthenticated, listCategoriesController],
   },
   {
     method: 'post',
     path: '/categories/import',
-    handlers: [uploadMulter.single('file'), importCategoryController],
+    handlers: [
+      ensureAuthenticated,
+      uploadMulter.single('file'),
+      importCategoryController,
+    ],
   },
   {
     method: 'post',
     path: '/specifications',
-    handlers: [createSpecificationController],
+    handlers: [ensureAuthenticated, createSpecificationController],
   },
 ];
 
