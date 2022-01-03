@@ -3,13 +3,13 @@ import { getRepository, Repository } from 'typeorm';
 import {
   createRepositoryError,
   createRepositorySuccess,
-} from '../../../../common-methods/domainResults/CreateRepositoryError';
+} from '../../../../commonMethods/domainResults/CreateRepositoryError';
 import {
   Either,
   IRepositoryError,
-} from '../../../../common-methods/domainResults/interfaces';
-import { logger } from '../../../../common-methods/logger';
-import { ICreateCategoryDTO } from '../../interfaces/ICreateCategory';
+} from '../../../../commonMethods/domainResults/interfaces';
+import { logger } from '../../../../commonMethods/logger';
+import { ICreateCategoryDTO } from '../../interfaces/categories/ICreateCategory';
 import { ICategoriesRepository } from '../contracts/ICategoriesRepository';
 import { Category } from '../entities/Category';
 
@@ -20,8 +20,8 @@ export class CategoriesRepository implements ICategoriesRepository {
     this.repository = getRepository(Category);
   }
 
-  private buildError<T>(message: string) {
-    return createRepositoryError<T>({
+  private buildError(message: string) {
+    return createRepositoryError({
       message,
       repository: 'CategoriesRepository',
     });
@@ -60,7 +60,7 @@ export class CategoriesRepository implements ICategoriesRepository {
         type: 'DatabaseError',
         error,
       });
-      return this.buildError<Category[]>('Error list categories in database');
+      return this.buildError('Error list categories in database');
     }
   }
 

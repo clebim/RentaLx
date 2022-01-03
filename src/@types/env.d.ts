@@ -16,5 +16,7 @@ declare namespace NodeJS {
     DATABASE_PASSWORD?: string;
     DATABASE_NAME?: string;
     DATABASE_LOGGING?: string;
+    APP_SECRET?: string;
+    EXPIRES_IN?: string;
   }
 }

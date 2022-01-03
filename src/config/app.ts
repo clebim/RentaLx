@@ -17,6 +17,11 @@ class AppConfig {
       port: parseInt(process.env.HTTP_PORT, 10) || 3333,
     },
   };
+
+  public static Auth = {
+    secret: process.env.APP_SECRET,
+    expiresIn: Number(process.env.EXPIRES_IN) * 60,
+  };
 }
 
 export default AppConfig;

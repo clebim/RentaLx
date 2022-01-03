@@ -3,13 +3,13 @@ import { getRepository, Repository } from 'typeorm';
 import {
   createRepositoryError,
   createRepositorySuccess,
-} from '../../../../common-methods/domainResults/CreateRepositoryError';
+} from '../../../../commonMethods/domainResults/CreateRepositoryError';
 import {
   Either,
   IRepositoryError,
-} from '../../../../common-methods/domainResults/interfaces';
-import { logger } from '../../../../common-methods/logger';
-import { ICreateUserDTO } from '../../interfaces/ICreateUser';
+} from '../../../../commonMethods/domainResults/interfaces';
+import { logger } from '../../../../commonMethods/logger';
+import { ICreateUserDTO } from '../../interfaces/user/ICreateUser';
 import { IUsersRepository } from '../contracts/IUsersRepository';
 import { User } from '../entities/User';
 
@@ -21,9 +21,26 @@ export class UsersRepository implements IUsersRepository {
   }
   async findByEmail(
     email: string,
+    includePassword = false,
   ): Promise<Either<User | undefined, IRepositoryError>> {
+    const selectArray: (keyof User)[] = [
+      'id',
+      'name',
+      'email',
+      'driverLicense',
+      'isAdmin',
+      'createdAt',
+    ];
+
+    if (includePassword) {
+      selectArray.push('password');
+    }
+
     try {
-      const user = await this.repository.findOne({ where: { email } });
+      const user = await this.repository.findOne({
+        where: { email },
+        select: selectArray,
+      });
 
       return createRepositorySuccess<User | undefined>(user);
     } catch (error) {
@@ -35,8 +52,8 @@ export class UsersRepository implements IUsersRepository {
     }
   }
 
-  private buildError<T>(message: string) {
-    return createRepositoryError<T>({
+  private buildError(message: string) {
+    return createRepositoryError({
       message,
       repository: 'UserRepository',
     });

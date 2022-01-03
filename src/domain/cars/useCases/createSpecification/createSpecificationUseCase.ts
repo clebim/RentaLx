@@ -3,15 +3,15 @@ import { injectable, inject } from 'tsyringe';
 import {
   createServiceError,
   createServiceSuccess,
-} from '../../../../common-methods/domainResults/CreateServiceResults';
+} from '../../../../commonMethods/domainResults/CreateServiceResults';
 import {
   Either,
   IServiceError,
-} from '../../../../common-methods/domainResults/interfaces';
-import { logger } from '../../../../common-methods/logger';
+} from '../../../../commonMethods/domainResults/interfaces';
+import { logger } from '../../../../commonMethods/logger';
 import { ISpecificationsRepository } from '../../infra/contracts/ISpecificationsRepository';
 import { Specification } from '../../infra/entities/Specification';
-import { ICreateSpecificationDTO } from '../../interfaces/ICreateSpecification';
+import { ICreateSpecificationDTO } from '../../interfaces/specifications/ICreateSpecification';
 
 @injectable()
 export class CreateSpecificationUseCase {
@@ -21,7 +21,7 @@ export class CreateSpecificationUseCase {
   ) {}
 
   private buildError(error, statusCode: 400 | 404 | 409) {
-    return createServiceError<Specification>({
+    return createServiceError({
       message: error.message,
       statusCode,
     });

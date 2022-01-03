@@ -11,9 +11,9 @@ export const createRepositorySuccess = <S>(
   };
 };
 
-export const createRepositoryError = <S>(
+export const createRepositoryError = (
   error: IRepositoryError,
-): Either<S, IRepositoryError> => {
+): Either<null, IRepositoryError> => {
   return {
     data: null,
     isSuccess: false,

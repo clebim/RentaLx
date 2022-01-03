@@ -2,7 +2,7 @@ import express, { RequestHandler, Router } from 'express';
 import { readdirSync, statSync, existsSync } from 'fs';
 import { join, resolve } from 'path';
 
-import AppConfig from '../config/app';
+import AppConfig from '../config/App';
 
 export type IRouteProps = {
   method: 'get' | 'post' | 'put' | 'delete' | 'patch';

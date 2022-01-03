@@ -3,15 +3,15 @@ import { injectable, inject } from 'tsyringe';
 import {
   createServiceError,
   createServiceSuccess,
-} from '../../../../common-methods/domainResults/CreateServiceResults';
+} from '../../../../commonMethods/domainResults/CreateServiceResults';
 import {
   Either,
   IServiceError,
-} from '../../../../common-methods/domainResults/interfaces';
-import { logger } from '../../../../common-methods/logger';
+} from '../../../../commonMethods/domainResults/interfaces';
+import { logger } from '../../../../commonMethods/logger';
 import { IUsersRepository } from '../../infra/contracts/IUsersRepository';
 import { User } from '../../infra/entities/User';
-import { ICreateUserDTO } from '../../interfaces/ICreateUser';
+import { ICreateUserDTO } from '../../interfaces/user/ICreateUser';
 
 @injectable()
 export class CreateUserUseCase {
@@ -21,7 +21,7 @@ export class CreateUserUseCase {
   ) {}
 
   private buildError(error, statusCode: 400 | 404 | 409) {
-    return createServiceError<User>({
+    return createServiceError({
       message: error.message,
       statusCode,
     });

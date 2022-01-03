@@ -3,13 +3,13 @@ import { getRepository, Repository } from 'typeorm';
 import {
   createRepositoryError,
   createRepositorySuccess,
-} from '../../../../common-methods/domainResults/CreateRepositoryError';
+} from '../../../../commonMethods/domainResults/CreateRepositoryError';
 import {
   Either,
   IRepositoryError,
-} from '../../../../common-methods/domainResults/interfaces';
-import { logger } from '../../../../common-methods/logger';
-import { ICreateSpecificationDTO } from '../../interfaces/ICreateSpecification';
+} from '../../../../commonMethods/domainResults/interfaces';
+import { logger } from '../../../../commonMethods/logger';
+import { ICreateSpecificationDTO } from '../../interfaces/specifications/ICreateSpecification';
 import { ISpecificationsRepository } from '../contracts/ISpecificationsRepository';
 import { Specification } from '../entities/Specification';
 
@@ -20,8 +20,8 @@ export class SpecificationsRepository implements ISpecificationsRepository {
     this.repository = getRepository(Specification);
   }
 
-  private buildError<T>(message: string) {
-    return createRepositoryError<T>({
+  private buildError(message: string) {
+    return createRepositoryError({
       message,
       repository: 'SpecificationRepository',
     });
@@ -42,9 +42,7 @@ export class SpecificationsRepository implements ISpecificationsRepository {
         type: 'DatabaseError',
         error,
       });
-      return this.buildError<Specification>(
-        'Error inserting category in database',
-      );
+      return this.buildError('Error inserting category in database');
     }
   }
 }

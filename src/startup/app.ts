@@ -2,7 +2,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import http from 'http';
 import swaggerUi from 'swagger-ui-express';
 
-import AppConfig from '../config/app';
+import AppConfig from '../config/App';
 import { swaggerConfig } from '../docs';
 import { startConnection, closeConnection } from '../infra/database';
 import Routes from './routes';

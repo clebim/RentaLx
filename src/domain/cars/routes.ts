@@ -1,6 +1,6 @@
 import multer from 'multer';
 
-import { multerConfig } from '../../config/multer';
+import { multerConfig } from '../../config/Multer';
 import { IRouteProps } from '../../startup/routes';
 import { createCategoryController } from './useCases/createCategory/CreateCategoryController';
 import { createSpecificationController } from './useCases/createSpecification/CreateSpecificationController';

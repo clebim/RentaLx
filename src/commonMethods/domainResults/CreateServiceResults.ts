@@ -9,9 +9,9 @@ export const createServiceSuccess = <S>(data: S): Either<S, IServiceError> => {
   };
 };
 
-export const createServiceError = <S>(
+export const createServiceError = (
   error: IServiceError,
-): Either<S, IServiceError> => {
+): Either<null, IServiceError> => {
   return {
     data: null,
     isSuccess: false,

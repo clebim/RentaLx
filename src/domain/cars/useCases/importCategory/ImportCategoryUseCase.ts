@@ -5,12 +5,12 @@ import { injectable, inject } from 'tsyringe';
 import {
   createServiceError,
   createServiceSuccess,
-} from '../../../../common-methods/domainResults/CreateServiceResults';
+} from '../../../../commonMethods/domainResults/CreateServiceResults';
 import {
   Either,
   IServiceError,
-} from '../../../../common-methods/domainResults/interfaces';
-import { logger } from '../../../../common-methods/logger';
+} from '../../../../commonMethods/domainResults/interfaces';
+import { logger } from '../../../../commonMethods/logger';
 import { ICategoriesRepository } from '../../infra/contracts/ICategoriesRepository';
 
 type IImportCategory = {
@@ -44,7 +44,7 @@ export class ImportCategoryUseCase {
   ): Promise<Either<null, IServiceError>> {
     try {
       if (!file) {
-        return createServiceError<null>({
+        return createServiceError({
           statusCode: 400,
           message: 'does not contain file',
         });
