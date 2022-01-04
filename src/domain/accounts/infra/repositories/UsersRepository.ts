@@ -19,6 +19,19 @@ export class UsersRepository implements IUsersRepository {
   constructor() {
     this.repository = getRepository(User);
   }
+  async findById(id: string): Promise<Either<User, IRepositoryError>> {
+    try {
+      const user = await this.repository.findOne(id);
+
+      return createRepositorySuccess<User | undefined>(user);
+    } catch (error) {
+      logger({
+        type: 'DatabaseError',
+        error,
+      });
+      return this.buildError('Error find a user in database');
+    }
+  }
   async findByEmail(
     email: string,
     includePassword = false,
@@ -48,7 +61,7 @@ export class UsersRepository implements IUsersRepository {
         type: 'DatabaseError',
         error,
       });
-      return this.buildError('Error inserting a new user in database');
+      return this.buildError('Error find a user in database');
     }
   }
 

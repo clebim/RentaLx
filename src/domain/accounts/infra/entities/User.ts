@@ -29,6 +29,9 @@ export class User {
   @Column({ type: 'boolean', name: 'is_admin', default: false })
   isAdmin?: string;
 
+  @Column({ type: 'varchar', name: 'avatar_url', nullable: true })
+  avatarUrl?: string;
+
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 

@@ -8,7 +8,7 @@ import { createSpecificationController } from './useCases/createSpecification/Cr
 import { importCategoryController } from './useCases/importCategory/ImportCategoryController';
 import { listCategoriesController } from './useCases/listCategories/ListCategoriesController';
 
-const uploadMulter = multer(multerConfig);
+const uploadMulter = multer(multerConfig('file'));
 
 const routes: IRouteProps[] = [
   {

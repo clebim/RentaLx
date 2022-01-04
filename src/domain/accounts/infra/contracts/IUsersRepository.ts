@@ -13,4 +13,5 @@ export interface IUsersRepository {
     email: string,
     includePassword?: boolean,
   ): Promise<Either<User | undefined, IRepositoryError>>;
+  findById(id: string): Promise<Either<User | undefined, IRepositoryError>>;
 }
