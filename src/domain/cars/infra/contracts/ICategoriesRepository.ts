@@ -10,5 +10,5 @@ export interface ICategoriesRepository {
     createCategoryData: ICreateCategoryDTO,
   ): Promise<Either<Category, IRepositoryError>>;
   list(): Promise<Either<Category[], IRepositoryError>>;
-  findByName(name: string): Promise<Either<Category[], IRepositoryError>>;
+  findByName(name: string): Promise<Either<Category, IRepositoryError>>;
 }

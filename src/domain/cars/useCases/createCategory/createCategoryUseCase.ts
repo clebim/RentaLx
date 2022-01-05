@@ -27,10 +27,33 @@ export class CreateCategoryUseCase {
     });
   }
 
+  async categoryAlreadyExists(category: string): Promise<boolean> {
+    try {
+      const { data } = await this.repository.findByName(category);
+
+      return !!data;
+    } catch (error) {
+      logger({
+        error,
+        type: 'DefaultError',
+      });
+      return false;
+    }
+  }
+
   async execute(
     createCategoryData: ICreateCategoryDTO,
   ): Promise<Either<Category, IServiceError>> {
     try {
+      const { name } = createCategoryData;
+
+      if (await this.categoryAlreadyExists(name)) {
+        return this.buildError(
+          { message: 'Category already registered on the platform' },
+          400,
+        );
+      }
+
       const { data, isFailure, error } = await this.repository.create(
         createCategoryData,
       );

@@ -64,17 +64,15 @@ export class CategoriesRepository implements ICategoriesRepository {
     }
   }
 
-  async findByName(
-    name: string,
-  ): Promise<Either<Category[], IRepositoryError>> {
+  async findByName(name: string): Promise<Either<Category, IRepositoryError>> {
     try {
-      const categories = await this.repository.find({
+      const category = await this.repository.findOne({
         where: {
           name,
         },
       });
 
-      return createRepositorySuccess<Category[]>(categories);
+      return createRepositorySuccess<Category>(category);
     } catch (error) {
       logger({
         type: 'DatabaseError',

@@ -45,11 +45,9 @@ export class CreateUserUseCase {
     createUserData: ICreateUserDTO,
   ): Promise<Either<User, IServiceError>> {
     try {
-      const userAlreadyExists = await this.userAlreadyExists(
-        createUserData.email,
-      );
+      const { email } = createUserData;
 
-      if (userAlreadyExists) {
+      if (await this.userAlreadyExists(email)) {
         return this.buildError(
           { message: 'Email already registered on the platform' },
           400,
