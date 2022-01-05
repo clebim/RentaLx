@@ -1,9 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import {
-  createServiceError,
-  createServiceSuccess,
-} from '../../../../commonMethods/domainResults/CreateServiceResults';
+import { createServiceSuccess } from '../../../../commonMethods/domainResults/CreateServiceResults';
 import {
   Either,
   IServiceError,
@@ -18,13 +15,6 @@ export class UpdateUserAvatarUseCase {
     @inject('UsersRepository')
     private repository: IUsersRepository,
   ) {}
-
-  private buildError(error, statusCode: 400 | 404 | 409) {
-    return createServiceError({
-      message: error.message,
-      statusCode,
-    });
-  }
 
   async execute({
     userId,

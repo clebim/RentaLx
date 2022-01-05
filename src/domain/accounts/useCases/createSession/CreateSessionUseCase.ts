@@ -13,7 +13,7 @@ import {
 import { logger } from '../../../../commonMethods/logger';
 import AppConfig from '../../../../config/App';
 import { IUsersRepository } from '../../infra/contracts/IUsersRepository';
-import { ICreateSession } from '../../interfaces/session/ICreateSession';
+import { ICreateSessionDTO } from '../../interfaces/session/ICreateSession';
 import { ICreateSessionSuccess } from '../../interfaces/session/ICreateSessionSuccess';
 
 @injectable()
@@ -33,7 +33,7 @@ export class CreateSessionUseCase {
   async execute({
     email,
     password,
-  }: ICreateSession): Promise<Either<ICreateSessionSuccess, IServiceError>> {
+  }: ICreateSessionDTO): Promise<Either<ICreateSessionSuccess, IServiceError>> {
     try {
       const { data: user } = await this.repository.findByEmail(email, true);
 
