@@ -1,5 +1,7 @@
 node_modules
 yarn-error.log
 tmp/files/*
+tmp/avatars/*
 !tmp/files/.gitkeep
+!tmp/avatars/.gitkeep
 dist
