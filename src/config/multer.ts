@@ -4,12 +4,13 @@ import { resolve } from 'path';
 
 type ContextFolder = 'file' | 'avatar';
 
-const pathToTempFile = resolve(__dirname, '..', '..', 'tmp', 'files');
-const pathToTempAvatar = resolve(__dirname, '..', '..', 'tmp', 'avatars');
+export const pathToTmpFile = resolve(__dirname, '..', '..', 'tmp', 'files');
+
+export const pathToTmpAvatar = resolve(__dirname, '..', '..', 'tmp', 'avatars');
 
 const folders = {
-  file: pathToTempFile,
-  avatar: pathToTempAvatar,
+  file: pathToTmpFile,
+  avatar: pathToTmpAvatar,
 };
 
 export const multerConfig = (context: ContextFolder): Options => {
