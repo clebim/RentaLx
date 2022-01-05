@@ -61,7 +61,10 @@ export class ImportCategoryUseCase {
             fs.promises.unlink(file.path);
             resolve(this.categories);
           })
-          .on('error', error => reject(error));
+          .on('error', error => {
+            console.log(error);
+            reject(error);
+          });
       });
 
       this.categories.forEach(async category => {

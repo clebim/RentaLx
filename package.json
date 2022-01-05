@@ -11,7 +11,7 @@
     "migration:run": "cross-env NODE_ENV=prod yarn run typeorm migration:run",
     "migration:run:dev": "cross-env NODE_ENV=dev yarn run typeorm migration:run",
     "build": "tsc",
-    "test": "cross-env NODE_ENV=test HTTP_PORT=3333 jest"
+    "test": "cross-env NODE_ENV=test HTTP_PORT=3333 jest --coverage --passWithNoTests --detectOpenHandles --runInBand"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -51,6 +51,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "faker": "^5.5.3",
     "jest": "^27.4.7",
+    "jest-junit": "^13.0.0",
     "jest-mock-extended": "^2.0.4",
     "prettier": "^2.5.1",
     "ts-jest": "^27.1.2",

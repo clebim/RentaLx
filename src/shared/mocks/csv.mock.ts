@@ -71,7 +71,7 @@ export class MockCsv {
       const file = {
         buffer: Buffer.from(this.dataWriteCsv),
         fieldname: 'mockcsv',
-        filename: path.split('/')[-1],
+        filename: path.split('/').slice(-1)[0],
         path,
         size,
       };

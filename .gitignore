@@ -5,3 +5,4 @@ tmp/avatars/*
 !tmp/files/.gitkeep
 !tmp/avatars/.gitkeep
 dist
+target
