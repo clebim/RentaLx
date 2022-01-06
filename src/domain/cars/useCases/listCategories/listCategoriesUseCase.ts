@@ -10,8 +10,8 @@ import {
 } from '../../../../commonMethods/domainResults/interfaces';
 import { logger } from '../../../../commonMethods/logger';
 import { ICategoriesRepository } from '../../infra/contracts/ICategoriesRepository';
-import { IListCategoriesDTO } from '../../interfaces/categories/IListCategories';
 import { IListCategoriesData } from '../../interfaces/categories/IListCategoriesData';
+import { IListCategoriesProps } from '../../interfaces/categories/IListCategoriesProps';
 
 @injectable()
 export class ListCategoriesUseCase {
@@ -28,7 +28,7 @@ export class ListCategoriesUseCase {
   }
 
   async execute(
-    listCategoriesProps: IListCategoriesDTO,
+    listCategoriesProps: IListCategoriesProps,
   ): Promise<Either<IListCategoriesData, IServiceError>> {
     try {
       const { order, page, totalItemsPerPage } = listCategoriesProps;

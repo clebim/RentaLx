@@ -72,9 +72,13 @@ export class CategoriesRepository implements ICategoriesRepository {
         });
       }
 
-      query.orderBy('category.name', order);
+      if (order) {
+        query.orderBy('category.name', order);
+      }
 
-      query.skip((page - 1) * totalItemsPerPage).take(totalItemsPerPage);
+      if (page && totalItemsPerPage) {
+        query.skip((page - 1) * totalItemsPerPage).take(totalItemsPerPage);
+      }
 
       const responseQuery = await query.getManyAndCount();
 
