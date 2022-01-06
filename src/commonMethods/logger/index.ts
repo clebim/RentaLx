@@ -1,3 +1,5 @@
+import AppConfig from '../../config/App';
+
 type ErrorProps = {
   type: 'DatabaseError' | 'DefaultError';
   error: Error;
@@ -10,5 +12,7 @@ export const logger = (data: ErrorProps) => {
     errorName: data.error.name,
     dateTime: new Date(),
   };
-  console.log(`Error in server \n`, fullError);
+  if (AppConfig.TEST !== true) {
+    console.log(`Error in server \n`, fullError);
+  }
 };

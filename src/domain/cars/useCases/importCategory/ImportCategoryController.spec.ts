@@ -8,7 +8,6 @@ import {
 } from '../../../../commonMethods/domainResults/CreateServiceResults';
 import { IServiceError } from '../../../../commonMethods/domainResults/interfaces';
 import { MockCsv } from '../../../../shared/mocks/csv.mock';
-import { Category } from '../../infra/entities/Category';
 import { importCategoryController } from './ImportCategoryController';
 import { ImportCategoryUseCase } from './ImportCategoryUseCase';
 

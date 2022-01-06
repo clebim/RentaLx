@@ -24,19 +24,18 @@ describe('Create Category', () => {
     createCategory = new CreateCategoryUseCase(repository);
     repositoryMock.prototype.create.mockRestore();
     repositoryMock.prototype.findByName.mockRestore();
-    repositoryMock.prototype.list.mockRestore();
   });
 
-  it('souble able to create a new category', async () => {
-    const createUser: ICreateCategoryDTO = {
+  it('should able to create a new category', async () => {
+    const createCategoryData: ICreateCategoryDTO = {
       description: faker.datatype.string(),
       name: faker.datatype.string(),
     };
 
     const repositoryData = {
       id: faker.datatype.uuid(),
-      name: createUser.name,
-      description: createUser.description,
+      name: createCategoryData.name,
+      description: createCategoryData.description,
       createdAt: faker.datatype.datetime(),
       updatedAt: faker.datatype.datetime(),
     };
@@ -47,22 +46,22 @@ describe('Create Category', () => {
     repositoryMock.prototype.findByName.mockResolvedValue(findError);
     repositoryMock.prototype.create.mockResolvedValue(createSuccess);
 
-    const response = await createCategory.execute(createUser);
+    const response = await createCategory.execute(createCategoryData);
 
     expect(response.data).toEqual(repositoryData);
     expect(response.isSuccess).toBe(true);
   });
 
-  it('souble not able to create a new category with name exists', async () => {
-    const createUser: ICreateCategoryDTO = {
+  it('should not able to create a new category with name exists', async () => {
+    const createCategoryData: ICreateCategoryDTO = {
       description: faker.datatype.string(),
       name: faker.datatype.string(),
     };
 
     const findData = {
       id: faker.datatype.uuid(),
-      name: createUser.name,
-      description: createUser.description,
+      name: createCategoryData.name,
+      description: createCategoryData.description,
       createdAt: faker.datatype.datetime(),
       updatedAt: faker.datatype.datetime(),
     };
@@ -71,7 +70,7 @@ describe('Create Category', () => {
 
     repositoryMock.prototype.findByName.mockResolvedValue(repositorySuccess);
 
-    const response = await createCategory.execute(createUser);
+    const response = await createCategory.execute(createCategoryData);
 
     expect(response.data).toBe(null);
     expect(response.isFailure).toBe(true);
@@ -81,8 +80,8 @@ describe('Create Category', () => {
     expect(response.error.statusCode).toEqual(400);
   });
 
-  it('souble not able to create a new category because unknown error', async () => {
-    const createUser: ICreateCategoryDTO = {
+  it('should not able to create a new category because unknown error', async () => {
+    const createCategoryData: ICreateCategoryDTO = {
       description: faker.datatype.string(),
       name: faker.datatype.string(),
     };
@@ -98,11 +97,29 @@ describe('Create Category', () => {
     repositoryMock.prototype.findByName.mockResolvedValue(findError);
     repositoryMock.prototype.create.mockResolvedValue(repositoryError);
 
-    const response = await createCategory.execute(createUser);
+    const response = await createCategory.execute(createCategoryData);
 
     expect(response.data).toBe(null);
     expect(response.isFailure).toBe(true);
     expect(response.error.message).toEqual(repositoryDataError.message);
     expect(response.error.statusCode).toEqual(400);
+  });
+
+  it('should not able to create a new category because repository fatal error', async () => {
+    const createCategoryData: ICreateCategoryDTO = {
+      description: faker.datatype.string(),
+      name: faker.datatype.string(),
+    };
+
+    repositoryMock.prototype.create.mockRejectedValue(
+      new Error('fatal error in database'),
+    );
+
+    try {
+      await createCategory.execute(createCategoryData);
+    } catch (error) {
+      expect(error).toBeInstanceOf(Error);
+      expect(error.message).toEqual('fatal error in database');
+    }
   });
 });
