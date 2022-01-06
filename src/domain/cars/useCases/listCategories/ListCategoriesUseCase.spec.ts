@@ -54,7 +54,11 @@ describe('List Categories', () => {
     const createSuccess =
       createRepositorySuccess<[Category[], number]>(responseRepository);
 
-    const listCategoriesProps: IListCategoriesProps = {};
+    const listCategoriesProps: IListCategoriesProps = {
+      order: 'ASC',
+      page: faker.datatype.number(),
+      totalItemsPerPage: faker.datatype.number(),
+    };
 
     repositoryMock.prototype.list.mockResolvedValue(createSuccess);
 

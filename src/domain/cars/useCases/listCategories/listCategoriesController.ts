@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import { IListCategoriesProps } from '../../interfaces/categories/IListCategoriesProps';
+import { IListCategoriesDTO } from '../../interfaces/categories/IListCategories';
 import { ListCategoriesUseCase } from './ListCategoriesUseCase';
 
 export const listCategoriesController = async (
@@ -12,7 +12,7 @@ export const listCategoriesController = async (
   const listCategoriesUseCase = container.resolve(ListCategoriesUseCase);
 
   const { name, description, totalItemsPerPage, page, order } =
-    request.query as IListCategoriesProps;
+    request.query as IListCategoriesDTO;
 
   try {
     const { data, isFailure, error } = await listCategoriesUseCase.execute({
