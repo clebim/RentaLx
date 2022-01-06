@@ -15,7 +15,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn test || echo SUCCESS"
+      "pre-commit": "npm run test"
     }
   },
   "dependencies": {
