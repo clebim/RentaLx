@@ -6,4 +6,5 @@ tmp/avatars/*
 !tmp/avatars/.gitkeep
 dist
 target
-env/.env.prod
+env/*
+!env/env.example
