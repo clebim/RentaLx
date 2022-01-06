@@ -32,6 +32,7 @@ Technologies that I used to develop this api
   - [EditorConfig](https://editorconfig.org/)
   - [Docker](https://www.docker.com)
   - [Docker-Compose](https://docs.docker.com/compose/)
+  - [Husky](https://typicode.github.io/husky/#/)
 
 ### Requirements
 
