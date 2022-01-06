@@ -67,6 +67,7 @@ $ yarn test
 # To finish, run the api service
 $ yarn dev
 
+# To use docker-compose, remember to create .env.prod based on docker-compose.yml, as it has its own network
 
 # Well done, project is started!
 ```
