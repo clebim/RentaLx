@@ -69,6 +69,8 @@ $ yarn dev
 
 # To use docker-compose, remember to create .env.prod based on docker-compose.yml, as it has its own network
 
+# From env.example you can create .env.dev, .env.prod and .env.test
+
 # Well done, project is started!
 ```
 ## :syringe: Tests
