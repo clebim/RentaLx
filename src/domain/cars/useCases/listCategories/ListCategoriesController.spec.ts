@@ -8,6 +8,7 @@ import {
 } from '../../../../commonMethods/domainResults/CreateServiceResults';
 import { IServiceError } from '../../../../commonMethods/domainResults/interfaces';
 import { Category } from '../../infra/entities/Category';
+import { IListCategoriesData } from '../../interfaces/categories/IListCategoriesData';
 import { listCategoriesController } from './ListCategoriesController';
 import { ListCategoriesUseCase } from './ListCategoriesUseCase';
 
@@ -36,7 +37,15 @@ const listCategoriesMock = ListCategoriesUseCase as jest.MockedClass<
   typeof ListCategoriesUseCase
 >;
 
-describe('Create Category Controller', () => {
+const queryParams = {
+  name: faker.datatype.string(12),
+  description: faker.datatype.string(12),
+  order: 'ASC',
+  totalItemsPerPage: faker.datatype.number(),
+  page: faker.datatype.number(),
+};
+
+describe('List Categories Controller', () => {
   beforeEach(() => {
     listCategoriesMock.prototype.execute.mockRestore();
   });
@@ -44,27 +53,39 @@ describe('Create Category Controller', () => {
   it('should response statusCode 200 when call listCategories', async () => {
     const listData = generateListCategories();
 
-    const mockRequest = getMockReq();
+    const responseService: IListCategoriesData = {
+      categories: listData,
+      totalItems: faker.datatype.number(),
+      page: faker.datatype.number(),
+      totalItemsPerPage: faker.datatype.number(),
+      totalPages: faker.datatype.number(),
+    };
+
+    const mockRequest = getMockReq({
+      query: queryParams,
+    });
 
     const { res, next } = getMockRes();
 
-    const serviceSucess = createServiceSuccess<Category[]>(listData);
+    const serviceSucess =
+      createServiceSuccess<IListCategoriesData>(responseService);
 
     listCategoriesMock.prototype.execute.mockResolvedValue(serviceSucess);
 
     await listCategoriesController(mockRequest, res, next);
 
     expect(listCategoriesMock.prototype.execute).toBeCalledTimes(1);
-    expect(listCategoriesMock.prototype.execute).toBeCalledWith();
+    expect(listCategoriesMock.prototype.execute).toBeCalledWith(queryParams);
     expect(res.status).toBeCalledTimes(1);
     expect(res.status).toBeCalledWith(200);
     expect(res.json).toBeCalledTimes(1);
-    expect(res.json).toBeCalledWith({ categories: listData });
     expect(next).toBeCalledTimes(0);
   });
 
   it('should response statusCode 400 when call listCategories', async () => {
-    const mockRequest = getMockReq();
+    const mockRequest = getMockReq({
+      query: queryParams,
+    });
 
     const { res, next } = getMockRes();
 
@@ -80,7 +101,7 @@ describe('Create Category Controller', () => {
     await listCategoriesController(mockRequest, res, next);
 
     expect(listCategoriesMock.prototype.execute).toBeCalledTimes(1);
-    expect(listCategoriesMock.prototype.execute).toBeCalledWith();
+    expect(listCategoriesMock.prototype.execute).toBeCalledWith(queryParams);
     expect(res.status).toBeCalledTimes(1);
     expect(res.status).toBeCalledWith(400);
     expect(res.json).toBeCalledTimes(1);
@@ -89,7 +110,9 @@ describe('Create Category Controller', () => {
   });
 
   it('method next should be called because there was a fatal error', async () => {
-    const mockRequest = getMockReq();
+    const mockRequest = getMockReq({
+      query: queryParams,
+    });
 
     const { res, next } = getMockRes();
 
@@ -100,7 +123,7 @@ describe('Create Category Controller', () => {
     await listCategoriesController(mockRequest, res, next);
 
     expect(listCategoriesMock.prototype.execute).toBeCalledTimes(1);
-    expect(listCategoriesMock.prototype.execute).toBeCalledWith();
+    expect(listCategoriesMock.prototype.execute).toBeCalledWith(queryParams);
     expect(res.status).toBeCalledTimes(0);
     expect(res.json).toBeCalledTimes(0);
     expect(next).toBeCalledTimes(1);

@@ -7,6 +7,7 @@ import {
 import { IRepositoryError } from '../../../../commonMethods/domainResults/interfaces';
 import { Category } from '../../infra/entities/Category';
 import { CategoriesRepository } from '../../infra/repositories/CategoriesRepository';
+import { IListCategoriesProps } from '../../interfaces/categories/IListCategoriesProps';
 import { ListCategoriesUseCase } from './ListCategoriesUseCase';
 
 const repository = new CategoriesRepository();
@@ -43,15 +44,24 @@ describe('List Categories', () => {
   });
 
   it('should get a list category', async () => {
-    const repositoryData = generateListCategories();
+    const categoriesData = generateListCategories();
 
-    const createSuccess = createRepositorySuccess<Category[]>(repositoryData);
+    const responseRepository: [Category[], number] = [
+      categoriesData,
+      faker.datatype.number(10),
+    ];
+
+    const createSuccess =
+      createRepositorySuccess<[Category[], number]>(responseRepository);
+
+    const listCategoriesProps: IListCategoriesProps = {};
 
     repositoryMock.prototype.list.mockResolvedValue(createSuccess);
 
-    const response = await listCategories.execute();
+    const response = await listCategories.execute(listCategoriesProps);
 
-    expect(response.data).toEqual(repositoryData);
+    expect(response.data.categories).toEqual(responseRepository[0]);
+    expect(response.data.totalItems).toEqual(responseRepository[1]);
     expect(response.isSuccess).toBe(true);
   });
 
@@ -65,7 +75,7 @@ describe('List Categories', () => {
 
     repositoryMock.prototype.list.mockResolvedValue(repositoryError);
 
-    const response = await listCategories.execute();
+    const response = await listCategories.execute({});
 
     expect(response.data).toBe(null);
     expect(response.isFailure).toBe(true);
@@ -79,7 +89,7 @@ describe('List Categories', () => {
     );
 
     try {
-      await listCategories.execute();
+      await listCategories.execute({});
     } catch (error) {
       expect(error).toBeInstanceOf(Error);
       expect(error.message).toEqual('fatal error in database');

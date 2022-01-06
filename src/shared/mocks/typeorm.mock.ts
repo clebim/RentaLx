@@ -1,10 +1,16 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { mock, MockProxy } from 'jest-mock-extended';
-import { Connection, Repository, SelectQueryBuilder } from 'typeorm';
+import {
+  Connection,
+  EntityManager,
+  Repository,
+  SelectQueryBuilder,
+} from 'typeorm';
 
 export const repositoryMock = mock<Repository<any>>();
 export const connectionMock: MockProxy<Connection> = mock<Connection>();
+export const entityManagerMock = mock<EntityManager>();
 export const selectQueryBuilderMock = mock<SelectQueryBuilder<any>>();
 
 jest.mock('typeorm', () => {

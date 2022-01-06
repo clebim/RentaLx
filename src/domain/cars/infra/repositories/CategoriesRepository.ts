@@ -10,6 +10,7 @@ import {
 } from '../../../../commonMethods/domainResults/interfaces';
 import { logger } from '../../../../commonMethods/logger';
 import { ICreateCategoryDTO } from '../../interfaces/categories/ICreateCategory';
+import { IListCategoriesProps } from '../../interfaces/categories/IListCategoriesProps';
 import { ICategoriesRepository } from '../contracts/ICategoriesRepository';
 import { Category } from '../entities/Category';
 
@@ -50,11 +51,34 @@ export class CategoriesRepository implements ICategoriesRepository {
     }
   }
 
-  async list(): Promise<Either<Category[], IRepositoryError>> {
-    try {
-      const categories = await this.repository.find();
+  async list(
+    listCategoriesProps: IListCategoriesProps,
+  ): Promise<Either<[Category[], number], IRepositoryError>> {
+    const { name, description, order, page, totalItemsPerPage } =
+      listCategoriesProps;
 
-      return createRepositorySuccess<Category[]>(categories);
+    try {
+      const query = this.repository
+        .createQueryBuilder('category')
+        .where('category.id is not null');
+
+      if (name) {
+        query.andWhere('category.name LIKE :name', { name: `%${name}%` });
+      }
+
+      if (description) {
+        query.andWhere('category.description LIKE :description', {
+          description: `%${description}%`,
+        });
+      }
+
+      query.orderBy('category.name', order);
+
+      query.skip((page - 1) * totalItemsPerPage).take(totalItemsPerPage);
+
+      const responseQuery = await query.getManyAndCount();
+
+      return createRepositorySuccess<[Category[], number]>(responseQuery);
     } catch (error) {
       logger({
         type: 'DatabaseError',

@@ -10,7 +10,8 @@ import {
 } from '../../../../commonMethods/domainResults/interfaces';
 import { logger } from '../../../../commonMethods/logger';
 import { ICategoriesRepository } from '../../infra/contracts/ICategoriesRepository';
-import { Category } from '../../infra/entities/Category';
+import { IListCategoriesData } from '../../interfaces/categories/IListCategoriesData';
+import { IListCategoriesProps } from '../../interfaces/categories/IListCategoriesProps';
 
 @injectable()
 export class ListCategoriesUseCase {
@@ -26,15 +27,40 @@ export class ListCategoriesUseCase {
     });
   }
 
-  async execute(): Promise<Either<Category[], IServiceError>> {
+  async execute(
+    listCategoriesProps: IListCategoriesProps,
+  ): Promise<Either<IListCategoriesData, IServiceError>> {
     try {
-      const { data, isFailure, error } = await this.repository.list();
+      const { order, page, totalItemsPerPage } = listCategoriesProps;
+
+      const currentPage = page || 1;
+      const currentTotalItemsPerPage = totalItemsPerPage || 30;
+      const queryOrder = order || 'ASC';
+
+      const { data, isFailure, error } = await this.repository.list({
+        ...listCategoriesProps,
+        totalItemsPerPage: currentTotalItemsPerPage,
+        page: currentPage,
+        order: queryOrder,
+      });
 
       if (isFailure) {
         return this.buildError(error, 400);
       }
 
-      return createServiceSuccess<Category[]>(data);
+      const [categories, count] = data;
+
+      const totalPages = Math.ceil(count / currentTotalItemsPerPage);
+
+      const response: IListCategoriesData = {
+        categories,
+        totalItems: count,
+        totalItemsPerPage: currentTotalItemsPerPage,
+        page: currentPage,
+        totalPages,
+      };
+
+      return createServiceSuccess<IListCategoriesData>(response);
     } catch (error) {
       logger({
         error,
