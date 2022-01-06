@@ -11,13 +11,8 @@
     "migration:run": "cross-env NODE_ENV=prod yarn run typeorm migration:run",
     "migration:run:dev": "cross-env NODE_ENV=dev yarn run typeorm migration:run",
     "build": "tsc",
-    "test": "cross-env NODE_ENV=test HTTP_PORT=3333 jest --coverage --passWithNoTests --detectOpenHandles --runInBand"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run test",
-      "pre-push": "npm run test"
-    }
+    "test": "cross-env NODE_ENV=test HTTP_PORT=3333 jest --coverage --passWithNoTests --detectOpenHandles --runInBand",
+    "prepare": "husky install"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
