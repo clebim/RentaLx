@@ -11,7 +11,7 @@ import {
   IServiceError,
 } from '../../../../commonMethods/domainResults/interfaces';
 import { logger } from '../../../../commonMethods/logger';
-import AppConfig from '../../../../config/App';
+import AppConfig from '../../../../config/AppConfig';
 import { IUsersRepository } from '../../infra/contracts/IUsersRepository';
 import { ICreateSessionDTO } from '../../interfaces/session/ICreateSession';
 import { ICreateSessionSuccess } from '../../interfaces/session/ICreateSessionSuccess';

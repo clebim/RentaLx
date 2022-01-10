@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 
-import AppConfig from '../config/App';
+import AppConfig from '../config/AppConfig';
 
 export interface IUserPayloadData {
   id: string;
