@@ -27,7 +27,7 @@ export class User {
   driverLicense: string;
 
   @Column({ type: 'boolean', name: 'is_admin', default: false })
-  isAdmin?: string;
+  isAdmin?: boolean;
 
   @Column({ type: 'varchar', name: 'avatar_url', nullable: true })
   avatarUrl?: string;
