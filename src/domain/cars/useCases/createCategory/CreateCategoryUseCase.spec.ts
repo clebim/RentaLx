@@ -8,7 +8,7 @@ import { IRepositoryError } from '../../../../commonMethods/domainResults/interf
 import { Category } from '../../infra/entities/Category';
 import { CategoriesRepository } from '../../infra/repositories/CategoriesRepository';
 import { ICreateCategoryDTO } from '../../interfaces/categories/ICreateCategory';
-import { CreateCategoryUseCase } from './CreateCategoryUseCase';
+import { CreateCategoryUseCase } from './CcreateCategoryUseCase';
 
 const repository = new CategoriesRepository();
 

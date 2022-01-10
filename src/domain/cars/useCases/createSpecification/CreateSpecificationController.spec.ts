@@ -9,10 +9,10 @@ import {
 import { IServiceError } from '../../../../commonMethods/domainResults/interfaces';
 import { Specification } from '../../infra/entities/Specification';
 import { ICreateSpecificationDTO } from '../../interfaces/specifications/ICreateSpecification';
-import { createSpecificationController } from './CreateSpecificationController';
-import { CreateSpecificationUseCase } from './CreateSpecificationUseCase';
+import { createSpecificationController } from './CCreateSpecificationController';
+import { CreateSpecificationUseCase } from './CcreateSpecificationUseCase';
 
-jest.mock('./CreateSpecificationUseCase');
+jest.mock('./CcreateSpecificationUseCase');
 
 const createSpecificationMock = CreateSpecificationUseCase as jest.MockedClass<
   typeof CreateSpecificationUseCase

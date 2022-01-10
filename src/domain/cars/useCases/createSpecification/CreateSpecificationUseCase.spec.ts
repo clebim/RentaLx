@@ -8,7 +8,7 @@ import { IRepositoryError } from '../../../../commonMethods/domainResults/interf
 import { Specification } from '../../infra/entities/Specification';
 import { SpecificationsRepository } from '../../infra/repositories/SpeficicationsRepository';
 import { ICreateSpecificationDTO } from '../../interfaces/specifications/ICreateSpecification';
-import { CreateSpecificationUseCase } from './CreateSpecificationUseCase';
+import { CreateSpecificationUseCase } from './CcreateSpecificationUseCase';
 
 const repository = new SpecificationsRepository();
 

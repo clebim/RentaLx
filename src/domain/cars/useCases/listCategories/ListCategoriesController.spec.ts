@@ -9,8 +9,8 @@ import {
 import { IServiceError } from '../../../../commonMethods/domainResults/interfaces';
 import { Category } from '../../infra/entities/Category';
 import { IListCategoriesData } from '../../interfaces/categories/IListCategoriesData';
-import { listCategoriesController } from './ListCategoriesController';
-import { ListCategoriesUseCase } from './ListCategoriesUseCase';
+import { listCategoriesController } from './LlistCategoriesController';
+import { ListCategoriesUseCase } from './LlistCategoriesUseCase';
 
 const generateListCategories = (): Category[] => {
   const auxArray = [];
@@ -31,7 +31,7 @@ const generateListCategories = (): Category[] => {
   return auxArray;
 };
 
-jest.mock('./ListCategoriesUseCase');
+jest.mock('./LlistCategoriesUseCase');
 
 const listCategoriesMock = ListCategoriesUseCase as jest.MockedClass<
   typeof ListCategoriesUseCase

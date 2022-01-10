@@ -9,10 +9,10 @@ import {
 import { IServiceError } from '../../../../commonMethods/domainResults/interfaces';
 import { Category } from '../../infra/entities/Category';
 import { ICreateCategoryDTO } from '../../interfaces/categories/ICreateCategory';
-import { createCategoryController } from './CreateCategoryController';
-import { CreateCategoryUseCase } from './CreateCategoryUseCase';
+import { createCategoryController } from './CCreateCategoryController';
+import { CreateCategoryUseCase } from './CcreateCategoryUseCase';
 
-jest.mock('./CreateCategoryUseCase');
+jest.mock('./CcreateCategoryUseCase');
 
 const createCategoryMock = CreateCategoryUseCase as jest.MockedClass<
   typeof CreateCategoryUseCase
