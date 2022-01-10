@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import { CreateSpecificationUseCase } from './CcreateSpecificationUseCase';
+import { CreateSpecificationUseCase } from './CreateSpecificationUseCase';
 
 export const createSpecificationController = async (
   request: Request,

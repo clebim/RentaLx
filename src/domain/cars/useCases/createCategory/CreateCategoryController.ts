@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import { CreateCategoryUseCase } from './CcreateCategoryUseCase';
+import { CreateCategoryUseCase } from './CreateCategoryUseCase';
 
 export const createCategoryController = async (
   request: Request,

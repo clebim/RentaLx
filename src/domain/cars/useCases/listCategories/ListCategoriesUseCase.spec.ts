@@ -8,7 +8,7 @@ import { IRepositoryError } from '../../../../commonMethods/domainResults/interf
 import { Category } from '../../infra/entities/Category';
 import { CategoriesRepository } from '../../infra/repositories/CategoriesRepository';
 import { IListCategoriesProps } from '../../interfaces/categories/IListCategoriesProps';
-import { ListCategoriesUseCase } from './LlistCategoriesUseCase';
+import { ListCategoriesUseCase } from './ListCategoriesUseCase';
 
 const repository = new CategoriesRepository();
 let listCategories: ListCategoriesUseCase;

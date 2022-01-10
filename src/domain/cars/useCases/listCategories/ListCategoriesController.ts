@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import { IListCategoriesProps } from '../../interfaces/categories/IListCategoriesProps';
-import { ListCategoriesUseCase } from './LlistCategoriesUseCase';
+import { ListCategoriesUseCase } from './ListCategoriesUseCase';
 
 export const listCategoriesController = async (
   request: Request,
