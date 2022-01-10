@@ -7,7 +7,7 @@ import {
   IServiceError,
 } from '../../../../commonMethods/domainResults/interfaces';
 import { logger } from '../../../../commonMethods/logger';
-import { pathToTmpAvatar } from '../../../../config/MulterConfig';
+import { pathToTmpAvatar } from '../../../../config/Multer';
 import { IUsersRepository } from '../../infra/contracts/IUsersRepository';
 import { IUpdateUserAvatarDTO } from '../../interfaces/user/IUpdateUserAvatar';
 

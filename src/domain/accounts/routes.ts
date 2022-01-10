@@ -1,6 +1,6 @@
 import multer from 'multer';
 
-import { multerConfig } from '../../config/MulterConfig';
+import { multerConfig } from '../../config/Multer';
 import { ensureAuthenticated } from '../../middlewares/EnsureAuthenticated';
 import { IRouteProps } from '../../startup/routes';
 import { createSessionController } from './useCases/createSession/CreateSessionController';

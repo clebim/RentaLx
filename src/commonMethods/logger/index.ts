@@ -1,4 +1,4 @@
-import AppConfig from '../../config/AppConfig';
+import AppConfig from '../../config/App';
 
 type ErrorProps = {
   type: 'DatabaseError' | 'DefaultError';
