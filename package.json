@@ -10,7 +10,7 @@
     "migration:generate": "cross-env NODE_ENV=dev yarn run typeorm migration:generate -n",
     "migration:run": "cross-env NODE_ENV=prod yarn run typeorm migration:run",
     "migration:run:dev": "cross-env NODE_ENV=dev yarn run typeorm migration:run",
-    "build": "tsc",
+    "build": "rm -rf dist && tsc --build",
     "test": "cross-env NODE_ENV=test HTTP_PORT=3333 jest --coverage --passWithNoTests --detectOpenHandles --runInBand",
     "prepare": "husky install"
   },
