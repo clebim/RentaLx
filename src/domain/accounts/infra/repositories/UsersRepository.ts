@@ -72,7 +72,7 @@ export class UsersRepository implements IUsersRepository {
     });
   }
 
-  async create(
+  async createOrSave(
     createUserData: ICreateUserDTO,
   ): Promise<Either<User, IRepositoryError>> {
     try {

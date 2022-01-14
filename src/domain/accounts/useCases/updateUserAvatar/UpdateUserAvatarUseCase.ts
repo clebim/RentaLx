@@ -31,7 +31,7 @@ export class UpdateUserAvatarUseCase {
 
       user.avatarUrl = avatarFile;
 
-      await this.repository.create(user);
+      await this.repository.createOrSave(user);
 
       return createServiceSuccess(null);
     } catch (error) {

@@ -47,7 +47,7 @@ describe('Test Create user UseCase', () => {
     createUserData = generateUserData();
     userFound = generateUserFound();
     repositoryMock.prototype.findByEmail.mockRestore();
-    repositoryMock.prototype.create.mockRestore();
+    repositoryMock.prototype.createOrSave.mockRestore();
   });
 
   it('should able to create a new user', async () => {
@@ -69,15 +69,17 @@ describe('Test Create user UseCase', () => {
     const createUserRepositorySuccess =
       createRepositorySuccess<User>(userCreated);
 
-    repositoryMock.prototype.create.mockResolvedValue(
+    repositoryMock.prototype.createOrSave.mockResolvedValue(
       createUserRepositorySuccess,
     );
 
     const { data, isSuccess } = await createUser.execute(createUserData);
 
     expect(repositoryMock.prototype.findByEmail).toBeCalledTimes(1);
-    expect(repositoryMock.prototype.create).toBeCalledTimes(1);
-    expect(repositoryMock.prototype.create).toBeCalledWith(createUserData);
+    expect(repositoryMock.prototype.createOrSave).toBeCalledTimes(1);
+    expect(repositoryMock.prototype.createOrSave).toBeCalledWith(
+      createUserData,
+    );
     expect(isSuccess).toBe(true);
     expect(data).toHaveProperty('id');
     expect(data).not.toHaveProperty('password');
@@ -93,14 +95,14 @@ describe('Test Create user UseCase', () => {
     const { error, isFailure } = await createUser.execute(createUserData);
 
     expect(repositoryMock.prototype.findByEmail).toBeCalledTimes(1);
-    expect(repositoryMock.prototype.create).toBeCalledTimes(0);
+    expect(repositoryMock.prototype.createOrSave).toBeCalledTimes(0);
     expect(isFailure).toBe(true);
     expect(error.message).toBe('Email already registered on the platform');
     expect(error.statusCode).toBe(400);
   });
 
   it('should not able to create a new user because repository fatal error', async () => {
-    repositoryMock.prototype.create.mockRejectedValue(
+    repositoryMock.prototype.createOrSave.mockRejectedValue(
       new Error('fatal error in database'),
     );
 

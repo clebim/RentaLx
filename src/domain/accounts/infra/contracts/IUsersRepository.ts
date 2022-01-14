@@ -6,7 +6,7 @@ import { ICreateUserDTO } from '../../interfaces/user/ICreateUser';
 import { User } from '../entities/User';
 
 export interface IUsersRepository {
-  create(
+  createOrSave(
     createUserData: ICreateUserDTO,
   ): Promise<Either<User, IRepositoryError>>;
   findByEmail(

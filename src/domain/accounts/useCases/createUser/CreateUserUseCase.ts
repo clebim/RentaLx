@@ -54,7 +54,7 @@ export class CreateUserUseCase {
         );
       }
 
-      const { data, isFailure, error } = await this.repository.create(
+      const { data, isFailure, error } = await this.repository.createOrSave(
         createUserData,
       );
 
