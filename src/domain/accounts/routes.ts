@@ -4,7 +4,7 @@ import { multerConfig } from '../../config/Multer';
 import { ensureAuthenticated } from '../../middlewares/EnsureAuthenticated';
 import { IRouteProps } from '../../startup/routes';
 import { createSessionController } from './useCases/createSession/CreateSessionController';
-import { createUserController } from './useCases/createUser/CreateIUserController';
+import { createUserController } from './useCases/createUser/CreateUserController';
 import { updateUserAvatarController } from './useCases/updateUserAvatar/UpdateUserAvatarController';
 
 const uploadMulter = multer(multerConfig('avatar'));
