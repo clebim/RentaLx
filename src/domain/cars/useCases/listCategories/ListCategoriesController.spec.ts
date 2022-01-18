@@ -5,8 +5,8 @@ import faker from 'faker';
 import {
   createServiceError,
   createServiceSuccess,
-} from '../../../../commonMethods/domainResults/CreateServiceResults';
-import { IServiceError } from '../../../../commonMethods/domainResults/interfaces';
+} from '../../../../helpers/domainResults/CreateServiceResults';
+import { IServiceError } from '../../../../helpers/domainResults/interfaces';
 import { Category } from '../../infra/typeorm/entities/Category';
 import { IListCategoriesData } from '../../interfaces/categories/IListCategoriesData';
 import { listCategoriesController } from './ListCategoriesController';

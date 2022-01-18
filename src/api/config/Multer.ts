@@ -4,9 +4,23 @@ import { resolve } from 'path';
 
 type ContextFolder = 'file' | 'avatar';
 
-export const pathToTmpFile = resolve(__dirname, '..', '..', 'tmp', 'files');
+export const pathToTmpFile = resolve(
+  __dirname,
+  '..',
+  '..',
+  '..',
+  'tmp',
+  'files',
+);
 
-export const pathToTmpAvatar = resolve(__dirname, '..', '..', 'tmp', 'avatars');
+export const pathToTmpAvatar = resolve(
+  __dirname,
+  '..',
+  '..',
+  '..',
+  'tmp',
+  'avatars',
+);
 
 const folders = {
   file: pathToTmpFile,

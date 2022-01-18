@@ -1,7 +1,7 @@
 import {
   Either,
   IRepositoryError,
-} from '../../../../commonMethods/domainResults/interfaces';
+} from '../../../../helpers/domainResults/interfaces';
 import { ICreateUserDTO } from '../../interfaces/user/ICreateUser';
 import { User } from '../typeorm/entities/User';
 

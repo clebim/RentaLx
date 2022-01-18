@@ -3,12 +3,12 @@ import { getRepository, Repository } from 'typeorm';
 import {
   createRepositoryError,
   createRepositorySuccess,
-} from '../../../../../commonMethods/domainResults/CreateRepositoryError';
+} from '../../../../../helpers/domainResults/CreateRepositoryError';
 import {
   Either,
   IRepositoryError,
-} from '../../../../../commonMethods/domainResults/interfaces';
-import { logger } from '../../../../../commonMethods/logger';
+} from '../../../../../helpers/domainResults/interfaces';
+import { logger } from '../../../../../helpers/logger';
 import { ICreateUserDTO } from '../../../interfaces/user/ICreateUser';
 import { IUsersRepository } from '../../contracts/IUsersRepository';
 import { User } from '../entities/User';

@@ -5,8 +5,8 @@ import { resolve } from 'path';
 import {
   createServiceError,
   createServiceSuccess,
-} from '../../../../commonMethods/domainResults/CreateServiceResults';
-import { IServiceError } from '../../../../commonMethods/domainResults/interfaces';
+} from '../../../../helpers/domainResults/CreateServiceResults';
+import { IServiceError } from '../../../../helpers/domainResults/interfaces';
 import { MockCsv } from '../../../../shared/mocks/csv.mock';
 import { importCategoryController } from './ImportCategoryController';
 import { ImportCategoryUseCase } from './ImportCategoryUseCase';

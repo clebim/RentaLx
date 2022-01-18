@@ -2,11 +2,11 @@ import express, { NextFunction, Request, Response } from 'express';
 import http from 'http';
 import swaggerUi from 'swagger-ui-express';
 
+import { closeConnection, startConnection } from '../../infra/database';
 import AppConfig from '../config/App';
 import { swaggerConfig } from '../docs';
-import { startConnection, closeConnection } from '../infra/database';
-import Routes from './routes';
-import '../shared/container';
+import Routes from '../routes';
+import '../../shared/container';
 
 export default class App {
   public express: express.Application;

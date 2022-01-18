@@ -1,7 +1,7 @@
 import {
   Either,
   IRepositoryError,
-} from '../../../../commonMethods/domainResults/interfaces';
+} from '../../../../helpers/domainResults/interfaces';
 import { ICreateSpecificationDTO } from '../../interfaces/specifications/ICreateSpecification';
 import { Specification } from '../typeorm/entities/Specification';
 

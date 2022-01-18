@@ -3,12 +3,12 @@ import { injectable, inject } from 'tsyringe';
 import {
   createServiceError,
   createServiceSuccess,
-} from '../../../../commonMethods/domainResults/CreateServiceResults';
+} from '../../../../helpers/domainResults/CreateServiceResults';
 import {
   Either,
   IServiceError,
-} from '../../../../commonMethods/domainResults/interfaces';
-import { logger } from '../../../../commonMethods/logger';
+} from '../../../../helpers/domainResults/interfaces';
+import { logger } from '../../../../helpers/logger';
 import { ISpecificationsRepository } from '../../infra/contracts/ISpecificationsRepository';
 import { Specification } from '../../infra/typeorm/entities/Specification';
 import { ICreateSpecificationDTO } from '../../interfaces/specifications/ICreateSpecification';

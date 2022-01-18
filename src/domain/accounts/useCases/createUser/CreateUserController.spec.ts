@@ -5,8 +5,8 @@ import faker from 'faker';
 import {
   createServiceError,
   createServiceSuccess,
-} from '../../../../commonMethods/domainResults/CreateServiceResults';
-import { IServiceError } from '../../../../commonMethods/domainResults/interfaces';
+} from '../../../../helpers/domainResults/CreateServiceResults';
+import { IServiceError } from '../../../../helpers/domainResults/interfaces';
 import { User } from '../../infra/typeorm/entities/User';
 import { ICreateUserDTO } from '../../interfaces/user/ICreateUser';
 import { createUserController } from './CreateUserController';

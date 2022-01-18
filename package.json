@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env NODE_ENV=dev ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn ./src/index.ts",
-    "start": "cross-env NODE_ENV=prod node ./dist/index.js",
+    "dev": "cross-env NODE_ENV=dev ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn ./src/api/index.ts",
+    "start": "cross-env NODE_ENV=prod node ./dist/api/index.js",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "migration:generate": "cross-env NODE_ENV=dev yarn run typeorm migration:generate -n",
     "migration:run": "cross-env NODE_ENV=prod yarn run typeorm migration:run",

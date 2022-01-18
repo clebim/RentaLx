@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import App from './startup/app';
+import App from './app/app';
 
 function startApp() {
   const app = new App();

@@ -1,8 +1,8 @@
 import multer from 'multer';
 
-import { multerConfig } from '../../config/Multer';
-import { ensureAuthenticated } from '../../middlewares/EnsureAuthenticated';
-import { IRouteProps } from '../../startup/routes';
+import { multerConfig } from '../../api/config/Multer';
+import { ensureAuthenticated } from '../../api/middlewares/EnsureAuthenticated';
+import { IRouteProps } from '../../api/routes';
 import { createCategoryController } from './useCases/createCategory/CreateCategoryController';
 import { createSpecificationController } from './useCases/createSpecification/CreateSpecificationController';
 import { importCategoryController } from './useCases/importCategory/ImportCategoryController';

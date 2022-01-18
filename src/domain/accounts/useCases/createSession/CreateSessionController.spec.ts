@@ -5,8 +5,8 @@ import faker from 'faker';
 import {
   createServiceError,
   createServiceSuccess,
-} from '../../../../commonMethods/domainResults/CreateServiceResults';
-import { IServiceError } from '../../../../commonMethods/domainResults/interfaces';
+} from '../../../../helpers/domainResults/CreateServiceResults';
+import { IServiceError } from '../../../../helpers/domainResults/interfaces';
 import { ICreateSessionDTO } from '../../interfaces/session/ICreateSession';
 import { ICreateSessionSuccess } from '../../interfaces/session/ICreateSessionSuccess';
 import { createSessionController } from './CreateSessionController';

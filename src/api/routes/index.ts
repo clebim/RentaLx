@@ -10,7 +10,7 @@ export type IRouteProps = {
   handlers: Array<RequestHandler>;
 };
 
-const directory = resolve(__dirname, '../', 'domain');
+const directory = resolve(__dirname, '..', '..', 'domain');
 
 const isDirectory = path => statSync(path).isDirectory();
 

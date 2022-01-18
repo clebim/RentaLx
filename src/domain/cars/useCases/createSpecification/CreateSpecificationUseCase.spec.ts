@@ -3,8 +3,8 @@ import faker from 'faker';
 import {
   createRepositoryError,
   createRepositorySuccess,
-} from '../../../../commonMethods/domainResults/CreateRepositoryError';
-import { IRepositoryError } from '../../../../commonMethods/domainResults/interfaces';
+} from '../../../../helpers/domainResults/CreateRepositoryError';
+import { IRepositoryError } from '../../../../helpers/domainResults/interfaces';
 import { Specification } from '../../infra/typeorm/entities/Specification';
 import { SpecificationsRepository } from '../../infra/typeorm/repositories/SpeficicationsRepository';
 import { ICreateSpecificationDTO } from '../../interfaces/specifications/ICreateSpecification';

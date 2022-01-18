@@ -1,13 +1,13 @@
 import { inject, injectable } from 'tsyringe';
 
-import { deleteFile } from '../../../../commonMethods/deleteFile';
-import { createServiceSuccess } from '../../../../commonMethods/domainResults/CreateServiceResults';
+import { pathToTmpAvatar } from '../../../../api/config/Multer';
+import { deleteFile } from '../../../../helpers/deleteFile';
+import { createServiceSuccess } from '../../../../helpers/domainResults/CreateServiceResults';
 import {
   Either,
   IServiceError,
-} from '../../../../commonMethods/domainResults/interfaces';
-import { logger } from '../../../../commonMethods/logger';
-import { pathToTmpAvatar } from '../../../../config/Multer';
+} from '../../../../helpers/domainResults/interfaces';
+import { logger } from '../../../../helpers/logger';
 import { IUsersRepository } from '../../infra/contracts/IUsersRepository';
 import { IUpdateUserAvatarDTO } from '../../interfaces/user/IUpdateUserAvatar';
 

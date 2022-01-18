@@ -2,16 +2,16 @@ import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { injectable, inject } from 'tsyringe';
 
+import AppConfig from '../../../../api/config/App';
 import {
   createServiceError,
   createServiceSuccess,
-} from '../../../../commonMethods/domainResults/CreateServiceResults';
+} from '../../../../helpers/domainResults/CreateServiceResults';
 import {
   Either,
   IServiceError,
-} from '../../../../commonMethods/domainResults/interfaces';
-import { logger } from '../../../../commonMethods/logger';
-import AppConfig from '../../../../config/App';
+} from '../../../../helpers/domainResults/interfaces';
+import { logger } from '../../../../helpers/logger';
 import { IUsersRepository } from '../../infra/contracts/IUsersRepository';
 import { ICreateSessionDTO } from '../../interfaces/session/ICreateSession';
 import { ICreateSessionSuccess } from '../../interfaces/session/ICreateSessionSuccess';
