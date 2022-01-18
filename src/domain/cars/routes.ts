@@ -3,10 +3,10 @@ import multer from 'multer';
 import { multerConfig } from '../../api/config/Multer';
 import { ensureAuthenticated } from '../../api/middlewares/EnsureAuthenticated';
 import { IRouteProps } from '../../api/routes';
-import { createCategoryController } from './useCases/createCategory/CreateCategoryController';
-import { createSpecificationController } from './useCases/createSpecification/CreateSpecificationController';
-import { importCategoryController } from './useCases/importCategory/ImportCategoryController';
-import { listCategoriesController } from './useCases/listCategories/ListCategoriesController';
+import { createCategoryController } from './adapters/controllers/createCategory/CreateCategoryController';
+import { createSpecificationController } from './adapters/controllers/createSpecification/CreateSpecificationController';
+import { importCategoryController } from './adapters/controllers/importCategory/ImportCategoryController';
+import { listCategoriesController } from './adapters/controllers/listCategories/ListCategoriesController';
 
 const uploadMulter = multer(multerConfig('file'));
 

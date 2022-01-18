@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import { ICreateUserDTO } from '../../interfaces/user/ICreateUser';
-import { CreateUserUseCase } from './CreateUserUseCase';
+import { ICreateUserDTO } from '../../../interfaces/user/ICreateUser';
+import { CreateUserUseCase } from '../../../useCases/createUser/CreateUserUseCase';
 
 export const createUserController = async (
   request: Request,

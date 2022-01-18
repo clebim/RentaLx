@@ -5,14 +5,14 @@ import faker from 'faker';
 import {
   createUseCaseError,
   createUseCaseSuccess,
-} from '../../../../helpers/domainResults/CreateUseCaseResults';
-import { IServiceError } from '../../../../helpers/domainResults/interfaces';
-import { Category } from '../../infra/typeorm/entities/Category';
-import { ICreateCategoryDTO } from '../../interfaces/categories/ICreateCategory';
+} from '../../../../../helpers/domainResults/CreateUseCaseResults';
+import { IServiceError } from '../../../../../helpers/domainResults/interfaces';
+import { Category } from '../../../infra/typeorm/entities/Category';
+import { ICreateCategoryDTO } from '../../../interfaces/categories/ICreateCategory';
+import { CreateCategoryUseCase } from '../../../useCases/createCategory/CreateCategoryUseCase';
 import { createCategoryController } from './CreateCategoryController';
-import { CreateCategoryUseCase } from './CreateCategoryUseCase';
 
-jest.mock('./CreateCategoryUseCase');
+jest.mock('../../../useCases/createCategory/CreateCategoryUseCase');
 
 const createCategoryMock = CreateCategoryUseCase as jest.MockedClass<
   typeof CreateCategoryUseCase

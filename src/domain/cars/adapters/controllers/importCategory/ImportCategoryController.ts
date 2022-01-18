@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import { ImportCategoryUseCase } from './ImportCategoryUseCase';
+import { ImportCategoryUseCase } from '../../../useCases/importCategory/ImportCategoryUseCase';
 
 export const importCategoryController = async (
   request: Request,

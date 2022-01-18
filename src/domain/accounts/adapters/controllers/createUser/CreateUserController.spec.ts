@@ -5,14 +5,14 @@ import faker from 'faker';
 import {
   createUseCaseError,
   createUseCaseSuccess,
-} from '../../../../helpers/domainResults/CreateUseCaseResults';
-import { IServiceError } from '../../../../helpers/domainResults/interfaces';
-import { User } from '../../infra/typeorm/entities/User';
-import { ICreateUserDTO } from '../../interfaces/user/ICreateUser';
+} from '../../../../../helpers/domainResults/CreateUseCaseResults';
+import { IServiceError } from '../../../../../helpers/domainResults/interfaces';
+import { User } from '../../../infra/typeorm/entities/User';
+import { ICreateUserDTO } from '../../../interfaces/user/ICreateUser';
+import { CreateUserUseCase } from '../../../useCases/createUser/CreateUserUseCase';
 import { createUserController } from './CreateUserController';
-import { CreateUserUseCase } from './CreateUserUseCase';
 
-jest.mock('./CreateUserUseCase');
+jest.mock('../../../useCases/createUser/CreateUserUseCase');
 
 const createUserMock = CreateUserUseCase as jest.MockedClass<
   typeof CreateUserUseCase

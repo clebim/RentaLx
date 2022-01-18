@@ -5,12 +5,12 @@ import faker from 'faker';
 import {
   createUseCaseError,
   createUseCaseSuccess,
-} from '../../../../helpers/domainResults/CreateUseCaseResults';
-import { IServiceError } from '../../../../helpers/domainResults/interfaces';
-import { Category } from '../../infra/typeorm/entities/Category';
-import { IListCategoriesData } from '../../interfaces/categories/IListCategoriesData';
+} from '../../../../../helpers/domainResults/CreateUseCaseResults';
+import { IServiceError } from '../../../../../helpers/domainResults/interfaces';
+import { Category } from '../../../infra/typeorm/entities/Category';
+import { IListCategoriesData } from '../../../interfaces/categories/IListCategoriesData';
+import { ListCategoriesUseCase } from '../../../useCases/listCategories/ListCategoriesUseCase';
 import { listCategoriesController } from './ListCategoriesController';
-import { ListCategoriesUseCase } from './ListCategoriesUseCase';
 
 const generateListCategories = (): Category[] => {
   const auxArray = [];
@@ -31,7 +31,7 @@ const generateListCategories = (): Category[] => {
   return auxArray;
 };
 
-jest.mock('./ListCategoriesUseCase');
+jest.mock('../../../useCases/listCategories/ListCategoriesUseCase');
 
 const listCategoriesMock = ListCategoriesUseCase as jest.MockedClass<
   typeof ListCategoriesUseCase

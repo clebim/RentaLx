@@ -5,14 +5,14 @@ import faker from 'faker';
 import {
   createUseCaseError,
   createUseCaseSuccess,
-} from '../../../../helpers/domainResults/CreateUseCaseResults';
-import { IServiceError } from '../../../../helpers/domainResults/interfaces';
-import { ICreateSessionDTO } from '../../interfaces/session/ICreateSession';
-import { ICreateSessionSuccess } from '../../interfaces/session/ICreateSessionSuccess';
+} from '../../../../../helpers/domainResults/CreateUseCaseResults';
+import { IServiceError } from '../../../../../helpers/domainResults/interfaces';
+import { ICreateSessionDTO } from '../../../interfaces/session/ICreateSession';
+import { ICreateSessionSuccess } from '../../../interfaces/session/ICreateSessionSuccess';
+import { CreateSessionUseCase } from '../../../useCases/createSession/CreateSessionUseCase';
 import { createSessionController } from './CreateSessionController';
-import { CreateSessionUseCase } from './CreateSessionUseCase';
 
-jest.mock('./CreateSessionUseCase');
+jest.mock('../../../useCases/createSession/CreateSessionUseCase');
 
 const createSessionMock = CreateSessionUseCase as jest.MockedClass<
   typeof CreateSessionUseCase

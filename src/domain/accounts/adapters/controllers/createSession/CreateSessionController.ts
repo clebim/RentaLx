@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import { CreateSessionUseCase } from './CreateSessionUseCase';
+import { CreateSessionUseCase } from '../../../useCases/createSession/CreateSessionUseCase';
 
 export const createSessionController = async (
   request: Request,

@@ -5,14 +5,14 @@ import faker from 'faker';
 import {
   createUseCaseError,
   createUseCaseSuccess,
-} from '../../../../helpers/domainResults/CreateUseCaseResults';
-import { IServiceError } from '../../../../helpers/domainResults/interfaces';
-import { Specification } from '../../infra/typeorm/entities/Specification';
-import { ICreateSpecificationDTO } from '../../interfaces/specifications/ICreateSpecification';
+} from '../../../../../helpers/domainResults/CreateUseCaseResults';
+import { IServiceError } from '../../../../../helpers/domainResults/interfaces';
+import { Specification } from '../../../infra/typeorm/entities/Specification';
+import { ICreateSpecificationDTO } from '../../../interfaces/specifications/ICreateSpecification';
+import { CreateSpecificationUseCase } from '../../../useCases/createSpecification/CreateSpecificationUseCase';
 import { createSpecificationController } from './CreateSpecificationController';
-import { CreateSpecificationUseCase } from './CreateSpecificationUseCase';
 
-jest.mock('./CreateSpecificationUseCase');
+jest.mock('../../../useCases/createSpecification/CreateSpecificationUseCase');
 
 const createSpecificationMock = CreateSpecificationUseCase as jest.MockedClass<
   typeof CreateSpecificationUseCase

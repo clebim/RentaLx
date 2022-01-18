@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import { UpdateUserAvatarUseCase } from './UpdateUserAvatarUseCase';
+import { UpdateUserAvatarUseCase } from '../../../useCases/updateUserAvatar/UpdateUserAvatarUseCase';
 
 export const updateUserAvatarController = async (
   request: Request,

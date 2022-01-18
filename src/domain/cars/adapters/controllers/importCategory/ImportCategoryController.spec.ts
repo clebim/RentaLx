@@ -5,11 +5,11 @@ import { resolve } from 'path';
 import {
   createUseCaseError,
   createUseCaseSuccess,
-} from '../../../../helpers/domainResults/CreateUseCaseResults';
-import { IServiceError } from '../../../../helpers/domainResults/interfaces';
-import { MockCsv } from '../../../../shared/mocks/csv.mock';
+} from '../../../../../helpers/domainResults/CreateUseCaseResults';
+import { IServiceError } from '../../../../../helpers/domainResults/interfaces';
+import { MockCsv } from '../../../../../shared/mocks/csv.mock';
+import { ImportCategoryUseCase } from '../../../useCases/importCategory/ImportCategoryUseCase';
 import { importCategoryController } from './ImportCategoryController';
-import { ImportCategoryUseCase } from './ImportCategoryUseCase';
 
 const fakeString = (index: number) => `NameOrDescription${index}`;
 
@@ -26,7 +26,7 @@ const generateCvsData = (): string[] => {
   return auxArray;
 };
 
-jest.mock('./ImportCategoryUseCase');
+jest.mock('../../../useCases/importCategory/ImportCategoryUseCase');
 
 const importCategoryMock = ImportCategoryUseCase as jest.MockedClass<
   typeof ImportCategoryUseCase
