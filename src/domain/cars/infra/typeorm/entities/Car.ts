@@ -36,8 +36,8 @@ export class Car {
   @Column({ type: 'varchar' })
   brand: string;
 
-  @Column({ type: 'uuid', name: 'category_id', nullable: false })
-  categoryId: string;
+  @Column({ type: 'uuid', name: 'category_id', nullable: true })
+  categoryId?: string;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
@@ -45,7 +45,10 @@ export class Car {
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp', select: false })
   updatedAt: Date;
 
-  @ManyToOne(() => Category, category => category.cars)
+  @ManyToOne(() => Category, category => category.cars, {
+    onDelete: 'SET NULL',
+    onUpdate: 'SET NULL',
+  })
   @JoinColumn({ name: 'category_id' })
   category: Category;
 }
