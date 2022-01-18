@@ -39,6 +39,7 @@ const generateUserCreated = (): User => {
     createdAt: faker.datatype.datetime(),
     updatedAt: faker.datatype.datetime(),
     generatePasswordHash: () => {},
+    setUrl: () => {},
   };
 };
 

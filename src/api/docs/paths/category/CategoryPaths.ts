@@ -5,6 +5,15 @@ export const categoryPaths: IPathProps = {
     tags: ['Category'],
     description: 'Create a new category',
     summary: 'Create a category',
+    parameters: [
+      {
+        description: 'Authorization Bearer token',
+        in: 'header',
+        name: 'Authorization',
+        required: true,
+        type: 'string',
+      },
+    ],
     requestBody: {
       content: {
         'application/json': {
@@ -41,6 +50,15 @@ export const categoryPaths: IPathProps = {
     tags: ['Category'],
     description: 'List all categories',
     summary: 'List categories',
+    parameters: [
+      {
+        description: 'Authorization Bearer token',
+        in: 'header',
+        name: 'Authorization',
+        required: true,
+        type: 'string',
+      },
+    ],
     responses: {
       200: {
         description: 'All categories listed with success',

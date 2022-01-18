@@ -2,6 +2,7 @@ declare namespace NodeJS {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   export interface ProcessEnv {
     NODE_ENV?: string;
+    VERSION?: string;
     ENVIRONMENT?: string;
     HTTP_HOST?: string;
     HTTP_PORT?: string;
@@ -18,5 +19,6 @@ declare namespace NodeJS {
     DATABASE_LOGGING?: string;
     APP_SECRET?: string;
     EXPIRES_IN?: string;
+    SUPPORT_MAIL?: string;
   }
 }

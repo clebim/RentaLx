@@ -35,6 +35,7 @@ describe('Create Session useCase', () => {
       updatedAt: faker.datatype.datetime(),
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       generatePasswordHash: () => {},
+      setUrl: () => {},
     };
   });
 

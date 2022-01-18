@@ -35,5 +35,6 @@ jest.mock('typeorm', () => {
     ManyToOne: () => () => {},
     Repository: jest.fn(),
     EntityRepository: () => () => {},
+    AfterLoad: () => () => {},
   };
 });

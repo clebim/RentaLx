@@ -6,9 +6,17 @@ import {
 import { listAllCategoriesSchema } from './schemas/category/ListCategories';
 import { internalServerErrorSchema } from './schemas/InternalServerError';
 import {
+  createSessionRequestSchema,
+  createSessionResponseSchema,
+} from './schemas/session/CreateSessionSchema';
+import {
   createSpecificationResponseSchema,
   createSpecificationSchema,
 } from './schemas/specification/CreateSpeficiationSchema';
+import {
+  createUserRequestSchema,
+  createUserResponseSchema,
+} from './schemas/user/CreateUserSchema';
 
 export default {
   internalServerError: internalServerErrorSchema,
@@ -18,4 +26,8 @@ export default {
   categoryImport: categoryImportSchema,
   createSpeficication: createSpecificationSchema,
   createSpecificationResponse: createSpecificationResponseSchema,
+  createSession: createSessionRequestSchema,
+  createSessionResponse: createSessionResponseSchema,
+  createUser: createUserRequestSchema,
+  createUserResponse: createUserResponseSchema,
 };

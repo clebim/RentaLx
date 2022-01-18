@@ -7,7 +7,10 @@ import {
   UpdateDateColumn,
   BeforeInsert,
   BeforeUpdate,
+  AfterLoad,
 } from 'typeorm';
+
+import AppConfig from '../../../../../api/config/App';
 
 @Entity('users')
 export class User {
@@ -43,6 +46,15 @@ export class User {
   generatePasswordHash(): void {
     if (this.password) {
       this.password = hashSync(this.password, 8);
+    }
+  }
+
+  @AfterLoad()
+  setUrl(): void {
+    if (this.avatarUrl) {
+      const baseUrl = `http://${AppConfig.SERVER.http.hostname}:${AppConfig.SERVER.http.port}/api`;
+
+      this.avatarUrl = `${baseUrl}/files/avatar/${this.avatarUrl}`;
     }
   }
 }

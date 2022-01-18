@@ -34,6 +34,7 @@ const generateUserFound = (): User => {
     createdAt: faker.datatype.datetime(),
     updatedAt: faker.datatype.datetime(),
     generatePasswordHash: () => {},
+    setUrl: () => {},
   };
 };
 
@@ -57,6 +58,7 @@ describe('Test Create user UseCase', () => {
       createdAt: faker.datatype.datetime(),
       updatedAt: faker.datatype.datetime(),
       generatePasswordHash: () => {},
+      setUrl: () => {},
     };
 
     const findUserRepositorySuccess =

@@ -7,6 +7,7 @@ import AppConfig from '../config/App';
 import { swaggerConfig } from '../docs';
 import Routes from '../routes';
 import '../../shared/container';
+import { pathToTmpAvatar } from '../config/Multer';
 
 export default class App {
   public express: express.Application;
@@ -61,6 +62,7 @@ export default class App {
   private middleware(): void {
     this.express.use(express.json());
     this.express.use(express.urlencoded({ extended: true }));
+    this.express.use('/api/files/avatar', express.static(pathToTmpAvatar));
     this.express.use(
       (req: Request, res: Response, next: NextFunction): void => {
         res.header('Access-Control-Allow-Origin', '*');

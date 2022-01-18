@@ -41,6 +41,7 @@ export class UsersRepository implements IUsersRepository {
       'name',
       'email',
       'driverLicense',
+      'avatarUrl',
       'isAdmin',
       'createdAt',
     ];

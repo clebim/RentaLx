@@ -5,6 +5,15 @@ export const specificationPaths: IPathProps = {
     tags: ['Specification'],
     description: 'Create a new specification',
     summary: 'Create a specification',
+    parameters: [
+      {
+        description: 'Authorization Bearer token',
+        in: 'header',
+        name: 'Authorization',
+        required: true,
+        type: 'string',
+      },
+    ],
     requestBody: {
       content: {
         'application/json': {

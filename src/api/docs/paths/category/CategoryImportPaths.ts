@@ -5,6 +5,15 @@ export const categoryImportsPaths: IPathProps = {
     tags: ['Category'],
     description: 'Upload a new file CSV with many categories',
     summary: 'Upload a new CSV file',
+    parameters: [
+      {
+        description: 'Authorization Bearer token',
+        in: 'header',
+        name: 'Authorization',
+        required: true,
+        type: 'string',
+      },
+    ],
     requestBody: {
       content: {
         'multipart/form-data': {

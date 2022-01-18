@@ -1,3 +1,4 @@
+import AppConfig from '../config/App';
 import paths from './Paths';
 import schemas from './Schemas';
 
@@ -8,7 +9,7 @@ export type IPathProps = {
     description: string;
     parameters?: {
       name: string;
-      in: 'query';
+      in: 'query' | 'header';
       description: string;
       required: boolean;
       type: string;
@@ -36,9 +37,9 @@ export const swaggerConfig = {
   info: {
     title: 'RentaLx documentation',
     description: 'This is an API Rent',
-    version: '1.0.0',
+    version: AppConfig.DOCS.version,
     contact: {
-      email: 'matheuscleber1998@gmail.com',
+      email: AppConfig.DOCS.supportMail,
     },
   },
   schemas,

@@ -22,6 +22,11 @@ class AppConfig {
     secret: process.env.APP_SECRET,
     expiresIn: Number(process.env.EXPIRES_IN) * 60,
   };
+
+  public static DOCS = {
+    supportMail: process.env.SUPPORT_MAIL || 'Não informado',
+    version: process.env.VERSION || '1.0.0',
+  };
 }
 
 export default AppConfig;
