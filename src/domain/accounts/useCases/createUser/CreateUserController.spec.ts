@@ -7,7 +7,7 @@ import {
   createServiceSuccess,
 } from '../../../../commonMethods/domainResults/CreateServiceResults';
 import { IServiceError } from '../../../../commonMethods/domainResults/interfaces';
-import { User } from '../../infra/entities/User';
+import { User } from '../../infra/typeorm/entities/User';
 import { ICreateUserDTO } from '../../interfaces/user/ICreateUser';
 import { createUserController } from './CreateUserController';
 import { CreateUserUseCase } from './CreateUserUseCase';

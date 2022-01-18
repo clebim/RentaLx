@@ -3,8 +3,8 @@ import { resolve } from 'path';
 
 import { createRepositorySuccess } from '../../../../commonMethods/domainResults/CreateRepositoryError';
 import { MockCsv } from '../../../../shared/mocks/csv.mock';
-import { Category } from '../../infra/entities/Category';
-import { CategoriesRepository } from '../../infra/repositories/CategoriesRepository';
+import { Category } from '../../infra/typeorm/entities/Category';
+import { CategoriesRepository } from '../../infra/typeorm/repositories/CategoriesRepository';
 import { ImportCategoryUseCase } from './ImportCategoryUseCase';
 
 const path = resolve(__dirname);

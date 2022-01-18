@@ -3,7 +3,7 @@ import {
   IRepositoryError,
 } from '../../../../commonMethods/domainResults/interfaces';
 import { ICreateSpecificationDTO } from '../../interfaces/specifications/ICreateSpecification';
-import { Specification } from '../entities/Specification';
+import { Specification } from '../typeorm/entities/Specification';
 
 export interface ISpecificationsRepository {
   create(

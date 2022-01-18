@@ -4,7 +4,7 @@ import {
 } from '../../../../commonMethods/domainResults/interfaces';
 import { ICreateCategoryDTO } from '../../interfaces/categories/ICreateCategory';
 import { IListCategoriesProps } from '../../interfaces/categories/IListCategoriesProps';
-import { Category } from '../entities/Category';
+import { Category } from '../typeorm/entities/Category';
 
 export interface ICategoriesRepository {
   create(

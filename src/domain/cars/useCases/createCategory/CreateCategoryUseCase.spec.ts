@@ -5,8 +5,8 @@ import {
   createRepositorySuccess,
 } from '../../../../commonMethods/domainResults/CreateRepositoryError';
 import { IRepositoryError } from '../../../../commonMethods/domainResults/interfaces';
-import { Category } from '../../infra/entities/Category';
-import { CategoriesRepository } from '../../infra/repositories/CategoriesRepository';
+import { Category } from '../../infra/typeorm/entities/Category';
+import { CategoriesRepository } from '../../infra/typeorm/repositories/CategoriesRepository';
 import { ICreateCategoryDTO } from '../../interfaces/categories/ICreateCategory';
 import { CreateCategoryUseCase } from './CreateCategoryUseCase';
 

@@ -5,8 +5,8 @@ import {
   createRepositorySuccess,
 } from '../../../../commonMethods/domainResults/CreateRepositoryError';
 import { IRepositoryError } from '../../../../commonMethods/domainResults/interfaces';
-import { Specification } from '../../infra/entities/Specification';
-import { SpecificationsRepository } from '../../infra/repositories/SpeficicationsRepository';
+import { Specification } from '../../infra/typeorm/entities/Specification';
+import { SpecificationsRepository } from '../../infra/typeorm/repositories/SpeficicationsRepository';
 import { ICreateSpecificationDTO } from '../../interfaces/specifications/ICreateSpecification';
 import { CreateSpecificationUseCase } from './CreateSpecificationUseCase';
 

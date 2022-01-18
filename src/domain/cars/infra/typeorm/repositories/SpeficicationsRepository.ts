@@ -3,14 +3,14 @@ import { getRepository, Repository } from 'typeorm';
 import {
   createRepositoryError,
   createRepositorySuccess,
-} from '../../../../commonMethods/domainResults/CreateRepositoryError';
+} from '../../../../../commonMethods/domainResults/CreateRepositoryError';
 import {
   Either,
   IRepositoryError,
-} from '../../../../commonMethods/domainResults/interfaces';
-import { logger } from '../../../../commonMethods/logger';
-import { ICreateSpecificationDTO } from '../../interfaces/specifications/ICreateSpecification';
-import { ISpecificationsRepository } from '../contracts/ISpecificationsRepository';
+} from '../../../../../commonMethods/domainResults/interfaces';
+import { logger } from '../../../../../commonMethods/logger';
+import { ICreateSpecificationDTO } from '../../../interfaces/specifications/ICreateSpecification';
+import { ISpecificationsRepository } from '../../contracts/ISpecificationsRepository';
 import { Specification } from '../entities/Specification';
 
 export class SpecificationsRepository implements ISpecificationsRepository {

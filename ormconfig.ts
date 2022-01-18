@@ -25,10 +25,10 @@ module.exports = {
   migrationsRun: true,
   synchronize: false,
   logging: process.env.DATABASE_LOGGING === 'true',
-  entities: [`${basePath}domain/**/infra/entities/*{.ts,.js}`],
+  entities: [`${basePath}domain/**/infra/typeorm/entities/*{.ts,.js}`],
   migrations: [`${basePath}/infra/database/migrations/*{.ts,.js}`],
   cli: {
-    entitiesDir: './src/domain/**/infra/entities',
+    entitiesDir: './src/domain/**/infra/typeorm/entities',
     migrationsDir: './src/infra/database/migrations',
   },
 };

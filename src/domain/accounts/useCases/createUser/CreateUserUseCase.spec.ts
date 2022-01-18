@@ -1,8 +1,8 @@
 import faker from 'faker';
 
 import { createRepositorySuccess } from '../../../../commonMethods/domainResults/CreateRepositoryError';
-import { User } from '../../infra/entities/User';
-import { UsersRepository } from '../../infra/repositories/UsersRepository';
+import { User } from '../../infra/typeorm/entities/User';
+import { UsersRepository } from '../../infra/typeorm/repositories/UsersRepository';
 import { ICreateUserDTO } from '../../interfaces/user/ICreateUser';
 import { CreateUserUseCase } from './CreateUserUseCase';
 

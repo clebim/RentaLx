@@ -10,7 +10,7 @@ import {
 } from '../../../../commonMethods/domainResults/interfaces';
 import { logger } from '../../../../commonMethods/logger';
 import { ISpecificationsRepository } from '../../infra/contracts/ISpecificationsRepository';
-import { Specification } from '../../infra/entities/Specification';
+import { Specification } from '../../infra/typeorm/entities/Specification';
 import { ICreateSpecificationDTO } from '../../interfaces/specifications/ICreateSpecification';
 
 @injectable()

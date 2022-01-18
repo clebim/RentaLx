@@ -10,7 +10,7 @@ import {
 } from '../../../../commonMethods/domainResults/interfaces';
 import { logger } from '../../../../commonMethods/logger';
 import { ICategoriesRepository } from '../../infra/contracts/ICategoriesRepository';
-import { Category } from '../../infra/entities/Category';
+import { Category } from '../../infra/typeorm/entities/Category';
 import { ICreateCategoryDTO } from '../../interfaces/categories/ICreateCategory';
 
 @injectable()

@@ -7,7 +7,7 @@ import {
   createServiceSuccess,
 } from '../../../../commonMethods/domainResults/CreateServiceResults';
 import { IServiceError } from '../../../../commonMethods/domainResults/interfaces';
-import { Specification } from '../../infra/entities/Specification';
+import { Specification } from '../../infra/typeorm/entities/Specification';
 import { ICreateSpecificationDTO } from '../../interfaces/specifications/ICreateSpecification';
 import { createSpecificationController } from './CreateSpecificationController';
 import { CreateSpecificationUseCase } from './CreateSpecificationUseCase';

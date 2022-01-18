@@ -3,15 +3,15 @@ import { getRepository, Repository } from 'typeorm';
 import {
   createRepositoryError,
   createRepositorySuccess,
-} from '../../../../commonMethods/domainResults/CreateRepositoryError';
+} from '../../../../../commonMethods/domainResults/CreateRepositoryError';
 import {
   Either,
   IRepositoryError,
-} from '../../../../commonMethods/domainResults/interfaces';
-import { logger } from '../../../../commonMethods/logger';
-import { ICreateCategoryDTO } from '../../interfaces/categories/ICreateCategory';
-import { IListCategoriesProps } from '../../interfaces/categories/IListCategoriesProps';
-import { ICategoriesRepository } from '../contracts/ICategoriesRepository';
+} from '../../../../../commonMethods/domainResults/interfaces';
+import { logger } from '../../../../../commonMethods/logger';
+import { ICreateCategoryDTO } from '../../../interfaces/categories/ICreateCategory';
+import { IListCategoriesProps } from '../../../interfaces/categories/IListCategoriesProps';
+import { ICategoriesRepository } from '../../contracts/ICategoriesRepository';
 import { Category } from '../entities/Category';
 
 export class CategoriesRepository implements ICategoriesRepository {

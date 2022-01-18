@@ -3,7 +3,7 @@ import {
   IRepositoryError,
 } from '../../../../commonMethods/domainResults/interfaces';
 import { ICreateUserDTO } from '../../interfaces/user/ICreateUser';
-import { User } from '../entities/User';
+import { User } from '../typeorm/entities/User';
 
 export interface IUsersRepository {
   createOrSave(

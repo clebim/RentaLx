@@ -7,7 +7,7 @@ import {
   createServiceSuccess,
 } from '../../../../commonMethods/domainResults/CreateServiceResults';
 import { IServiceError } from '../../../../commonMethods/domainResults/interfaces';
-import { Category } from '../../infra/entities/Category';
+import { Category } from '../../infra/typeorm/entities/Category';
 import { ICreateCategoryDTO } from '../../interfaces/categories/ICreateCategory';
 import { createCategoryController } from './CreateCategoryController';
 import { CreateCategoryUseCase } from './CreateCategoryUseCase';
