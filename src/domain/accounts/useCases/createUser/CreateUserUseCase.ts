@@ -1,9 +1,9 @@
 import { injectable, inject } from 'tsyringe';
 
 import {
-  createServiceError,
-  createServiceSuccess,
-} from '../../../../helpers/domainResults/CreateServiceResults';
+  createUseCaseError,
+  createUseCaseSuccess,
+} from '../../../../helpers/domainResults/CreateUseCaseResults';
 import {
   Either,
   IServiceError,
@@ -21,7 +21,7 @@ export class CreateUserUseCase {
   ) {}
 
   private buildError(error, statusCode: 400 | 404 | 409) {
-    return createServiceError({
+    return createUseCaseError({
       message: error.message,
       statusCode,
     });
@@ -64,7 +64,7 @@ export class CreateUserUseCase {
 
       delete data.password;
 
-      return createServiceSuccess<User>(data);
+      return createUseCaseSuccess<User>(data);
     } catch (error) {
       logger({
         error,

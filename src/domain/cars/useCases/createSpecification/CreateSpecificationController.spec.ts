@@ -3,9 +3,9 @@ import { getMockReq, getMockRes } from '@jest-mock/express';
 import faker from 'faker';
 
 import {
-  createServiceError,
-  createServiceSuccess,
-} from '../../../../helpers/domainResults/CreateServiceResults';
+  createUseCaseError,
+  createUseCaseSuccess,
+} from '../../../../helpers/domainResults/CreateUseCaseResults';
 import { IServiceError } from '../../../../helpers/domainResults/interfaces';
 import { Specification } from '../../infra/typeorm/entities/Specification';
 import { ICreateSpecificationDTO } from '../../interfaces/specifications/ICreateSpecification';
@@ -43,7 +43,7 @@ describe('Create Specification Controller', () => {
       updatedAt: faker.datatype.datetime(),
     };
 
-    const serviceSucess = createServiceSuccess<Specification>(
+    const serviceSucess = createUseCaseSuccess<Specification>(
       createCategorySuccess,
     );
 
@@ -79,7 +79,7 @@ describe('Create Specification Controller', () => {
       statusCode: 400,
     };
 
-    const serviceError = createServiceError(createCategoryError);
+    const serviceError = createUseCaseError(createCategoryError);
 
     createSpecificationMock.prototype.execute.mockResolvedValue(serviceError);
 

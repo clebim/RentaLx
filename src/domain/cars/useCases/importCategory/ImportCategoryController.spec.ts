@@ -3,9 +3,9 @@ import { getMockReq, getMockRes } from '@jest-mock/express';
 import { resolve } from 'path';
 
 import {
-  createServiceError,
-  createServiceSuccess,
-} from '../../../../helpers/domainResults/CreateServiceResults';
+  createUseCaseError,
+  createUseCaseSuccess,
+} from '../../../../helpers/domainResults/CreateUseCaseResults';
 import { IServiceError } from '../../../../helpers/domainResults/interfaces';
 import { MockCsv } from '../../../../shared/mocks/csv.mock';
 import { importCategoryController } from './ImportCategoryController';
@@ -52,7 +52,7 @@ describe('Import Category Controller', () => {
 
     const { res, next } = getMockRes();
 
-    const serviceSucess = createServiceSuccess<null>(null);
+    const serviceSucess = createUseCaseSuccess<null>(null);
 
     importCategoryMock.prototype.execute.mockResolvedValue(serviceSucess);
 
@@ -78,7 +78,7 @@ describe('Import Category Controller', () => {
       statusCode: 400,
     };
 
-    const serviceError = createServiceError(importCategoryError);
+    const serviceError = createUseCaseError(importCategoryError);
 
     importCategoryMock.prototype.execute.mockResolvedValue(serviceError);
 

@@ -4,9 +4,9 @@ import { injectable, inject } from 'tsyringe';
 
 import AppConfig from '../../../../api/config/App';
 import {
-  createServiceError,
-  createServiceSuccess,
-} from '../../../../helpers/domainResults/CreateServiceResults';
+  createUseCaseError,
+  createUseCaseSuccess,
+} from '../../../../helpers/domainResults/CreateUseCaseResults';
 import {
   Either,
   IServiceError,
@@ -24,7 +24,7 @@ export class CreateSessionUseCase {
   ) {}
 
   private buildError(error, statusCode: 400 | 404 | 409) {
-    return createServiceError({
+    return createUseCaseError({
       message: error.message,
       statusCode,
     });
@@ -70,7 +70,7 @@ export class CreateSessionUseCase {
         expiresIn: AppConfig.Auth.expiresIn,
       });
 
-      return createServiceSuccess<ICreateSessionSuccess>({
+      return createUseCaseSuccess<ICreateSessionSuccess>({
         user,
         accessToken: token,
       });

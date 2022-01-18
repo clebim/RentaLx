@@ -3,9 +3,9 @@ import fs from 'fs';
 import { injectable, inject } from 'tsyringe';
 
 import {
-  createServiceError,
-  createServiceSuccess,
-} from '../../../../helpers/domainResults/CreateServiceResults';
+  createUseCaseError,
+  createUseCaseSuccess,
+} from '../../../../helpers/domainResults/CreateUseCaseResults';
 import {
   Either,
   IServiceError,
@@ -44,7 +44,7 @@ export class ImportCategoryUseCase {
   ): Promise<Either<null, IServiceError>> {
     try {
       if (!file) {
-        return createServiceError({
+        return createUseCaseError({
           statusCode: 400,
           message: 'does not contain file',
         });
@@ -75,7 +75,7 @@ export class ImportCategoryUseCase {
         });
       });
 
-      return createServiceSuccess(null);
+      return createUseCaseSuccess(null);
     } catch (error) {
       logger({
         error,

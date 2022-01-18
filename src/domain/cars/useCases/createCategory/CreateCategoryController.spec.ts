@@ -3,9 +3,9 @@ import { getMockReq, getMockRes } from '@jest-mock/express';
 import faker from 'faker';
 
 import {
-  createServiceError,
-  createServiceSuccess,
-} from '../../../../helpers/domainResults/CreateServiceResults';
+  createUseCaseError,
+  createUseCaseSuccess,
+} from '../../../../helpers/domainResults/CreateUseCaseResults';
 import { IServiceError } from '../../../../helpers/domainResults/interfaces';
 import { Category } from '../../infra/typeorm/entities/Category';
 import { ICreateCategoryDTO } from '../../interfaces/categories/ICreateCategory';
@@ -43,7 +43,7 @@ describe('Create Category Controller', () => {
       updatedAt: faker.datatype.datetime(),
     };
 
-    const serviceSucess = createServiceSuccess<Category>(createCategorySuccess);
+    const serviceSucess = createUseCaseSuccess<Category>(createCategorySuccess);
 
     createCategoryMock.prototype.execute.mockResolvedValue(serviceSucess);
 
@@ -75,7 +75,7 @@ describe('Create Category Controller', () => {
       statusCode: 400,
     };
 
-    const serviceError = createServiceError(createCategoryError);
+    const serviceError = createUseCaseError(createCategoryError);
 
     createCategoryMock.prototype.execute.mockResolvedValue(serviceError);
 

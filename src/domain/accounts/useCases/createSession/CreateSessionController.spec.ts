@@ -3,9 +3,9 @@ import { getMockReq, getMockRes } from '@jest-mock/express';
 import faker from 'faker';
 
 import {
-  createServiceError,
-  createServiceSuccess,
-} from '../../../../helpers/domainResults/CreateServiceResults';
+  createUseCaseError,
+  createUseCaseSuccess,
+} from '../../../../helpers/domainResults/CreateUseCaseResults';
 import { IServiceError } from '../../../../helpers/domainResults/interfaces';
 import { ICreateSessionDTO } from '../../interfaces/session/ICreateSession';
 import { ICreateSessionSuccess } from '../../interfaces/session/ICreateSessionSuccess';
@@ -41,7 +41,7 @@ describe('Create Session Controller', () => {
     };
 
     const serviceSucess =
-      createServiceSuccess<ICreateSessionSuccess>(createSessionSuccess);
+      createUseCaseSuccess<ICreateSessionSuccess>(createSessionSuccess);
 
     createSessionMock.prototype.execute.mockResolvedValue(serviceSucess);
 
@@ -75,7 +75,7 @@ describe('Create Session Controller', () => {
       statusCode: 400,
     };
 
-    const serviceError = createServiceError(createSessionError);
+    const serviceError = createUseCaseError(createSessionError);
 
     createSessionMock.prototype.execute.mockResolvedValue(serviceError);
 

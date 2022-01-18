@@ -3,9 +3,9 @@ import { getMockReq, getMockRes } from '@jest-mock/express';
 import faker from 'faker';
 
 import {
-  createServiceError,
-  createServiceSuccess,
-} from '../../../../helpers/domainResults/CreateServiceResults';
+  createUseCaseError,
+  createUseCaseSuccess,
+} from '../../../../helpers/domainResults/CreateUseCaseResults';
 import { IServiceError } from '../../../../helpers/domainResults/interfaces';
 import { User } from '../../infra/typeorm/entities/User';
 import { ICreateUserDTO } from '../../interfaces/user/ICreateUser';
@@ -62,7 +62,7 @@ describe('Test Create User Controller', () => {
 
     delete user.password;
 
-    const serviceSucess = createServiceSuccess<User>(user);
+    const serviceSucess = createUseCaseSuccess<User>(user);
 
     createUserMock.prototype.execute.mockResolvedValue(serviceSucess);
 
@@ -89,7 +89,7 @@ describe('Test Create User Controller', () => {
       statusCode: 400,
     };
 
-    const serviceError = createServiceError(serviceErrorData);
+    const serviceError = createUseCaseError(serviceErrorData);
 
     createUserMock.prototype.execute.mockResolvedValue(serviceError);
 

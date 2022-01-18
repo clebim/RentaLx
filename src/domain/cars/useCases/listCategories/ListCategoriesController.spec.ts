@@ -3,9 +3,9 @@ import { getMockReq, getMockRes } from '@jest-mock/express';
 import faker from 'faker';
 
 import {
-  createServiceError,
-  createServiceSuccess,
-} from '../../../../helpers/domainResults/CreateServiceResults';
+  createUseCaseError,
+  createUseCaseSuccess,
+} from '../../../../helpers/domainResults/CreateUseCaseResults';
 import { IServiceError } from '../../../../helpers/domainResults/interfaces';
 import { Category } from '../../infra/typeorm/entities/Category';
 import { IListCategoriesData } from '../../interfaces/categories/IListCategoriesData';
@@ -68,7 +68,7 @@ describe('List Categories Controller', () => {
     const { res, next } = getMockRes();
 
     const serviceSucess =
-      createServiceSuccess<IListCategoriesData>(responseService);
+      createUseCaseSuccess<IListCategoriesData>(responseService);
 
     listCategoriesMock.prototype.execute.mockResolvedValue(serviceSucess);
 
@@ -94,7 +94,7 @@ describe('List Categories Controller', () => {
       statusCode: 400,
     };
 
-    const serviceError = createServiceError(createCategoryError);
+    const serviceError = createUseCaseError(createCategoryError);
 
     listCategoriesMock.prototype.execute.mockResolvedValue(serviceError);
 

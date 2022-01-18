@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe';
 
 import { pathToTmpAvatar } from '../../../../api/config/Multer';
 import { deleteFile } from '../../../../helpers/deleteFile';
-import { createServiceSuccess } from '../../../../helpers/domainResults/CreateServiceResults';
+import { createUseCaseSuccess } from '../../../../helpers/domainResults/CreateUseCaseResults';
 import {
   Either,
   IServiceError,
@@ -33,7 +33,7 @@ export class UpdateUserAvatarUseCase {
 
       await this.repository.createOrSave(user);
 
-      return createServiceSuccess(null);
+      return createUseCaseSuccess(null);
     } catch (error) {
       logger({
         error,

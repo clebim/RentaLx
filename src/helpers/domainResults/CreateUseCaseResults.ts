@@ -1,6 +1,6 @@
 import { Either, IServiceError } from './interfaces';
 
-export const createServiceSuccess = <S>(data: S): Either<S, IServiceError> => {
+export const createUseCaseSuccess = <S>(data: S): Either<S, IServiceError> => {
   return {
     data,
     isSuccess: true,
@@ -9,7 +9,7 @@ export const createServiceSuccess = <S>(data: S): Either<S, IServiceError> => {
   };
 };
 
-export const createServiceError = (
+export const createUseCaseError = (
   error: IServiceError,
 ): Either<null, IServiceError> => {
   return {

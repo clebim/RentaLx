@@ -1,9 +1,9 @@
 import { injectable, inject } from 'tsyringe';
 
 import {
-  createServiceError,
-  createServiceSuccess,
-} from '../../../../helpers/domainResults/CreateServiceResults';
+  createUseCaseError,
+  createUseCaseSuccess,
+} from '../../../../helpers/domainResults/CreateUseCaseResults';
 import {
   Either,
   IServiceError,
@@ -21,7 +21,7 @@ export class CreateCategoryUseCase {
   ) {}
 
   private buildError(error, statusCode: 400 | 404 | 409) {
-    return createServiceError({
+    return createUseCaseError({
       message: error.message,
       statusCode,
     });
@@ -62,7 +62,7 @@ export class CreateCategoryUseCase {
         return this.buildError(error, 400);
       }
 
-      return createServiceSuccess<Category>(data);
+      return createUseCaseSuccess<Category>(data);
     } catch (error) {
       logger({
         error,
