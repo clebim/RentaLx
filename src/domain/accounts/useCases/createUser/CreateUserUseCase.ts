@@ -1,30 +1,21 @@
 import { injectable, inject } from 'tsyringe';
 
 import {
-  createUseCaseError,
-  createUseCaseSuccess,
-} from '../../../../helpers/domainResults/CreateUseCaseResults';
-import {
   Either,
-  IServiceError,
+  IUseCaseError,
 } from '../../../../helpers/domainResults/interfaces';
-import { logger } from '../../../../helpers/logger';
+import { UseCaseBase } from '../../../../shared/base/UseCaseBase';
 import { IUsersRepository } from '../../infra/contracts/IUsersRepository';
 import { User } from '../../infra/typeorm/entities/User';
 import { ICreateUserDTO } from '../../interfaces/user/ICreateUser';
 
 @injectable()
-export class CreateUserUseCase {
+export class CreateUserUseCase extends UseCaseBase {
   constructor(
     @inject('UsersRepository')
     private repository: IUsersRepository,
-  ) {}
-
-  private buildError(error, statusCode: 400 | 404 | 409) {
-    return createUseCaseError({
-      message: error.message,
-      statusCode,
-    });
+  ) {
+    super();
   }
 
   async userAlreadyExists(email: string): Promise<boolean> {
@@ -33,7 +24,7 @@ export class CreateUserUseCase {
 
       return !!data;
     } catch (error) {
-      logger({
+      this.logger({
         error,
         type: 'DefaultError',
       });
@@ -43,15 +34,15 @@ export class CreateUserUseCase {
 
   async execute(
     createUserData: ICreateUserDTO,
-  ): Promise<Either<User, IServiceError>> {
+  ): Promise<Either<User, IUseCaseError>> {
     try {
       const { email } = createUserData;
 
       if (await this.userAlreadyExists(email)) {
-        return this.buildError(
-          { message: 'Email already registered on the platform' },
-          400,
-        );
+        return this.buildError({
+          message: 'Email already registered on the platform',
+          statusCode: 400,
+        });
       }
 
       const { data, isFailure, error } = await this.repository.createOrSave(
@@ -59,14 +50,17 @@ export class CreateUserUseCase {
       );
 
       if (isFailure) {
-        return this.buildError(error, 400);
+        return this.buildError({
+          message: error.message,
+          statusCode: 400,
+        });
       }
 
       delete data.password;
 
-      return createUseCaseSuccess<User>(data);
+      return this.buildSuccess<User>(data);
     } catch (error) {
-      logger({
+      this.logger({
         error,
         type: 'DefaultError',
       });

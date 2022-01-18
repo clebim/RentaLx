@@ -4,53 +4,44 @@ import { injectable, inject } from 'tsyringe';
 
 import AppConfig from '../../../../api/config/App';
 import {
-  createUseCaseError,
-  createUseCaseSuccess,
-} from '../../../../helpers/domainResults/CreateUseCaseResults';
-import {
   Either,
-  IServiceError,
+  IUseCaseError,
 } from '../../../../helpers/domainResults/interfaces';
-import { logger } from '../../../../helpers/logger';
+import { UseCaseBase } from '../../../../shared/base/UseCaseBase';
 import { IUsersRepository } from '../../infra/contracts/IUsersRepository';
 import { ICreateSessionDTO } from '../../interfaces/session/ICreateSession';
 import { ICreateSessionSuccess } from '../../interfaces/session/ICreateSessionSuccess';
 
 @injectable()
-export class CreateSessionUseCase {
+export class CreateSessionUseCase extends UseCaseBase {
   constructor(
     @inject('UsersRepository')
     private repository: IUsersRepository,
-  ) {}
-
-  private buildError(error, statusCode: 400 | 404 | 409) {
-    return createUseCaseError({
-      message: error.message,
-      statusCode,
-    });
+  ) {
+    super();
   }
 
   async execute({
     email,
     password,
-  }: ICreateSessionDTO): Promise<Either<ICreateSessionSuccess, IServiceError>> {
+  }: ICreateSessionDTO): Promise<Either<ICreateSessionSuccess, IUseCaseError>> {
     try {
       const { data: user } = await this.repository.findByEmail(email, true);
 
       if (!user) {
-        return this.buildError(
-          { message: 'Email or password incorrect!' },
-          400,
-        );
+        return this.buildError({
+          message: 'Email or password incorrect!',
+          statusCode: 400,
+        });
       }
 
       const passwordMatch = await compare(password, user.password);
 
       if (!passwordMatch) {
-        return this.buildError(
-          { message: 'Email or password incorrect!' },
-          400,
-        );
+        return this.buildError({
+          message: 'Email or password incorrect!',
+          statusCode: 400,
+        });
       }
 
       const { id, name, driverLicense, isAdmin } = user;
@@ -70,12 +61,12 @@ export class CreateSessionUseCase {
         expiresIn: AppConfig.Auth.expiresIn,
       });
 
-      return createUseCaseSuccess<ICreateSessionSuccess>({
+      return this.buildSuccess<ICreateSessionSuccess>({
         user,
         accessToken: token,
       });
     } catch (error) {
-      logger({
+      this.logger({
         error,
         type: 'DefaultError',
       });

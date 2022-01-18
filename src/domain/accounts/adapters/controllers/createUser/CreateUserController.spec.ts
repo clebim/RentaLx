@@ -6,7 +6,7 @@ import {
   createUseCaseError,
   createUseCaseSuccess,
 } from '../../../../../helpers/domainResults/CreateUseCaseResults';
-import { IServiceError } from '../../../../../helpers/domainResults/interfaces';
+import { IUseCaseError } from '../../../../../helpers/domainResults/interfaces';
 import { User } from '../../../infra/typeorm/entities/User';
 import { ICreateUserDTO } from '../../../interfaces/user/ICreateUser';
 import { CreateUserUseCase } from '../../../useCases/createUser/CreateUserUseCase';
@@ -84,7 +84,7 @@ describe('Test Create User Controller', () => {
 
     const { res, next } = getMockRes();
 
-    const serviceErrorData: IServiceError = {
+    const serviceErrorData: IUseCaseError = {
       message: 'Email already registered on the platform',
       statusCode: 400,
     };

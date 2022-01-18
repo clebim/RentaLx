@@ -2,26 +2,27 @@ import { inject, injectable } from 'tsyringe';
 
 import { pathToTmpAvatar } from '../../../../api/config/Multer';
 import { deleteFile } from '../../../../helpers/deleteFile';
-import { createUseCaseSuccess } from '../../../../helpers/domainResults/CreateUseCaseResults';
 import {
   Either,
-  IServiceError,
+  IUseCaseError,
 } from '../../../../helpers/domainResults/interfaces';
-import { logger } from '../../../../helpers/logger';
+import { UseCaseBase } from '../../../../shared/base/UseCaseBase';
 import { IUsersRepository } from '../../infra/contracts/IUsersRepository';
 import { IUpdateUserAvatarDTO } from '../../interfaces/user/IUpdateUserAvatar';
 
 @injectable()
-export class UpdateUserAvatarUseCase {
+export class UpdateUserAvatarUseCase extends UseCaseBase {
   constructor(
     @inject('UsersRepository')
     private repository: IUsersRepository,
-  ) {}
+  ) {
+    super();
+  }
 
   async execute({
     userId,
     avatarFile,
-  }: IUpdateUserAvatarDTO): Promise<Either<null, IServiceError>> {
+  }: IUpdateUserAvatarDTO): Promise<Either<null, IUseCaseError>> {
     try {
       const { data: user } = await this.repository.findById(userId);
 
@@ -33,9 +34,9 @@ export class UpdateUserAvatarUseCase {
 
       await this.repository.createOrSave(user);
 
-      return createUseCaseSuccess(null);
+      return this.buildSuccess(null);
     } catch (error) {
-      logger({
+      this.logger({
         error,
         type: 'DefaultError',
       });

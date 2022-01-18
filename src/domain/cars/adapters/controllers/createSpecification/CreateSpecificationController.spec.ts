@@ -6,7 +6,7 @@ import {
   createUseCaseError,
   createUseCaseSuccess,
 } from '../../../../../helpers/domainResults/CreateUseCaseResults';
-import { IServiceError } from '../../../../../helpers/domainResults/interfaces';
+import { IUseCaseError } from '../../../../../helpers/domainResults/interfaces';
 import { Specification } from '../../../infra/typeorm/entities/Specification';
 import { ICreateSpecificationDTO } from '../../../interfaces/specifications/ICreateSpecification';
 import { CreateSpecificationUseCase } from '../../../useCases/createSpecification/CreateSpecificationUseCase';
@@ -74,7 +74,7 @@ describe('Create Specification Controller', () => {
 
     const { res, next } = getMockRes();
 
-    const createCategoryError: IServiceError = {
+    const createCategoryError: IUseCaseError = {
       message: 'Error inserting specification in database',
       statusCode: 400,
     };

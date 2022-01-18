@@ -1,35 +1,26 @@
 import { injectable, inject } from 'tsyringe';
 
 import {
-  createUseCaseError,
-  createUseCaseSuccess,
-} from '../../../../helpers/domainResults/CreateUseCaseResults';
-import {
   Either,
-  IServiceError,
+  IUseCaseError,
 } from '../../../../helpers/domainResults/interfaces';
-import { logger } from '../../../../helpers/logger';
+import { UseCaseBase } from '../../../../shared/base/UseCaseBase';
 import { ICategoriesRepository } from '../../infra/contracts/ICategoriesRepository';
 import { IListCategoriesData } from '../../interfaces/categories/IListCategoriesData';
 import { IListCategoriesProps } from '../../interfaces/categories/IListCategoriesProps';
 
 @injectable()
-export class ListCategoriesUseCase {
+export class ListCategoriesUseCase extends UseCaseBase {
   constructor(
     @inject('CategoriesRepository')
     private repository: ICategoriesRepository,
-  ) {}
-
-  private buildError(error, statusCode: 400 | 404 | 409) {
-    return createUseCaseError({
-      message: error.message,
-      statusCode,
-    });
+  ) {
+    super();
   }
 
   async execute(
     listCategoriesProps: IListCategoriesProps,
-  ): Promise<Either<IListCategoriesData, IServiceError>> {
+  ): Promise<Either<IListCategoriesData, IUseCaseError>> {
     try {
       const { order, page, totalItemsPerPage } = listCategoriesProps;
 
@@ -45,7 +36,7 @@ export class ListCategoriesUseCase {
       });
 
       if (isFailure) {
-        return this.buildError(error, 400);
+        return this.buildError({ message: error.message, statusCode: 400 });
       }
 
       const [categories, count] = data;
@@ -60,9 +51,9 @@ export class ListCategoriesUseCase {
         totalPages,
       };
 
-      return createUseCaseSuccess<IListCategoriesData>(response);
+      return this.buildSuccess<IListCategoriesData>(response);
     } catch (error) {
-      logger({
+      this.logger({
         error,
         type: 'DefaultError',
       });

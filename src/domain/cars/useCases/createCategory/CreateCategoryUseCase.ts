@@ -1,30 +1,21 @@
 import { injectable, inject } from 'tsyringe';
 
 import {
-  createUseCaseError,
-  createUseCaseSuccess,
-} from '../../../../helpers/domainResults/CreateUseCaseResults';
-import {
   Either,
-  IServiceError,
+  IUseCaseError,
 } from '../../../../helpers/domainResults/interfaces';
-import { logger } from '../../../../helpers/logger';
+import { UseCaseBase } from '../../../../shared/base/UseCaseBase';
 import { ICategoriesRepository } from '../../infra/contracts/ICategoriesRepository';
 import { Category } from '../../infra/typeorm/entities/Category';
 import { ICreateCategoryDTO } from '../../interfaces/categories/ICreateCategory';
 
 @injectable()
-export class CreateCategoryUseCase {
+export class CreateCategoryUseCase extends UseCaseBase {
   constructor(
     @inject('CategoriesRepository')
     private repository: ICategoriesRepository,
-  ) {}
-
-  private buildError(error, statusCode: 400 | 404 | 409) {
-    return createUseCaseError({
-      message: error.message,
-      statusCode,
-    });
+  ) {
+    super();
   }
 
   async categoryAlreadyExists(category: string): Promise<boolean> {
@@ -33,7 +24,7 @@ export class CreateCategoryUseCase {
 
       return !!data;
     } catch (error) {
-      logger({
+      this.logger({
         error,
         type: 'DefaultError',
       });
@@ -43,15 +34,15 @@ export class CreateCategoryUseCase {
 
   async execute(
     createCategoryData: ICreateCategoryDTO,
-  ): Promise<Either<Category, IServiceError>> {
+  ): Promise<Either<Category, IUseCaseError>> {
     try {
       const { name } = createCategoryData;
 
       if (await this.categoryAlreadyExists(name)) {
-        return this.buildError(
-          { message: 'Category already registered on the platform' },
-          400,
-        );
+        return this.buildError({
+          message: 'Category already registered on the platform',
+          statusCode: 400,
+        });
       }
 
       const { data, isFailure, error } = await this.repository.create(
@@ -59,12 +50,15 @@ export class CreateCategoryUseCase {
       );
 
       if (isFailure) {
-        return this.buildError(error, 400);
+        return this.buildError({
+          message: error.message,
+          statusCode: 400,
+        });
       }
 
-      return createUseCaseSuccess<Category>(data);
+      return this.buildSuccess<Category>(data);
     } catch (error) {
-      logger({
+      this.logger({
         error,
         type: 'DefaultError',
       });

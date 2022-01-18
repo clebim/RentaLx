@@ -6,7 +6,7 @@ import {
   createUseCaseError,
   createUseCaseSuccess,
 } from '../../../../../helpers/domainResults/CreateUseCaseResults';
-import { IServiceError } from '../../../../../helpers/domainResults/interfaces';
+import { IUseCaseError } from '../../../../../helpers/domainResults/interfaces';
 import { Category } from '../../../infra/typeorm/entities/Category';
 import { IListCategoriesData } from '../../../interfaces/categories/IListCategoriesData';
 import { ListCategoriesUseCase } from '../../../useCases/listCategories/ListCategoriesUseCase';
@@ -89,7 +89,7 @@ describe('List Categories Controller', () => {
 
     const { res, next } = getMockRes();
 
-    const createCategoryError: IServiceError = {
+    const createCategoryError: IUseCaseError = {
       message: 'Error list category in database',
       statusCode: 400,
     };

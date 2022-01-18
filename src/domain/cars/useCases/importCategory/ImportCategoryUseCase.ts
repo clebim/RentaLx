@@ -3,14 +3,10 @@ import fs from 'fs';
 import { injectable, inject } from 'tsyringe';
 
 import {
-  createUseCaseError,
-  createUseCaseSuccess,
-} from '../../../../helpers/domainResults/CreateUseCaseResults';
-import {
   Either,
-  IServiceError,
+  IUseCaseError,
 } from '../../../../helpers/domainResults/interfaces';
-import { logger } from '../../../../helpers/logger';
+import { UseCaseBase } from '../../../../shared/base/UseCaseBase';
 import { ICategoriesRepository } from '../../infra/contracts/ICategoriesRepository';
 
 type IImportCategory = {
@@ -18,7 +14,7 @@ type IImportCategory = {
   description: string;
 };
 @injectable()
-export class ImportCategoryUseCase {
+export class ImportCategoryUseCase extends UseCaseBase {
   private parseFile: Parser;
   private categories: IImportCategory[];
 
@@ -26,6 +22,7 @@ export class ImportCategoryUseCase {
     @inject('CategoriesRepository')
     private repository: ICategoriesRepository,
   ) {
+    super();
     this.parseFile = parse();
     this.categories = [];
   }
@@ -41,10 +38,10 @@ export class ImportCategoryUseCase {
 
   async execute(
     file: Express.Multer.File,
-  ): Promise<Either<null, IServiceError>> {
+  ): Promise<Either<null, IUseCaseError>> {
     try {
       if (!file) {
-        return createUseCaseError({
+        return this.buildError({
           statusCode: 400,
           message: 'does not contain file',
         });
@@ -75,9 +72,9 @@ export class ImportCategoryUseCase {
         });
       });
 
-      return createUseCaseSuccess(null);
+      return this.buildSuccess(null);
     } catch (error) {
-      logger({
+      this.logger({
         error,
         type: 'DefaultError',
       });

@@ -6,7 +6,7 @@ import {
   createUseCaseError,
   createUseCaseSuccess,
 } from '../../../../../helpers/domainResults/CreateUseCaseResults';
-import { IServiceError } from '../../../../../helpers/domainResults/interfaces';
+import { IUseCaseError } from '../../../../../helpers/domainResults/interfaces';
 import { Category } from '../../../infra/typeorm/entities/Category';
 import { ICreateCategoryDTO } from '../../../interfaces/categories/ICreateCategory';
 import { CreateCategoryUseCase } from '../../../useCases/createCategory/CreateCategoryUseCase';
@@ -70,7 +70,7 @@ describe('Create Category Controller', () => {
 
     const { res, next } = getMockRes();
 
-    const createCategoryError: IServiceError = {
+    const createCategoryError: IUseCaseError = {
       message: 'Error inserting category in database',
       statusCode: 400,
     };

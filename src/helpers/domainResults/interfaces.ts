@@ -3,7 +3,7 @@ export type IRepositoryError = {
   repository: string;
 };
 
-export type IServiceError = {
+export type IUseCaseError = {
   statusCode: 400 | 404 | 409;
   message: string;
 };

@@ -6,7 +6,7 @@ import {
   createUseCaseError,
   createUseCaseSuccess,
 } from '../../../../../helpers/domainResults/CreateUseCaseResults';
-import { IServiceError } from '../../../../../helpers/domainResults/interfaces';
+import { IUseCaseError } from '../../../../../helpers/domainResults/interfaces';
 import { ICreateSessionDTO } from '../../../interfaces/session/ICreateSession';
 import { ICreateSessionSuccess } from '../../../interfaces/session/ICreateSessionSuccess';
 import { CreateSessionUseCase } from '../../../useCases/createSession/CreateSessionUseCase';
@@ -70,7 +70,7 @@ describe('Create Session Controller', () => {
 
     const { res, next } = getMockRes();
 
-    const createSessionError: IServiceError = {
+    const createSessionError: IUseCaseError = {
       message: 'Email or password incorrect!',
       statusCode: 400,
     };

@@ -1,47 +1,41 @@
 import { injectable, inject } from 'tsyringe';
 
 import {
-  createUseCaseError,
-  createUseCaseSuccess,
-} from '../../../../helpers/domainResults/CreateUseCaseResults';
-import {
   Either,
-  IServiceError,
+  IUseCaseError,
 } from '../../../../helpers/domainResults/interfaces';
-import { logger } from '../../../../helpers/logger';
+import { UseCaseBase } from '../../../../shared/base/UseCaseBase';
 import { ISpecificationsRepository } from '../../infra/contracts/ISpecificationsRepository';
 import { Specification } from '../../infra/typeorm/entities/Specification';
 import { ICreateSpecificationDTO } from '../../interfaces/specifications/ICreateSpecification';
 
 @injectable()
-export class CreateSpecificationUseCase {
+export class CreateSpecificationUseCase extends UseCaseBase {
   constructor(
     @inject('SpecificationsRepository')
     private repository: ISpecificationsRepository,
-  ) {}
-
-  private buildError(error, statusCode: 400 | 404 | 409) {
-    return createUseCaseError({
-      message: error.message,
-      statusCode,
-    });
+  ) {
+    super();
   }
 
   async execute(
     createCategoryData: ICreateSpecificationDTO,
-  ): Promise<Either<Specification, IServiceError>> {
+  ): Promise<Either<Specification, IUseCaseError>> {
     try {
       const { data, isFailure, error } = await this.repository.create(
         createCategoryData,
       );
 
       if (isFailure) {
-        return this.buildError(error, 400);
+        return this.buildError({
+          message: error.message,
+          statusCode: 400,
+        });
       }
 
-      return createUseCaseSuccess<Specification>(data);
+      return this.buildSuccess<Specification>(data);
     } catch (error) {
-      logger({
+      this.logger({
         error,
         type: 'DefaultError',
       });

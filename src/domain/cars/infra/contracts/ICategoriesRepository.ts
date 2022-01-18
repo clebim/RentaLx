@@ -13,5 +13,7 @@ export interface ICategoriesRepository {
   list(
     listCategoryFilters: IListCategoriesProps,
   ): Promise<Either<[Category[], number], IRepositoryError>>;
-  findByName(name: string): Promise<Either<Category, IRepositoryError>>;
+  findByName(
+    name: string,
+  ): Promise<Either<Category | undefined, IRepositoryError>>;
 }

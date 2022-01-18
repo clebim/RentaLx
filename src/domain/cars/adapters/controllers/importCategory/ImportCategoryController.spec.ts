@@ -6,7 +6,7 @@ import {
   createUseCaseError,
   createUseCaseSuccess,
 } from '../../../../../helpers/domainResults/CreateUseCaseResults';
-import { IServiceError } from '../../../../../helpers/domainResults/interfaces';
+import { IUseCaseError } from '../../../../../helpers/domainResults/interfaces';
 import { MockCsv } from '../../../../../shared/mocks/csv.mock';
 import { ImportCategoryUseCase } from '../../../useCases/importCategory/ImportCategoryUseCase';
 import { importCategoryController } from './ImportCategoryController';
@@ -73,7 +73,7 @@ describe('Import Category Controller', () => {
 
     const { res, next } = getMockRes();
 
-    const importCategoryError: IServiceError = {
+    const importCategoryError: IUseCaseError = {
       message: 'Any Error',
       statusCode: 400,
     };

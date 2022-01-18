@@ -1,7 +1,7 @@
 import AppConfig from '../../api/config/App';
 
 type ErrorProps = {
-  type: 'DatabaseError' | 'DefaultError';
+  type: 'DatabaseError' | 'DefaultError' | 'FatalError';
   error: Error;
 };
 
