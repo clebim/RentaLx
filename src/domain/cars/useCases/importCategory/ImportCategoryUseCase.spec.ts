@@ -24,7 +24,7 @@ const generateCvsData = (): string[] => {
   return auxArray;
 };
 
-jest.mock('../../infra/repositories/CategoriesRepository');
+jest.mock('../../infra/typeorm/repositories/CategoriesRepository');
 const repositoryMock = CategoriesRepository as jest.MockedClass<
   typeof CategoriesRepository
 >;

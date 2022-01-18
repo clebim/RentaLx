@@ -13,7 +13,7 @@ import { ListCategoriesUseCase } from './ListCategoriesUseCase';
 const repository = new CategoriesRepository();
 let listCategories: ListCategoriesUseCase;
 
-jest.mock('../../infra/repositories/CategoriesRepository');
+jest.mock('../../infra/typeorm/repositories/CategoriesRepository');
 const repositoryMock = CategoriesRepository as jest.MockedClass<
   typeof CategoriesRepository
 >;

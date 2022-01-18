@@ -14,7 +14,7 @@ const repository = new SpecificationsRepository();
 
 let createSpecification: CreateSpecificationUseCase;
 
-jest.mock('../../infra/repositories/SpeficicationsRepository');
+jest.mock('../../infra/typeorm/repositories/SpeficicationsRepository');
 const repositoryMock = SpecificationsRepository as jest.MockedClass<
   typeof SpecificationsRepository
 >;

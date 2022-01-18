@@ -8,7 +8,7 @@ import { CreateUserUseCase } from './CreateUserUseCase';
 
 const repository = new UsersRepository();
 
-jest.mock('../../infra/repositories/UsersRepository');
+jest.mock('../../infra/typeorm/repositories/UsersRepository');
 const repositoryMock = UsersRepository as jest.MockedClass<
   typeof UsersRepository
 >;

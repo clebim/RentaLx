@@ -10,7 +10,7 @@ const repository = new UsersRepository();
 
 let createSession: CreateSessionUseCase;
 
-jest.mock('../../infra/repositories/UsersRepository');
+jest.mock('../../infra/typeorm/repositories/UsersRepository');
 const repositoryMock = UsersRepository as jest.MockedClass<
   typeof UsersRepository
 >;
