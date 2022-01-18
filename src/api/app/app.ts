@@ -81,7 +81,7 @@ export default class App {
 
   private swagger(): void {
     this.express.use(
-      '/api-docs',
+      '/api/docs',
       swaggerUi.serve,
       swaggerUi.setup(swaggerConfig),
     );
