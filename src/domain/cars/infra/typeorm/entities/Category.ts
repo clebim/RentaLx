@@ -2,9 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
+import { Car } from './Car';
 
 @Entity('categories')
 export class Category {
@@ -22,4 +25,7 @@ export class Category {
 
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp', select: false })
   updatedAt: Date;
+
+  @OneToMany(() => Car, car => car.category)
+  cars?: Car[];
 }
