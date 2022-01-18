@@ -4,10 +4,10 @@ import swaggerUi from 'swagger-ui-express';
 
 import { closeConnection, startConnection } from '../../infra/database';
 import AppConfig from '../config/App';
+import { pathToTmpAvatar } from '../config/Multer';
 import { swaggerConfig } from '../docs';
 import Routes from '../routes';
 import '../../shared/container';
-import { pathToTmpAvatar } from '../config/Multer';
 
 export default class App {
   public express: express.Application;

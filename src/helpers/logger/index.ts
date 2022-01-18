@@ -10,9 +10,12 @@ export const logger = (data: ErrorProps) => {
     errorType: data.type,
     messageError: data.error.message,
     errorName: data.error.name,
-    dateTime: new Date(),
   };
   if (AppConfig.TEST !== true) {
-    console.log(`Error in server \n`, fullError);
+    console.log(
+      `[${new Date().toISOString()}]`,
+      `Error in server \n`,
+      fullError,
+    );
   }
 };
