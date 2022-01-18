@@ -1,30 +1,23 @@
 import { getRepository, Repository } from 'typeorm';
 
 import {
-  createRepositoryError,
-  createRepositorySuccess,
-} from '../../../../../helpers/domainResults/CreateRepositoryError';
-import {
   Either,
   IRepositoryError,
 } from '../../../../../helpers/domainResults/interfaces';
-import { logger } from '../../../../../helpers/logger';
+import { RepositoryBase } from '../../../../../shared/base/RepositoryBase';
 import { ICreateSpecificationDTO } from '../../../interfaces/specifications/ICreateSpecification';
 import { ISpecificationsRepository } from '../../contracts/ISpecificationsRepository';
 import { Specification } from '../entities/Specification';
 
-export class SpecificationsRepository implements ISpecificationsRepository {
+export class SpecificationsRepository
+  extends RepositoryBase
+  implements ISpecificationsRepository
+{
   private repository: Repository<Specification>;
 
   constructor() {
+    super('SpecificationsRepositoru');
     this.repository = getRepository(Specification);
-  }
-
-  private buildError(message: string) {
-    return createRepositoryError({
-      message,
-      repository: 'SpecificationRepository',
-    });
   }
 
   async create(
@@ -36,13 +29,12 @@ export class SpecificationsRepository implements ISpecificationsRepository {
       const specification = this.repository.create({ name, description });
 
       await this.repository.save(specification);
-      return createRepositorySuccess<Specification>(specification);
+      return this.buildSuccess<Specification>(specification);
     } catch (error) {
-      logger({
-        type: 'DatabaseError',
+      return this.buildError({
         error,
+        message: 'Error inserting category in database',
       });
-      return this.buildError('Error inserting category in database');
     }
   }
 }

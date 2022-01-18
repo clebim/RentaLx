@@ -1,30 +1,20 @@
 import { getRepository, Repository } from 'typeorm';
 
 import {
-  createRepositoryError,
-  createRepositorySuccess,
-} from '../../../../../helpers/domainResults/CreateRepositoryError';
-import {
   Either,
   IRepositoryError,
 } from '../../../../../helpers/domainResults/interfaces';
-import { logger } from '../../../../../helpers/logger';
+import { RepositoryBase } from '../../../../../shared/base/RepositoryBase';
 import { ICreateCarDTO } from '../../../interfaces/cars/ICreateCar';
 import { ICarsRepository } from '../../contracts/ICarsRepository';
 import { Car } from '../entities/Car';
 
-export class CarsRepository implements ICarsRepository {
+export class CarsRepository extends RepositoryBase implements ICarsRepository {
   private repository: Repository<Car>;
 
   constructor() {
+    super('CarsRepository');
     this.repository = getRepository(Car);
-  }
-
-  private buildError(message: string) {
-    return createRepositoryError({
-      message,
-      repository: 'CarsRepository',
-    });
   }
 
   async createOrSave(
@@ -35,13 +25,12 @@ export class CarsRepository implements ICarsRepository {
 
       await this.repository.save(car);
 
-      return createRepositorySuccess<Car>(car);
+      return this.buildSuccess<Car>(car);
     } catch (error) {
-      logger({
-        type: 'DatabaseError',
+      return this.buildError({
         error,
+        message: 'Error in create or save a car in database',
       });
-      return this.buildError('Error in create or save a car in database');
     }
   }
 
@@ -55,13 +44,12 @@ export class CarsRepository implements ICarsRepository {
         },
       });
 
-      return createRepositorySuccess<Car | undefined>(car);
+      return this.buildSuccess<Car | undefined>(car);
     } catch (error) {
-      logger({
-        type: 'DatabaseError',
+      return this.buildError({
         error,
+        message: 'Error in get car in database',
       });
-      return this.buildError('Error in get car in database');
     }
   }
 }

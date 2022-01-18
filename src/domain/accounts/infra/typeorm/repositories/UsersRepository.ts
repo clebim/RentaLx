@@ -1,35 +1,34 @@
 import { getRepository, Repository } from 'typeorm';
 
 import {
-  createRepositoryError,
-  createRepositorySuccess,
-} from '../../../../../helpers/domainResults/CreateRepositoryError';
-import {
   Either,
   IRepositoryError,
 } from '../../../../../helpers/domainResults/interfaces';
-import { logger } from '../../../../../helpers/logger';
+import { RepositoryBase } from '../../../../../shared/base/RepositoryBase';
 import { ICreateUserDTO } from '../../../interfaces/user/ICreateUser';
 import { IUsersRepository } from '../../contracts/IUsersRepository';
 import { User } from '../entities/User';
 
-export class UsersRepository implements IUsersRepository {
+export class UsersRepository
+  extends RepositoryBase
+  implements IUsersRepository
+{
   private repository: Repository<User>;
 
   constructor() {
+    super('UsersRepository');
     this.repository = getRepository(User);
   }
   async findById(id: string): Promise<Either<User, IRepositoryError>> {
     try {
       const user = await this.repository.findOne(id);
 
-      return createRepositorySuccess<User | undefined>(user);
+      return this.buildSuccess<User | undefined>(user);
     } catch (error) {
-      logger({
-        type: 'DatabaseError',
+      return this.buildError({
+        message: 'Error find a user in database',
         error,
       });
-      return this.buildError('Error find a user in database');
     }
   }
   async findByEmail(
@@ -56,21 +55,13 @@ export class UsersRepository implements IUsersRepository {
         select: selectArray,
       });
 
-      return createRepositorySuccess<User | undefined>(user);
+      return this.buildSuccess<User | undefined>(user);
     } catch (error) {
-      logger({
-        type: 'DatabaseError',
+      return this.buildError({
+        message: 'Error find a user in database',
         error,
       });
-      return this.buildError('Error find a user in database');
     }
-  }
-
-  private buildError(message: string) {
-    return createRepositoryError({
-      message,
-      repository: 'UserRepository',
-    });
   }
 
   async createOrSave(
@@ -81,13 +72,12 @@ export class UsersRepository implements IUsersRepository {
 
       await this.repository.save(user);
 
-      return createRepositorySuccess<User>(user);
+      return this.buildSuccess<User>(user);
     } catch (error) {
-      logger({
-        type: 'DatabaseError',
+      return this.buildError({
+        message: 'Error inserting a new user in database',
         error,
       });
-      return this.buildError('Error inserting a new user in database');
     }
   }
 }

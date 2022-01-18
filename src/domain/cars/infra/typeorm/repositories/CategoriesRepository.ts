@@ -1,31 +1,24 @@
 import { getRepository, Repository } from 'typeorm';
 
 import {
-  createRepositoryError,
-  createRepositorySuccess,
-} from '../../../../../helpers/domainResults/CreateRepositoryError';
-import {
   Either,
   IRepositoryError,
 } from '../../../../../helpers/domainResults/interfaces';
-import { logger } from '../../../../../helpers/logger';
+import { RepositoryBase } from '../../../../../shared/base/RepositoryBase';
 import { ICreateCategoryDTO } from '../../../interfaces/categories/ICreateCategory';
 import { IListCategoriesProps } from '../../../interfaces/categories/IListCategoriesProps';
 import { ICategoriesRepository } from '../../contracts/ICategoriesRepository';
 import { Category } from '../entities/Category';
 
-export class CategoriesRepository implements ICategoriesRepository {
+export class CategoriesRepository
+  extends RepositoryBase
+  implements ICategoriesRepository
+{
   private repository: Repository<Category>;
 
   constructor() {
+    super('CategoriesRepository');
     this.repository = getRepository(Category);
-  }
-
-  private buildError(message: string) {
-    return createRepositoryError({
-      message,
-      repository: 'CategoriesRepository',
-    });
   }
 
   async create(
@@ -41,13 +34,12 @@ export class CategoriesRepository implements ICategoriesRepository {
 
       await this.repository.save(category);
 
-      return createRepositorySuccess<Category>(category);
+      return this.buildSuccess<Category>(category);
     } catch (error) {
-      logger({
-        type: 'DatabaseError',
+      return this.buildError({
         error,
+        message: 'Error inserting category in database',
       });
-      return this.buildError('Error inserting category in database');
     }
   }
 
@@ -82,13 +74,12 @@ export class CategoriesRepository implements ICategoriesRepository {
 
       const responseQuery = await query.getManyAndCount();
 
-      return createRepositorySuccess<[Category[], number]>(responseQuery);
+      return this.buildSuccess<[Category[], number]>(responseQuery);
     } catch (error) {
-      logger({
-        type: 'DatabaseError',
+      return this.buildError({
         error,
+        message: 'Error list categories in database',
       });
-      return this.buildError('Error list categories in database');
     }
   }
 
@@ -100,13 +91,12 @@ export class CategoriesRepository implements ICategoriesRepository {
         },
       });
 
-      return createRepositorySuccess<Category>(category);
+      return this.buildSuccess<Category>(category);
     } catch (error) {
-      logger({
-        type: 'DatabaseError',
+      return this.buildError({
         error,
+        message: 'Error list categories by name in database',
       });
-      return this.buildError('Error list categories by name in database');
     }
   }
 }
