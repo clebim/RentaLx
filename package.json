@@ -12,7 +12,8 @@
     "migration:run:dev": "cross-env NODE_ENV=dev yarn run typeorm migration:run",
     "build": "rm -rf dist && tsc --build tsconfig.build.json",
     "test": "cross-env NODE_ENV=test HTTP_PORT=3333 jest --coverage --passWithNoTests --detectOpenHandles --runInBand",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "seed:run:dev": "cross-env NODE_ENV=dev ts-node-dev ./src/infra/database/seeds/index.ts"  
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

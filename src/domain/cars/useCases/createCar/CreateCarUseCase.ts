@@ -38,7 +38,7 @@ export class CreateCarUseCase extends UseCaseBase {
     try {
       const { licensePlate } = createCarProps;
 
-      const carExists = this.carAlreadyExists(licensePlate);
+      const carExists = await this.carAlreadyExists(licensePlate);
 
       if (carExists) {
         return this.buildError({

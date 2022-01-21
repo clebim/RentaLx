@@ -1,7 +1,7 @@
 import {
   createRepositoryError,
   createRepositorySuccess,
-} from '../../helpers/domainResults/CreateRepositoryError';
+} from '../../helpers/domainResults/CreateRepositoryResults';
 import {
   Either,
   IRepositoryError,

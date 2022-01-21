@@ -1,7 +1,7 @@
 import faker from 'faker';
 import { resolve } from 'path';
 
-import { createRepositorySuccess } from '../../../../helpers/domainResults/CreateRepositoryError';
+import { createRepositorySuccess } from '../../../../helpers/domainResults/CreateRepositoryResults';
 import { MockCsv } from '../../../../shared/mocks/csv.mock';
 import { Category } from '../../infra/typeorm/entities/Category';
 import { CategoriesRepository } from '../../infra/typeorm/repositories/CategoriesRepository';

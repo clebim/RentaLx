@@ -3,7 +3,7 @@ import faker from 'faker';
 import {
   createRepositoryError,
   createRepositorySuccess,
-} from '../../../../helpers/domainResults/CreateRepositoryError';
+} from '../../../../helpers/domainResults/CreateRepositoryResults';
 import { IRepositoryError } from '../../../../helpers/domainResults/interfaces';
 import { Specification } from '../../infra/typeorm/entities/Specification';
 import { SpecificationsRepository } from '../../infra/typeorm/repositories/SpeficicationsRepository';

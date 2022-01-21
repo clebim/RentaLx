@@ -1,7 +1,7 @@
 import { hashSync } from 'bcrypt';
 import faker from 'faker';
 
-import { createRepositorySuccess } from '../../../../helpers/domainResults/CreateRepositoryError';
+import { createRepositorySuccess } from '../../../../helpers/domainResults/CreateRepositoryResults';
 import { User } from '../../infra/typeorm/entities/User';
 import { UsersRepository } from '../../infra/typeorm/repositories/UsersRepository';
 import { CreateSessionUseCase } from './CreateSessionUseCase';
