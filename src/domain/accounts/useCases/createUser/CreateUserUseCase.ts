@@ -18,7 +18,7 @@ export class CreateUserUseCase extends UseCaseBase {
     super();
   }
 
-  async userAlreadyExists(email: string): Promise<boolean> {
+  private async userAlreadyExists(email: string): Promise<boolean> {
     try {
       const { data } = await this.repository.findByEmail(email);
 
