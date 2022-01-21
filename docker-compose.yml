@@ -25,6 +25,7 @@ services:
 
   app:  
     build: .
+    command: chmod +x ./usr/app/entrypoint.sh
     container_name: rentalx
     depends_on:
       - database
