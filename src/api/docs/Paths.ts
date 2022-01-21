@@ -1,3 +1,4 @@
+import { carPaths } from './paths/car/CarPaths';
 import { categoryImportsPaths } from './paths/category/CategoryImportPaths';
 import { categoryPaths } from './paths/category/CategoryPaths';
 import { sessionPaths } from './paths/session/SessionPaths';
@@ -10,4 +11,5 @@ export default {
   '/api/categories': categoryPaths,
   '/api/categories/import': categoryImportsPaths,
   '/api/specifications': specificationPaths,
+  '/api/cars': carPaths,
 };

@@ -1,32 +1,23 @@
 import { IPathProps } from '../../index';
 
-export const userPaths: IPathProps = {
+export const carPaths: IPathProps = {
   post: {
-    tags: ['User'],
-    description: 'Create a new user',
-    summary: 'Create a user',
-    requestBody: {
-      content: {
-        'application/json': {
-          schema: {
-            $ref: '#/schemas/createUser',
-          },
-        },
-      },
-    },
+    tags: ['Car'],
+    description: 'Route to create a new car in platform',
+    summary: 'Create a new car in platform',
     responses: {
       201: {
         description: 'Created with success',
         content: {
           'application/json': {
             schema: {
-              $ref: '#/schemas/createUserResponse',
+              $ref: '#/schemas/createCarResponse',
             },
           },
         },
       },
       400: {
-        description: 'Error in create user',
+        description: 'Error in create car',
         content: {
           'application/json': {
             schema: {
@@ -36,7 +27,7 @@ export const userPaths: IPathProps = {
         },
       },
       422: {
-        description: 'validations error in create user',
+        description: 'validations error in create car',
         content: {
           'application/json': {
             schema: {

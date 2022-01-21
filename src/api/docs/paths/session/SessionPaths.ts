@@ -41,6 +41,16 @@ export const sessionPaths: IPathProps = {
           },
         },
       },
+      422: {
+        description: 'validations error in create session',
+        content: {
+          'application/json': {
+            schema: {
+              $ref: '#/schemas/validationError',
+            },
+          },
+        },
+      },
       500: {
         description: 'Internal server error',
         content: {
