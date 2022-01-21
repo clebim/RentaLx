@@ -13,7 +13,7 @@
     "build": "rm -rf dist && tsc --build tsconfig.build.json",
     "test": "cross-env NODE_ENV=test HTTP_PORT=3333 jest --coverage --passWithNoTests --detectOpenHandles --runInBand",
     "prepare": "husky install",
-    "seed:run:dev": "cross-env NODE_ENV=dev ts-node-dev ./src/infra/database/seeds/index.ts"  
+    "seed:run:dev": "cross-env NODE_ENV=dev ts-node-dev ./src/infra/database/seeds/index.ts"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -21,6 +21,7 @@
     "csv-parse": "^5.0.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "joi": "^17.5.0",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.4",
     "pg": "^8.7.1",

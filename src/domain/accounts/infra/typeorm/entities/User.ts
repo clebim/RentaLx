@@ -6,8 +6,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   BeforeInsert,
-  BeforeUpdate,
   AfterLoad,
+  BeforeUpdate,
 } from 'typeorm';
 
 import AppConfig from '../../../../../api/config/App';
@@ -23,7 +23,7 @@ export class User {
   @Column({ type: 'varchar', unique: true })
   email: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', select: false })
   password: string;
 
   @Column({ type: 'varchar', name: 'driver_license' })

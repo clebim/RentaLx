@@ -6,7 +6,7 @@ import { startConnection, closeConnection } from '../index';
 
 const directory = resolve(__dirname);
 
-const isDirectory = path => statSync(path).isFile();
+const isFile = path => statSync(path).isFile();
 
 const fileExtension = AppConfig.DEV || AppConfig.TEST ? '.ts' : '.js';
 
@@ -22,7 +22,7 @@ const concat = (array, dir: string) => {
 const runSeeds = async () => {
   const seeds = readdirSync(directory)
     .map(file => join(directory, file))
-    .filter(isDirectory)
+    .filter(isFile)
     .filter(file => file.endsWith(`.seed${fileExtension}`))
     .reduce(concat, []);
 
@@ -36,8 +36,7 @@ const runSeeds = async () => {
         resolve(true);
       }
 
-      // eslint-disable-next-line @typescript-eslint/ban-types
-      seeds.forEach(async (fun: Function) => {
+      seeds.forEach(async fun => {
         await fun();
         count += 1;
 

@@ -8,6 +8,7 @@ import { pathToTmpAvatar } from '../config/Multer';
 import { swaggerConfig } from '../docs';
 import Routes from '../routes';
 import '../../shared/container';
+import { HttpError } from '../../errors/HttpError';
 
 export default class App {
   public express: express.Application;
@@ -27,6 +28,20 @@ export default class App {
     this.express.use(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       (err: Error, req: Request, res: Response, next: NextFunction) => {
+        const exception = AppConfig.PROD ? undefined : err;
+
+        if (err instanceof HttpError) {
+          const { code } = err;
+          const report = AppConfig.PROD ? undefined : err.report;
+          const { message } = err;
+
+          return res.status(Number(err.statusCode)).json({
+            code,
+            message,
+            report,
+            exception,
+          });
+        }
         console.log('error', err);
 
         return res.status(500).json({
