@@ -68,7 +68,7 @@ export class CreateSessionUseCase extends UseCaseBase {
     } catch (error) {
       this.logger({
         error,
-        type: 'DefaultError',
+        type: 'FatalError',
       });
       return error;
     }

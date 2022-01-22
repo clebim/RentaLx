@@ -38,7 +38,7 @@ export class UpdateUserAvatarUseCase extends UseCaseBase {
     } catch (error) {
       this.logger({
         error,
-        type: 'DefaultError',
+        type: 'FatalError',
       });
       return error;
     }

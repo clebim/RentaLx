@@ -57,7 +57,10 @@ export class CreateCarUseCase extends UseCaseBase {
 
       return this.buildSuccess<Car>(data);
     } catch (error) {
-      this.logger(error);
+      this.logger({
+        error,
+        type: 'FatalError',
+      });
       return error;
     }
   }

@@ -1,4 +1,4 @@
-export interface IListCategoriesProps {
+export interface IListCategoriesDTO {
   name?: string;
   description?: string;
   page?: number;

@@ -3,7 +3,7 @@ import {
   IRepositoryError,
 } from '../../../../helpers/domainResults/interfaces';
 import { ICreateCategoryDTO } from '../../interfaces/categories/ICreateCategory';
-import { IListCategoriesProps } from '../../interfaces/categories/IListCategoriesProps';
+import { IListCategoriesDTO } from '../../interfaces/categories/IListCategoriesDTO';
 import { Category } from '../typeorm/entities/Category';
 
 export interface ICategoriesRepository {
@@ -11,7 +11,7 @@ export interface ICategoriesRepository {
     createCategoryData: ICreateCategoryDTO,
   ): Promise<Either<Category, IRepositoryError>>;
   list(
-    listCategoryFilters: IListCategoriesProps,
+    listCategoryFilters: IListCategoriesDTO,
   ): Promise<Either<[Category[], number], IRepositoryError>>;
   findByName(
     name: string,

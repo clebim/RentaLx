@@ -7,7 +7,7 @@ import {
 import { IRepositoryError } from '../../../../helpers/domainResults/interfaces';
 import { Category } from '../../infra/typeorm/entities/Category';
 import { CategoriesRepository } from '../../infra/typeorm/repositories/CategoriesRepository';
-import { IListCategoriesProps } from '../../interfaces/categories/IListCategoriesProps';
+import { IListCategoriesDTO } from '../../interfaces/categories/IListCategories';
 import { ListCategoriesUseCase } from './ListCategoriesUseCase';
 
 const repository = new CategoriesRepository();
@@ -54,7 +54,7 @@ describe('List Categories', () => {
     const createSuccess =
       createRepositorySuccess<[Category[], number]>(responseRepository);
 
-    const listCategoriesProps: IListCategoriesProps = {
+    const listCategoriesProps: IListCategoriesDTO = {
       order: 'ASC',
       page: faker.datatype.number(),
       totalItemsPerPage: faker.datatype.number(),
@@ -88,7 +88,7 @@ describe('List Categories', () => {
   });
 
   it('should not able to list category because repository fatal error', async () => {
-    repositoryMock.prototype.create.mockRejectedValue(
+    repositoryMock.prototype.list.mockRejectedValue(
       new Error('fatal error in database'),
     );
 

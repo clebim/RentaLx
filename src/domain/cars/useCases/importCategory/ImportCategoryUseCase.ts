@@ -76,7 +76,7 @@ export class ImportCategoryUseCase extends UseCaseBase {
     } catch (error) {
       this.logger({
         error,
-        type: 'DefaultError',
+        type: 'FatalError',
       });
       return error;
     }

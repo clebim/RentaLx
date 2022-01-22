@@ -60,7 +60,7 @@ export class CreateCategoryUseCase extends UseCaseBase {
     } catch (error) {
       this.logger({
         error,
-        type: 'DefaultError',
+        type: 'FatalError',
       });
       return error;
     }

@@ -6,8 +6,8 @@ import {
 } from '../../../../helpers/domainResults/interfaces';
 import { UseCaseBase } from '../../../../shared/base/UseCaseBase';
 import { ICategoriesRepository } from '../../infra/contracts/ICategoriesRepository';
+import { IListCategoriesDTO } from '../../interfaces/categories/IListCategories';
 import { IListCategoriesData } from '../../interfaces/categories/IListCategoriesData';
-import { IListCategoriesProps } from '../../interfaces/categories/IListCategoriesProps';
 
 @injectable()
 export class ListCategoriesUseCase extends UseCaseBase {
@@ -19,7 +19,7 @@ export class ListCategoriesUseCase extends UseCaseBase {
   }
 
   async execute(
-    listCategoriesProps: IListCategoriesProps,
+    listCategoriesProps: IListCategoriesDTO,
   ): Promise<Either<IListCategoriesData, IUseCaseError>> {
     try {
       const { order, page, totalItemsPerPage } = listCategoriesProps;
@@ -55,7 +55,7 @@ export class ListCategoriesUseCase extends UseCaseBase {
     } catch (error) {
       this.logger({
         error,
-        type: 'DefaultError',
+        type: 'FatalError',
       });
       return error;
     }

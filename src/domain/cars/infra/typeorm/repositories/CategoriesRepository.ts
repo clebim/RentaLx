@@ -6,7 +6,7 @@ import {
 } from '../../../../../helpers/domainResults/interfaces';
 import { RepositoryBase } from '../../../../../shared/base/RepositoryBase';
 import { ICreateCategoryDTO } from '../../../interfaces/categories/ICreateCategory';
-import { IListCategoriesProps } from '../../../interfaces/categories/IListCategoriesProps';
+import { IListCategoriesDTO } from '../../../interfaces/categories/IListCategories';
 import { ICategoriesRepository } from '../../contracts/ICategoriesRepository';
 import { Category } from '../entities/Category';
 
@@ -44,7 +44,7 @@ export class CategoriesRepository
   }
 
   async list(
-    listCategoriesProps: IListCategoriesProps,
+    listCategoriesProps: IListCategoriesDTO,
   ): Promise<Either<[Category[], number], IRepositoryError>> {
     const { name, description, order, page, totalItemsPerPage } =
       listCategoriesProps;

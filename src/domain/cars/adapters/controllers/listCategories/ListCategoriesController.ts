@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import { IListCategoriesProps } from '../../../interfaces/categories/IListCategoriesProps';
+import { IListCategoriesDTO } from '../../../interfaces/categories/IListCategories';
 import { ListCategoriesUseCase } from '../../../useCases/listCategories/ListCategoriesUseCase';
 
 export const listCategoriesController = async (
@@ -12,7 +12,7 @@ export const listCategoriesController = async (
   const listCategoriesUseCase = container.resolve(ListCategoriesUseCase);
 
   const { name, description, totalItemsPerPage, page, order } =
-    request.query as IListCategoriesProps;
+    request.query as IListCategoriesDTO;
 
   try {
     const { data, isFailure, error } = await listCategoriesUseCase.execute({
@@ -27,9 +27,7 @@ export const listCategoriesController = async (
       return response.status(error.statusCode).json({ message: error.message });
     }
 
-    return response.status(200).json({
-      categories: data,
-    });
+    return response.status(200).json(data);
   } catch (error) {
     return next(error);
   }

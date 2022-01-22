@@ -6,6 +6,7 @@ import {
 } from '../../../../../helpers/domainResults/interfaces';
 import { RepositoryBase } from '../../../../../shared/base/RepositoryBase';
 import { ICreateCarDTO } from '../../../interfaces/cars/ICreateCar';
+import { IListCarsDTO } from '../../../interfaces/cars/IListCars';
 import { ICarsRepository } from '../../contracts/ICarsRepository';
 import { Car } from '../entities/Car';
 
@@ -49,6 +50,70 @@ export class CarsRepository extends RepositoryBase implements ICarsRepository {
       return this.buildError({
         error,
         message: 'Error in get car in database',
+      });
+    }
+  }
+
+  async list(
+    listCarsProps: IListCarsDTO,
+  ): Promise<Either<[Car[], number], IRepositoryError>> {
+    const {
+      available,
+      totalItemsPerPage,
+      categoryId,
+      brand,
+      maxDailyRate,
+      minDailyRate,
+      name,
+      order,
+      page,
+      orderBy,
+    } = listCarsProps;
+
+    try {
+      const query = this.repository
+        .createQueryBuilder('cars')
+        .where('category.id is not null');
+
+      if (name) {
+        query.andWhere('cars.name LIKE :name', { name: `%${name}%` });
+      }
+
+      if (available) {
+        query.andWhere('cars.available = :available', { available });
+      }
+
+      if (categoryId) {
+        query.andWhere('cars.categoryId = :categoryId', { categoryId });
+      }
+
+      if (brand) {
+        query.andWhere('cars.brand LIKE :brand', { brand: `%${brand}%` });
+      }
+
+      if (minDailyRate) {
+        query.andWhere('cars.dailyRate >= :minDailyRate', { minDailyRate });
+      }
+
+      if (maxDailyRate) {
+        query.andWhere('cars.dailyRate <= :maxDailyRate', { maxDailyRate });
+      }
+
+      if (order && orderBy) {
+        query.orderBy(`cars.${orderBy}`, order);
+      }
+
+      if (page && totalItemsPerPage) {
+        query.skip((page - 1) * totalItemsPerPage).take(totalItemsPerPage);
+      }
+
+      const responseQuery = await query.getManyAndCount();
+
+      return this.buildSuccess<[Car[], number]>(responseQuery);
+    } catch (error) {
+      return this.buildError({
+        error,
+        message: 'Error in get list cars in database',
       });
     }
   }
