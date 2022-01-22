@@ -1,6 +1,7 @@
 import multer from 'multer';
 
 import { multerConfig } from '../../api/config/Multer';
+import { ensureAdmin } from '../../api/middlewares/EnsureAdmin';
 import { ensureAuthenticated } from '../../api/middlewares/EnsureAuthenticated';
 import {
   validateBody,
@@ -8,10 +9,12 @@ import {
   validateQuery,
 } from '../../api/middlewares/validators';
 import { IRouteProps } from '../../api/routes';
+import { createCarController } from './adapters/controllers/createCar/CreateCarController';
 import { createCategoryController } from './adapters/controllers/createCategory/CreateCategoryController';
 import { createSpecificationController } from './adapters/controllers/createSpecification/CreateSpecificationController';
 import { importCategoryController } from './adapters/controllers/importCategory/ImportCategoryController';
 import { listCategoriesController } from './adapters/controllers/listCategories/ListCategoriesController';
+import { createCarBodySchemaValidator } from './external/validators/CreateCarValidator';
 import { createCategoryBodySchemaValidator } from './external/validators/CreateCategoryValidator';
 import { createSpecificationBodySchemaValidator } from './external/validators/CreateSpecificationValidator';
 import { importCategorySchemaValidator } from './external/validators/ImportCategoryValidator';
@@ -55,6 +58,16 @@ const routes: IRouteProps[] = [
       ensureAuthenticated,
       validateBody(createSpecificationBodySchemaValidator),
       createSpecificationController,
+    ],
+  },
+  {
+    method: 'post',
+    path: '/cars',
+    handlers: [
+      ensureAuthenticated,
+      ensureAdmin,
+      validateBody(createCarBodySchemaValidator),
+      createCarController,
     ],
   },
 ];

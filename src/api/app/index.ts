@@ -2,13 +2,13 @@ import express, { NextFunction, Request, Response } from 'express';
 import http from 'http';
 import swaggerUi from 'swagger-ui-express';
 
+import { HttpError } from '../../errors/HttpError';
 import { closeConnection, startConnection } from '../../infra/database';
 import AppConfig from '../config/App';
 import { pathToTmpAvatar } from '../config/Multer';
 import { swaggerConfig } from '../docs';
 import Routes from '../routes';
 import '../../shared/container';
-import { HttpError } from '../../errors/HttpError';
 
 export default class App {
   public express: express.Application;
@@ -28,8 +28,6 @@ export default class App {
     this.express.use(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       (err: Error, req: Request, res: Response, next: NextFunction) => {
-        const exception = AppConfig.PROD ? undefined : err;
-
         if (err instanceof HttpError) {
           const { code } = err;
           const report = AppConfig.PROD ? undefined : err.report;
@@ -39,7 +37,6 @@ export default class App {
             code,
             message,
             report,
-            exception,
           });
         }
         console.log('error', err);
