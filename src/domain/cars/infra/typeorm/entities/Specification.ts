@@ -2,9 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
+import { Car } from './Car';
 
 @Entity('specifications')
 export class Specification {
@@ -22,4 +25,7 @@ export class Specification {
 
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp', select: false })
   updatedAt: Date;
+
+  @ManyToMany(() => Car, car => car.specifications)
+  cars: Car[];
 }

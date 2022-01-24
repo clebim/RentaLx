@@ -35,16 +35,17 @@ describe('Create Specification Controller', () => {
 
     const { res, next } = getMockRes();
 
-    const createCategorySuccess: Specification = {
+    const createSpecificationSuccess: Specification = {
       id: faker.datatype.uuid(),
       name: faker.datatype.string(),
+      cars: [],
       description: faker.datatype.string(),
       createdAt: faker.datatype.datetime(),
       updatedAt: faker.datatype.datetime(),
     };
 
     const serviceSucess = createUseCaseSuccess<Specification>(
-      createCategorySuccess,
+      createSpecificationSuccess,
     );
 
     createSpecificationMock.prototype.execute.mockResolvedValue(serviceSucess);
@@ -58,7 +59,7 @@ describe('Create Specification Controller', () => {
     expect(res.status).toBeCalledTimes(1);
     expect(res.status).toBeCalledWith(201);
     expect(res.json).toBeCalledTimes(1);
-    expect(res.json).toBeCalledWith(createCategorySuccess);
+    expect(res.json).toBeCalledWith(createSpecificationSuccess);
     expect(next).toBeCalledTimes(0);
   });
 

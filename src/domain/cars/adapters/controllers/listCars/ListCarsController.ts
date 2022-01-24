@@ -17,11 +17,13 @@ export const listCarsController = async (
   try {
     const { data, isFailure, error } = await listCarsUseCase.execute({
       ...request.query,
-      minDailyRate: Number(minDailyRate),
-      maxDailyRate: Number(maxDailyRate),
-      available: Boolean(available),
-      page: Number(page),
-      totalItemsPerPage: Number(totalItemsPerPage),
+      minDailyRate: minDailyRate ? Number(minDailyRate) : undefined,
+      maxDailyRate: maxDailyRate ? Number(maxDailyRate) : undefined,
+      available: available ? Boolean(available) : undefined,
+      page: page ? Number(page) : page,
+      totalItemsPerPage: totalItemsPerPage
+        ? Number(totalItemsPerPage)
+        : undefined,
     });
 
     if (isFailure) {

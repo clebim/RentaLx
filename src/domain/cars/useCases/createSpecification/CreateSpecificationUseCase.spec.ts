@@ -34,6 +34,7 @@ describe('Create Specification', () => {
     const repositoryData = {
       id: faker.datatype.uuid(),
       name: createUser.name,
+      cars: [],
       description: createUser.description,
       createdAt: faker.datatype.datetime(),
       updatedAt: faker.datatype.datetime(),

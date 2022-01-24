@@ -18,8 +18,10 @@ export const listCategoriesController = async (
     const { data, isFailure, error } = await listCategoriesUseCase.execute({
       name,
       description,
-      totalItemsPerPage: Number(totalItemsPerPage),
-      page: Number(page),
+      page: page ? Number(page) : undefined,
+      totalItemsPerPage: totalItemsPerPage
+        ? Number(totalItemsPerPage)
+        : undefined,
       order,
     });
 
