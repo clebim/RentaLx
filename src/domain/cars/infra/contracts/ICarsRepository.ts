@@ -8,7 +8,7 @@ import { Car } from '../typeorm/entities/Car';
 
 export interface ICarsRepository {
   createOrSave(
-    createCarProps: ICreateCarDTO,
+    createCarProps: ICreateCarDTO | Car,
   ): Promise<Either<Car, IRepositoryError>>;
   findByLicensePlate(
     licensePlate: string,
@@ -16,4 +16,5 @@ export interface ICarsRepository {
   list(
     listCarsProps: IListCarsDTO,
   ): Promise<Either<[Car[], number], IRepositoryError>>;
+  findById(id: string): Promise<Either<Car | undefined, IRepositoryError>>;
 }

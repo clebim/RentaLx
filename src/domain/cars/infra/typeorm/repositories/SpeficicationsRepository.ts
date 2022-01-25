@@ -20,6 +20,21 @@ export class SpecificationsRepository
     this.repository = getRepository(Specification);
   }
 
+  async findByIds(
+    ids: string[],
+  ): Promise<Either<Specification[], IRepositoryError>> {
+    try {
+      const specifications = await this.repository.findByIds(ids);
+
+      return this.buildSuccess<Specification[]>(specifications);
+    } catch (error) {
+      return this.buildError({
+        error,
+        message: 'Error list specifications by ids',
+      });
+    }
+  }
+
   async create(
     createSpecificationData: ICreateSpecificationDTO,
   ): Promise<Either<Specification, IRepositoryError>> {

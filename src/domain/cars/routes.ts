@@ -6,18 +6,26 @@ import { ensureAuthenticated } from '../../api/middlewares/EnsureAuthenticated';
 import {
   validateBody,
   validateFile,
+  validateParams,
   validateQuery,
 } from '../../api/middlewares/validators';
 import { IRouteProps } from '../../api/routes';
 import { createCarController } from './adapters/controllers/createCar/CreateCarController';
+import { CreateCarSpecificationController } from './adapters/controllers/createCarSpecification/CreateCarSpecificationController';
 import { createCategoryController } from './adapters/controllers/createCategory/CreateCategoryController';
 import { createSpecificationController } from './adapters/controllers/createSpecification/CreateSpecificationController';
 import { importCategoryController } from './adapters/controllers/importCategory/ImportCategoryController';
+import { listCarsController } from './adapters/controllers/listCars/ListCarsController';
 import { listCategoriesController } from './adapters/controllers/listCategories/ListCategoriesController';
+import {
+  createCarSpecificationsBodySchemaValidator,
+  createCarSpecificationsParamsSchemaValidator,
+} from './external/validators/CreateCarSpecificationValidator';
 import { createCarBodySchemaValidator } from './external/validators/CreateCarValidator';
 import { createCategoryBodySchemaValidator } from './external/validators/CreateCategoryValidator';
 import { createSpecificationBodySchemaValidator } from './external/validators/CreateSpecificationValidator';
 import { importCategorySchemaValidator } from './external/validators/ImportCategoryValidator';
+import { ListCarsQuerySchemaValidator } from './external/validators/ListCarsValidator';
 import { ListCategoryQuerySchemaValidator } from './external/validators/ListCategoryValidator';
 
 const uploadMulter = multer(multerConfig('file'));
@@ -56,6 +64,7 @@ const routes: IRouteProps[] = [
     path: '/specifications',
     handlers: [
       ensureAuthenticated,
+      ensureAdmin,
       validateBody(createSpecificationBodySchemaValidator),
       createSpecificationController,
     ],
@@ -68,6 +77,26 @@ const routes: IRouteProps[] = [
       ensureAdmin,
       validateBody(createCarBodySchemaValidator),
       createCarController,
+    ],
+  },
+  {
+    method: 'get',
+    path: '/cars',
+    handlers: [
+      ensureAuthenticated,
+      validateQuery(ListCarsQuerySchemaValidator),
+      listCarsController,
+    ],
+  },
+  {
+    method: 'post',
+    path: '/cars/specifications/:id',
+    handlers: [
+      ensureAuthenticated,
+      ensureAdmin,
+      validateParams(createCarSpecificationsParamsSchemaValidator),
+      validateBody(createCarSpecificationsBodySchemaValidator),
+      CreateCarSpecificationController,
     ],
   },
 ];

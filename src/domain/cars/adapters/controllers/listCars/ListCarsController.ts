@@ -19,7 +19,7 @@ export const listCarsController = async (
       ...request.query,
       minDailyRate: minDailyRate ? Number(minDailyRate) : undefined,
       maxDailyRate: maxDailyRate ? Number(maxDailyRate) : undefined,
-      available: available ? Boolean(available) : undefined,
+      available,
       page: page ? Number(page) : page,
       totalItemsPerPage: totalItemsPerPage
         ? Number(totalItemsPerPage)

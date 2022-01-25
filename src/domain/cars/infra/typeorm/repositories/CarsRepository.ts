@@ -18,8 +18,21 @@ export class CarsRepository extends RepositoryBase implements ICarsRepository {
     this.repository = getRepository(Car);
   }
 
+  async findById(id: string): Promise<Either<Car, IRepositoryError>> {
+    try {
+      const car = await this.repository.findOne(id);
+
+      return this.buildSuccess<Car | undefined>(car);
+    } catch (error) {
+      return this.buildError({
+        error,
+        message: 'Error in get car in database',
+      });
+    }
+  }
+
   async createOrSave(
-    createCarProps: ICreateCarDTO,
+    createCarProps: ICreateCarDTO | Car,
   ): Promise<Either<Car, IRepositoryError>> {
     try {
       const car = this.repository.create(createCarProps);
@@ -73,7 +86,7 @@ export class CarsRepository extends RepositoryBase implements ICarsRepository {
     try {
       const query = this.repository
         .createQueryBuilder('cars')
-        .where('category.id is not null');
+        .where('cars.categoryId is not null');
 
       if (name) {
         query.andWhere('cars.name LIKE :name', { name: `%${name}%` });
@@ -111,6 +124,7 @@ export class CarsRepository extends RepositoryBase implements ICarsRepository {
 
       return this.buildSuccess<[Car[], number]>(responseQuery);
     } catch (error) {
+      console.log(error);
       return this.buildError({
         error,
         message: 'Error in get list cars in database',
