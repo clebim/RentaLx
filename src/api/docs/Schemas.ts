@@ -2,6 +2,11 @@ import {
   createCarResponseSchema,
   createCarSchema,
 } from './schemas/car/createCarSchema';
+import {
+  createCarSpecificationResponseSchema,
+  createCarSpecificationSchema,
+} from './schemas/car/createCarSpecificationSchema';
+import { listCarsResponseSchema } from './schemas/car/ListCarsSchema';
 import { categoryImportSchema } from './schemas/category/CategoryImportFileSchema';
 import {
   createCategoryResponseSchema,
@@ -40,4 +45,7 @@ export default {
   createUserResponse: createUserResponseSchema,
   createCar: createCarSchema,
   createCarResponse: createCarResponseSchema,
+  listCarsResponse: listCarsResponseSchema,
+  createCarSpecification: createCarSpecificationSchema,
+  createCarSpecificationResponse: createCarSpecificationResponseSchema,
 };
