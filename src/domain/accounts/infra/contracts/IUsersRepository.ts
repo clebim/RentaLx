@@ -7,7 +7,7 @@ import { User } from '../typeorm/entities/User';
 
 export interface IUsersRepository {
   createOrSave(
-    createUserData: ICreateUserDTO,
+    createUserData: ICreateUserDTO | User,
   ): Promise<Either<User, IRepositoryError>>;
   findByEmail(
     email: string,

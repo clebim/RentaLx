@@ -62,7 +62,7 @@ export class UsersRepository extends Repository implements IUsersRepository {
   }
 
   async createOrSave(
-    createUserData: ICreateUserDTO,
+    createUserData: ICreateUserDTO | User,
   ): Promise<Either<User, IRepositoryError>> {
     try {
       const user = this.repository.create(createUserData);

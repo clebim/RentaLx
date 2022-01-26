@@ -2,8 +2,10 @@ node_modules
 yarn-error.log
 tmp/files/*
 tmp/avatars/*
+tmp/cars/*
 !tmp/files/.gitkeep
 !tmp/avatars/.gitkeep
+!tmp/cars/.gitkeep
 dist
 target
 env/*

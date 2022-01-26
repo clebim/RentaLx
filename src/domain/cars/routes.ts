@@ -17,6 +17,7 @@ import { createSpecificationController } from './adapters/controllers/createSpec
 import { importCategoryController } from './adapters/controllers/importCategory/ImportCategoryController';
 import { listCarsController } from './adapters/controllers/listCars/ListCarsController';
 import { listCategoriesController } from './adapters/controllers/listCategories/ListCategoriesController';
+import { uploadCarImagesController } from './adapters/controllers/uploadCarImages/UploadCarImagesController';
 import {
   createCarSpecificationsBodySchemaValidator,
   createCarSpecificationsParamsSchemaValidator,
@@ -29,6 +30,7 @@ import { ListCarsQuerySchemaValidator } from './external/validators/ListCarsVali
 import { ListCategoryQuerySchemaValidator } from './external/validators/ListCategoryValidator';
 
 const uploadMulter = multer(multerConfig('file'));
+const uploadCarMulter = multer(multerConfig('carImage'));
 
 const routes: IRouteProps[] = [
   {
@@ -97,6 +99,16 @@ const routes: IRouteProps[] = [
       validateParams(createCarSpecificationsParamsSchemaValidator),
       validateBody(createCarSpecificationsBodySchemaValidator),
       CreateCarSpecificationController,
+    ],
+  },
+  {
+    method: 'post',
+    path: '/cars/images/:id',
+    handlers: [
+      ensureAuthenticated,
+      ensureAdmin,
+      uploadCarMulter.array('images'),
+      uploadCarImagesController,
     ],
   },
 ];

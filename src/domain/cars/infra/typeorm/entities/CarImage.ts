@@ -15,7 +15,7 @@ export class CarImage {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', length: 36 })
+  @Column({ type: 'uuid', name: 'car_id' })
   carId: string;
 
   @Column({ type: 'varchar', name: 'image_name' })

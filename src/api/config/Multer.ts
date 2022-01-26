@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import multer, { Options } from 'multer';
 import { resolve } from 'path';
 
-type ContextFolder = 'file' | 'avatar';
+type ContextFolder = 'file' | 'avatar' | 'carImage';
 
 export const pathToTmpFile = resolve(
   __dirname,
@@ -22,9 +22,19 @@ export const pathToTmpAvatar = resolve(
   'avatars',
 );
 
+export const pathToTmpCarImage = resolve(
+  __dirname,
+  '..',
+  '..',
+  '..',
+  'tmp',
+  'cars',
+);
+
 const folders = {
   file: pathToTmpFile,
   avatar: pathToTmpAvatar,
+  carImage: pathToTmpCarImage,
 };
 
 export const multerConfig = (context: ContextFolder): Options => {
@@ -32,7 +42,7 @@ export const multerConfig = (context: ContextFolder): Options => {
     dest: folders[context],
     storage: multer.diskStorage({
       destination: folders[context],
-      filename: (request, file, callback) => {
+      filename: (_, file, callback) => {
         const hash = crypto.randomBytes(12).toString('hex');
         const fileName = `${hash}-${file.originalname}`;
 
