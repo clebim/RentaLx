@@ -90,3 +90,14 @@ export const validateFile =
       next(err);
     }
   };
+
+export const validateMultipleFiles =
+  joiSchema => async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const result = await checkAndReturnValidationResult(joiSchema, req);
+      req.files = result.files;
+      next();
+    } catch (err) {
+      next(err);
+    }
+  };

@@ -6,6 +6,7 @@ import { ensureAuthenticated } from '../../api/middlewares/EnsureAuthenticated';
 import {
   validateBody,
   validateFile,
+  validateMultipleFiles,
   validateParams,
   validateQuery,
 } from '../../api/middlewares/validators';
@@ -28,6 +29,7 @@ import { createSpecificationBodySchemaValidator } from './external/validators/Cr
 import { importCategorySchemaValidator } from './external/validators/ImportCategoryValidator';
 import { ListCarsQuerySchemaValidator } from './external/validators/ListCarsValidator';
 import { ListCategoryQuerySchemaValidator } from './external/validators/ListCategoryValidator';
+import { uploadCarImagesSchemaValidator } from './external/validators/UploadCarImagesValidator';
 
 const uploadMulter = multer(multerConfig('file'));
 const uploadCarMulter = multer(multerConfig('carImage'));
@@ -108,6 +110,7 @@ const routes: IRouteProps[] = [
       ensureAuthenticated,
       ensureAdmin,
       uploadCarMulter.array('images'),
+      validateMultipleFiles(uploadCarImagesSchemaValidator),
       uploadCarImagesController,
     ],
   },
