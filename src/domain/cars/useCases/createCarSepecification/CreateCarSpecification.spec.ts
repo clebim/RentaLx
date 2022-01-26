@@ -43,6 +43,7 @@ const generateCar = (): Car => {
     specifications: [],
     createdAt: faker.datatype.datetime(),
     updatedAt: faker.datatype.datetime(),
+    images: [],
   };
 };
 

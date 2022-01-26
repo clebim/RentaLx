@@ -4,13 +4,13 @@ import {
   Either,
   IUseCaseError,
 } from '../../../../helpers/domainResults/interfaces';
-import { UseCaseBase } from '../../../../shared/base/UseCaseBase';
+import { UseCase } from '../../../../shared/base/UseCase';
 import { IUsersRepository } from '../../infra/contracts/IUsersRepository';
 import { User } from '../../infra/typeorm/entities/User';
 import { ICreateUserDTO } from '../../interfaces/user/ICreateUser';
 
 @injectable()
-export class CreateUserUseCase extends UseCaseBase {
+export class CreateUserUseCase extends UseCase {
   constructor(
     @inject('UsersRepository')
     private repository: IUsersRepository,

@@ -4,14 +4,14 @@ import {
   Either,
   IUseCaseError,
 } from '../../../../helpers/domainResults/interfaces';
-import { UseCaseBase } from '../../../../shared/base/UseCaseBase';
+import { UseCase } from '../../../../shared/base/UseCase';
 import { ICarsRepository } from '../../infra/contracts/ICarsRepository';
 import { ISpecificationsRepository } from '../../infra/contracts/ISpecificationsRepository';
 import { Car } from '../../infra/typeorm/entities/Car';
 import { ICreateCarSpecificationDTO } from '../../interfaces/carsSpecification/ICreateCarSpecification';
 
 @injectable()
-export class CreateCarSpecificationUseCase extends UseCaseBase {
+export class CreateCarSpecificationUseCase extends UseCase {
   constructor(
     @inject('CarsRepository')
     private carRepository: ICarsRepository,

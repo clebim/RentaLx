@@ -4,13 +4,13 @@ import {
   Either,
   IUseCaseError,
 } from '../../../../helpers/domainResults/interfaces';
-import { UseCaseBase } from '../../../../shared/base/UseCaseBase';
+import { UseCase } from '../../../../shared/base/UseCase';
 import { ICarsRepository } from '../../infra/contracts/ICarsRepository';
 import { Car } from '../../infra/typeorm/entities/Car';
 import { ICreateCarDTO } from '../../interfaces/cars/ICreateCar';
 
 @injectable()
-export class CreateCarUseCase extends UseCaseBase {
+export class CreateCarUseCase extends UseCase {
   constructor(
     @inject('CarsRepository')
     private repository: ICarsRepository,

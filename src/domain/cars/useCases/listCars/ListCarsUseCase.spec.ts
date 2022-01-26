@@ -44,6 +44,7 @@ const generateListCars = (): Car[] => {
       specifications: [],
       createdAt: faker.datatype.datetime(),
       updatedAt: faker.datatype.datetime(),
+      images: [],
     };
 
     auxArray.push(newCar);

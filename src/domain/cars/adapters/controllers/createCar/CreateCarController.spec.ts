@@ -9,7 +9,6 @@ import {
 import { IUseCaseError } from '../../../../../helpers/domainResults/interfaces';
 import { Car } from '../../../infra/typeorm/entities/Car';
 import { ICreateCarDTO } from '../../../interfaces/cars/ICreateCar';
-import { ICreateCategoryDTO } from '../../../interfaces/categories/ICreateCategory';
 import { CreateCarUseCase } from '../../../useCases/createCar/CreateCarUseCase';
 import { createCarController } from './CreateCarController';
 

@@ -4,13 +4,13 @@ import {
   Either,
   IUseCaseError,
 } from '../../../../helpers/domainResults/interfaces';
-import { UseCaseBase } from '../../../../shared/base/UseCaseBase';
+import { UseCase } from '../../../../shared/base/UseCase';
 import { ICategoriesRepository } from '../../infra/contracts/ICategoriesRepository';
 import { Category } from '../../infra/typeorm/entities/Category';
 import { ICreateCategoryDTO } from '../../interfaces/categories/ICreateCategory';
 
 @injectable()
-export class CreateCategoryUseCase extends UseCaseBase {
+export class CreateCategoryUseCase extends UseCase {
   constructor(
     @inject('CategoriesRepository')
     private repository: ICategoriesRepository,

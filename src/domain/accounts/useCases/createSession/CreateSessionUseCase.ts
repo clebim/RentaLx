@@ -7,13 +7,13 @@ import {
   Either,
   IUseCaseError,
 } from '../../../../helpers/domainResults/interfaces';
-import { UseCaseBase } from '../../../../shared/base/UseCaseBase';
+import { UseCase } from '../../../../shared/base/UseCase';
 import { IUsersRepository } from '../../infra/contracts/IUsersRepository';
 import { ICreateSessionDTO } from '../../interfaces/session/ICreateSession';
 import { ICreateSessionSuccess } from '../../interfaces/session/ICreateSessionSuccess';
 
 @injectable()
-export class CreateSessionUseCase extends UseCaseBase {
+export class CreateSessionUseCase extends UseCase {
   constructor(
     @inject('UsersRepository')
     private repository: IUsersRepository,

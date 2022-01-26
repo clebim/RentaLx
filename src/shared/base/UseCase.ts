@@ -15,7 +15,7 @@ type ILoggerProps = {
   type: 'DatabaseError' | 'DefaultError' | 'FatalError';
 };
 
-export class UseCaseBase {
+export class UseCase {
   public buildError({
     message,
     statusCode,

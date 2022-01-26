@@ -1,20 +1,20 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, Repository as TypeOrmRepository } from 'typeorm';
 
 import {
   Either,
   IRepositoryError,
 } from '../../../../../helpers/domainResults/interfaces';
-import { RepositoryBase } from '../../../../../shared/base/RepositoryBase';
+import { Repository } from '../../../../../shared/base/Repository';
 import { ICreateCategoryDTO } from '../../../interfaces/categories/ICreateCategory';
 import { IListCategoriesDTO } from '../../../interfaces/categories/IListCategories';
 import { ICategoriesRepository } from '../../contracts/ICategoriesRepository';
 import { Category } from '../entities/Category';
 
 export class CategoriesRepository
-  extends RepositoryBase
+  extends Repository
   implements ICategoriesRepository
 {
-  private repository: Repository<Category>;
+  private repository: TypeOrmRepository<Category>;
 
   constructor() {
     super('CategoriesRepository');

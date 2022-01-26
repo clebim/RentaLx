@@ -1,19 +1,19 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, Repository as TypeOrmRepository } from 'typeorm';
 
 import {
   Either,
   IRepositoryError,
 } from '../../../../../helpers/domainResults/interfaces';
-import { RepositoryBase } from '../../../../../shared/base/RepositoryBase';
+import { Repository } from '../../../../../shared/base/Repository';
 import { ICreateSpecificationDTO } from '../../../interfaces/specifications/ICreateSpecification';
 import { ISpecificationsRepository } from '../../contracts/ISpecificationsRepository';
 import { Specification } from '../entities/Specification';
 
 export class SpecificationsRepository
-  extends RepositoryBase
+  extends Repository
   implements ISpecificationsRepository
 {
-  private repository: Repository<Specification>;
+  private repository: TypeOrmRepository<Specification>;
 
   constructor() {
     super('SpecificationsRepositoru');

@@ -72,6 +72,7 @@ describe('Create CarSpecification Controller', () => {
           updatedAt: faker.date.recent(),
         },
       ],
+      images: [],
       createdAt: faker.datatype.datetime(),
       updatedAt: faker.datatype.datetime(),
     };

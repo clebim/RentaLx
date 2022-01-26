@@ -6,12 +6,12 @@ import {
   Either,
   IUseCaseError,
 } from '../../../../helpers/domainResults/interfaces';
-import { UseCaseBase } from '../../../../shared/base/UseCaseBase';
+import { UseCase } from '../../../../shared/base/UseCase';
 import { IUsersRepository } from '../../infra/contracts/IUsersRepository';
 import { IUpdateUserAvatarDTO } from '../../interfaces/user/IUpdateUserAvatar';
 
 @injectable()
-export class UpdateUserAvatarUseCase extends UseCaseBase {
+export class UpdateUserAvatarUseCase extends UseCase {
   constructor(
     @inject('UsersRepository')
     private repository: IUsersRepository,

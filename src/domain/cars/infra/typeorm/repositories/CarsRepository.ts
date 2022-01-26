@@ -1,17 +1,17 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, Repository as TypeOrmRepository } from 'typeorm';
 
 import {
   Either,
   IRepositoryError,
 } from '../../../../../helpers/domainResults/interfaces';
-import { RepositoryBase } from '../../../../../shared/base/RepositoryBase';
+import { Repository } from '../../../../../shared/base/Repository';
 import { ICreateCarDTO } from '../../../interfaces/cars/ICreateCar';
 import { IListCarsDTO } from '../../../interfaces/cars/IListCars';
 import { ICarsRepository } from '../../contracts/ICarsRepository';
 import { Car } from '../entities/Car';
 
-export class CarsRepository extends RepositoryBase implements ICarsRepository {
-  private repository: Repository<Car>;
+export class CarsRepository extends Repository implements ICarsRepository {
+  private repository: TypeOrmRepository<Car>;
 
   constructor() {
     super('CarsRepository');

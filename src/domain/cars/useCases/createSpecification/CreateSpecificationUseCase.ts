@@ -4,13 +4,13 @@ import {
   Either,
   IUseCaseError,
 } from '../../../../helpers/domainResults/interfaces';
-import { UseCaseBase } from '../../../../shared/base/UseCaseBase';
+import { UseCase } from '../../../../shared/base/UseCase';
 import { ISpecificationsRepository } from '../../infra/contracts/ISpecificationsRepository';
 import { Specification } from '../../infra/typeorm/entities/Specification';
 import { ICreateSpecificationDTO } from '../../interfaces/specifications/ICreateSpecification';
 
 @injectable()
-export class CreateSpecificationUseCase extends UseCaseBase {
+export class CreateSpecificationUseCase extends UseCase {
   constructor(
     @inject('SpecificationsRepository')
     private repository: ISpecificationsRepository,

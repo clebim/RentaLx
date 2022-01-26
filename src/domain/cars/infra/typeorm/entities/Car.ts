@@ -8,8 +8,10 @@ import {
   JoinColumn,
   ManyToMany,
   JoinTable,
+  OneToMany,
 } from 'typeorm';
 
+import { CarImage } from './CarImage';
 import { Category } from './Category';
 import { Specification } from './Specification';
 
@@ -62,4 +64,7 @@ export class Car {
     inverseJoinColumns: [{ name: 'specification_id' }],
   })
   specifications: Specification[];
+
+  @OneToMany(() => CarImage, carImage => carImage.car)
+  images: CarImage[];
 }

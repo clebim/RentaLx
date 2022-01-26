@@ -1,19 +1,16 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, Repository as TypeOrmRepository } from 'typeorm';
 
 import {
   Either,
   IRepositoryError,
 } from '../../../../../helpers/domainResults/interfaces';
-import { RepositoryBase } from '../../../../../shared/base/RepositoryBase';
+import { Repository } from '../../../../../shared/base/Repository';
 import { ICreateUserDTO } from '../../../interfaces/user/ICreateUser';
 import { IUsersRepository } from '../../contracts/IUsersRepository';
 import { User } from '../entities/User';
 
-export class UsersRepository
-  extends RepositoryBase
-  implements IUsersRepository
-{
-  private repository: Repository<User>;
+export class UsersRepository extends Repository implements IUsersRepository {
+  private repository: TypeOrmRepository<User>;
 
   constructor() {
     super('UsersRepository');

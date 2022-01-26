@@ -13,7 +13,7 @@ type IBuildErrorProps = {
   message: string;
 };
 
-export class RepositoryBase {
+export class Repository {
   private repositoryName: string;
 
   constructor(repositoryName: string) {

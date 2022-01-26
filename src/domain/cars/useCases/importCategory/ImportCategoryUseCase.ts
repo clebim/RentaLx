@@ -6,7 +6,7 @@ import {
   Either,
   IUseCaseError,
 } from '../../../../helpers/domainResults/interfaces';
-import { UseCaseBase } from '../../../../shared/base/UseCaseBase';
+import { UseCase } from '../../../../shared/base/UseCase';
 import { ICategoriesRepository } from '../../infra/contracts/ICategoriesRepository';
 
 type IImportCategory = {
@@ -14,7 +14,7 @@ type IImportCategory = {
   description: string;
 };
 @injectable()
-export class ImportCategoryUseCase extends UseCaseBase {
+export class ImportCategoryUseCase extends UseCase {
   private parseFile: Parser;
   private categories: IImportCategory[];
 
