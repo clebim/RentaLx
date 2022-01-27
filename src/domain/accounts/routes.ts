@@ -1,6 +1,7 @@
 import multer from 'multer';
 
 import { multerConfig } from '../../api/config/Multer';
+import { deleteUploadedFileIfError } from '../../api/middlewares/DeleteUploadedFileIfError';
 import { ensureAuthenticated } from '../../api/middlewares/EnsureAuthenticated';
 import { validateBody, validateFile } from '../../api/middlewares/validators';
 import { IRouteProps } from '../../api/routes';
@@ -38,6 +39,7 @@ const routes: IRouteProps[] = [
       uploadMulter.single('avatar'),
       validateFile(updateAvatarSchemaValidator),
       updateUserAvatarController,
+      deleteUploadedFileIfError,
     ],
   },
 ];

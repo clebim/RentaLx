@@ -1,6 +1,7 @@
 import multer from 'multer';
 
 import { multerConfig } from '../../api/config/Multer';
+import { deleteUploadedFileIfError } from '../../api/middlewares/DeleteUploadedFileIfError';
 import { ensureAdmin } from '../../api/middlewares/EnsureAdmin';
 import { ensureAuthenticated } from '../../api/middlewares/EnsureAuthenticated';
 import {
@@ -112,6 +113,7 @@ const routes: IRouteProps[] = [
       uploadCarMulter.array('images'),
       validateMultipleFiles(uploadCarImagesSchemaValidator),
       uploadCarImagesController,
+      deleteUploadedFileIfError,
     ],
   },
 ];
