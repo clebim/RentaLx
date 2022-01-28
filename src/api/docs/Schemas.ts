@@ -7,6 +7,10 @@ import {
   createCarSpecificationSchema,
 } from './schemas/car/createCarSpecificationSchema';
 import { listCarsResponseSchema } from './schemas/car/ListCarsSchema';
+import {
+  uploadCarImagesResponseSchema,
+  uploadCarImagesSchema,
+} from './schemas/car/UploadCarImagesSchema';
 import { categoryImportSchema } from './schemas/category/CategoryImportFileSchema';
 import {
   createCategoryResponseSchema,
@@ -27,6 +31,7 @@ import {
   createUserRequestSchema,
   createUserResponseSchema,
 } from './schemas/user/CreateUserSchema';
+import { UpdateUserAvatarSchema } from './schemas/user/UpdateUserAvatarSchema';
 import { validationErrorSchema } from './schemas/validationError';
 
 export default {
@@ -43,9 +48,12 @@ export default {
   createSessionResponse: createSessionResponseSchema,
   createUser: createUserRequestSchema,
   createUserResponse: createUserResponseSchema,
+  updateUserAvatar: UpdateUserAvatarSchema,
   createCar: createCarSchema,
   createCarResponse: createCarResponseSchema,
   listCarsResponse: listCarsResponseSchema,
   createCarSpecification: createCarSpecificationSchema,
   createCarSpecificationResponse: createCarSpecificationResponseSchema,
+  uploadCarImages: uploadCarImagesSchema,
+  uploadCarImagesResponse: uploadCarImagesResponseSchema,
 };

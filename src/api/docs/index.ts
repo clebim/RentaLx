@@ -9,7 +9,7 @@ export type IPathProps = {
     description: string;
     parameters?: {
       name: string;
-      in: 'query' | 'header';
+      in: 'query' | 'header' | 'path';
       description: string;
       required: boolean;
       type: string;

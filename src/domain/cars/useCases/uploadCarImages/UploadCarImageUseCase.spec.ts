@@ -51,6 +51,7 @@ describe('Upload car image useCase', () => {
         car: {} as Car,
         createdAt: faker.date.recent(),
         updatedAt: faker.date.recent(),
+        setUrl: () => {},
       }),
     );
 

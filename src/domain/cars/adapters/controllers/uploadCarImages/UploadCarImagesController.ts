@@ -36,7 +36,7 @@ export const uploadCarImagesController = async (
 
     return response.status(200).json({
       imageUploadedSucces: carImagesSuccessIds,
-      uploadedErrors: carImagesErrors,
+      imageuploadedErrors: carImagesErrors,
     });
   } catch (error) {
     return next(error);

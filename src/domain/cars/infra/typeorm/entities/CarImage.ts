@@ -1,4 +1,5 @@
 import {
+  AfterLoad,
   Column,
   CreateDateColumn,
   Entity,
@@ -8,6 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import AppConfig from '../../../../../api/config/App';
 import { Car } from './Car';
 
 @Entity('car_images')
@@ -33,4 +35,15 @@ export class CarImage {
   })
   @JoinColumn({ name: 'car_id' })
   car: Car;
+
+  imageUrl?: string;
+
+  @AfterLoad()
+  setUrl(): void {
+    if (this.imageName) {
+      const baseUrl = `http://${AppConfig.SERVER.http.hostname}:${AppConfig.SERVER.http.port}/api`;
+
+      this.imageUrl = `${baseUrl}/files/images/${this.imageName}`;
+    }
+  }
 }
