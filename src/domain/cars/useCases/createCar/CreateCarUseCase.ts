@@ -34,14 +34,14 @@ export class CreateCarUseCase extends UseCase {
 
   public async execute(
     createCarProps: ICreateCarDTO,
-  ): Promise<Either<Car, IUseCaseError>> {
+  ): Promise<Either<IUseCaseError, Car>> {
     try {
       const { licensePlate } = createCarProps;
 
       const carExists = await this.carAlreadyExists(licensePlate);
 
       if (carExists) {
-        return this.buildError({
+        return this.left({
           message: 'License plate already registered in platform',
           statusCode: 400,
         });
@@ -52,10 +52,10 @@ export class CreateCarUseCase extends UseCase {
       );
 
       if (isFailure) {
-        return this.buildError({ message: error.message, statusCode: 400 });
+        return this.left({ message: error.message, statusCode: 400 });
       }
 
-      return this.buildSuccess<Car>(data);
+      return this.right<Car>(data);
     } catch (error) {
       this.logger({
         error,

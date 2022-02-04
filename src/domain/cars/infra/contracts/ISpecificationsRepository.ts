@@ -8,6 +8,6 @@ import { Specification } from '../typeorm/entities/Specification';
 export interface ISpecificationsRepository {
   create(
     createSpecificationData: ICreateSpecificationDTO,
-  ): Promise<Either<Specification, IRepositoryError>>;
-  findByIds(ids: string[]): Promise<Either<Specification[], IRepositoryError>>;
+  ): Promise<Either<IRepositoryError, Specification>>;
+  findByIds(ids: string[]): Promise<Either<IRepositoryError, Specification[]>>;
 }

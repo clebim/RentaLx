@@ -34,12 +34,12 @@ export class CreateCategoryUseCase extends UseCase {
 
   async execute(
     createCategoryData: ICreateCategoryDTO,
-  ): Promise<Either<Category, IUseCaseError>> {
+  ): Promise<Either<IUseCaseError, Category>> {
     try {
       const { name } = createCategoryData;
 
       if (await this.categoryAlreadyExists(name)) {
-        return this.buildError({
+        return this.left({
           message: 'Category already registered on the platform',
           statusCode: 400,
         });
@@ -50,13 +50,13 @@ export class CreateCategoryUseCase extends UseCase {
       );
 
       if (isFailure) {
-        return this.buildError({
+        return this.left({
           message: error.message,
           statusCode: 400,
         });
       }
 
-      return this.buildSuccess<Category>(data);
+      return this.right<Category>(data);
     } catch (error) {
       this.logger({
         error,

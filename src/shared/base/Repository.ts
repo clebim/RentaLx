@@ -20,10 +20,10 @@ export class Repository {
     this.repositoryName = repositoryName;
   }
 
-  public buildError({
+  public left({
     error,
     message,
-  }: IBuildErrorProps): Either<null, IRepositoryError> {
+  }: IBuildErrorProps): Either<IRepositoryError, null> {
     logger({
       type: 'DatabaseError',
       error,
@@ -34,7 +34,7 @@ export class Repository {
     });
   }
 
-  public buildSuccess<T>(data: T): Either<T, IRepositoryError> {
+  public right<T>(data: T): Either<IRepositoryError, T> {
     return createRepositorySuccess<T>(data);
   }
 }

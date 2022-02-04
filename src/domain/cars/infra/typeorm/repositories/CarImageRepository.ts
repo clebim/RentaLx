@@ -22,15 +22,15 @@ export class CarImageRepository
 
   async createOrSave(
     createCarImageProps: ICreateCarImageDTO | CarImage,
-  ): Promise<Either<CarImage, IRepositoryError>> {
+  ): Promise<Either<IRepositoryError, CarImage>> {
     try {
       const carImage = this.repository.create(createCarImageProps);
 
       await this.repository.save(carImage);
 
-      return this.buildSuccess<CarImage>(carImage);
+      return this.right<CarImage>(carImage);
     } catch (error) {
-      return this.buildError({
+      return this.left({
         error,
         message: 'Error in create or save a carImage in database',
       });

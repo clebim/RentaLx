@@ -36,14 +36,14 @@ export class UploadCarImageUseCase extends UseCase {
 
   async execute(
     createCarImageProps: ICreateCarImageDTO,
-  ): Promise<Either<string, IUseCaseError>> {
+  ): Promise<Either<IUseCaseError, string>> {
     try {
       const { carId } = createCarImageProps;
 
       const carAlreadyExists = await this.carAlreadyExists(carId);
 
       if (!carAlreadyExists) {
-        return this.buildError({
+        return this.left({
           message: 'Car does not exists',
           statusCode: 400,
         });
@@ -53,13 +53,13 @@ export class UploadCarImageUseCase extends UseCase {
         await this.carImageRepository.createOrSave(createCarImageProps);
 
       if (isFailure) {
-        return this.buildError({
+        return this.left({
           message: error.message,
           statusCode: 400,
         });
       }
 
-      return this.buildSuccess<string>(data.id);
+      return this.right<string>(data.id);
     } catch (error) {
       this.logger({
         error,

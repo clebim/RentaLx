@@ -16,13 +16,13 @@ export class UsersRepository extends Repository implements IUsersRepository {
     super('UsersRepository');
     this.repository = getRepository(User);
   }
-  async findById(id: string): Promise<Either<User, IRepositoryError>> {
+  async findById(id: string): Promise<Either<IRepositoryError, User>> {
     try {
       const user = await this.repository.findOne(id);
 
-      return this.buildSuccess<User | undefined>(user);
+      return this.right<User | undefined>(user);
     } catch (error) {
-      return this.buildError({
+      return this.left({
         message: 'Error find a user in database',
         error,
       });
@@ -31,7 +31,7 @@ export class UsersRepository extends Repository implements IUsersRepository {
   async findByEmail(
     email: string,
     includePassword = false,
-  ): Promise<Either<User | undefined, IRepositoryError>> {
+  ): Promise<Either<IRepositoryError, User | undefined>> {
     const selectArray: (keyof User)[] = [
       'id',
       'name',
@@ -52,9 +52,9 @@ export class UsersRepository extends Repository implements IUsersRepository {
         select: selectArray,
       });
 
-      return this.buildSuccess<User | undefined>(user);
+      return this.right<User | undefined>(user);
     } catch (error) {
-      return this.buildError({
+      return this.left({
         message: 'Error find a user in database',
         error,
       });
@@ -63,15 +63,15 @@ export class UsersRepository extends Repository implements IUsersRepository {
 
   async createOrSave(
     createUserData: ICreateUserDTO | User,
-  ): Promise<Either<User, IRepositoryError>> {
+  ): Promise<Either<IRepositoryError, User>> {
     try {
       const user = this.repository.create(createUserData);
 
       await this.repository.save(user);
 
-      return this.buildSuccess<User>(user);
+      return this.right<User>(user);
     } catch (error) {
-      return this.buildError({
+      return this.left({
         message: 'Error inserting a new user in database',
         error,
       });

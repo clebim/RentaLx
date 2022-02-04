@@ -9,12 +9,12 @@ import { Car } from '../typeorm/entities/Car';
 export interface ICarsRepository {
   createOrSave(
     createCarProps: ICreateCarDTO | Car,
-  ): Promise<Either<Car, IRepositoryError>>;
+  ): Promise<Either<IRepositoryError, Car>>;
   findByLicensePlate(
     licensePlate: string,
-  ): Promise<Either<Car | undefined, IRepositoryError>>;
+  ): Promise<Either<IRepositoryError, Car | undefined>>;
   list(
     listCarsProps: IListCarsDTO,
-  ): Promise<Either<[Car[], number], IRepositoryError>>;
-  findById(id: string): Promise<Either<Car | undefined, IRepositoryError>>;
+  ): Promise<Either<IRepositoryError, [Car[], number]>>;
+  findById(id: string): Promise<Either<IRepositoryError, Car | undefined>>;
 }

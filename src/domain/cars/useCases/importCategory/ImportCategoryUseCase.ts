@@ -38,10 +38,10 @@ export class ImportCategoryUseCase extends UseCase {
 
   async execute(
     file: Express.Multer.File,
-  ): Promise<Either<null, IUseCaseError>> {
+  ): Promise<Either<IUseCaseError, null>> {
     try {
       if (!file) {
-        return this.buildError({
+        return this.left({
           statusCode: 400,
           message: 'does not contain file',
         });
@@ -72,7 +72,7 @@ export class ImportCategoryUseCase extends UseCase {
         });
       });
 
-      return this.buildSuccess(null);
+      return this.right(null);
     } catch (error) {
       this.logger({
         error,

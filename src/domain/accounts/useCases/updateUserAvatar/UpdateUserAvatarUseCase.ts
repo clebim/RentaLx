@@ -22,7 +22,7 @@ export class UpdateUserAvatarUseCase extends UseCase {
   async execute({
     userId,
     avatarFile,
-  }: IUpdateUserAvatarDTO): Promise<Either<null, IUseCaseError>> {
+  }: IUpdateUserAvatarDTO): Promise<Either<IUseCaseError, null>> {
     try {
       const { data: user } = await this.repository.findById(userId);
 
@@ -34,7 +34,7 @@ export class UpdateUserAvatarUseCase extends UseCase {
 
       await this.repository.createOrSave(user);
 
-      return this.buildSuccess(null);
+      return this.right(null);
     } catch (error) {
       this.logger({
         error,

@@ -18,13 +18,13 @@ export class CarsRepository extends Repository implements ICarsRepository {
     this.repository = getRepository(Car);
   }
 
-  async findById(id: string): Promise<Either<Car, IRepositoryError>> {
+  async findById(id: string): Promise<Either<IRepositoryError, Car>> {
     try {
       const car = await this.repository.findOne(id);
 
-      return this.buildSuccess<Car | undefined>(car);
+      return this.right<Car | undefined>(car);
     } catch (error) {
-      return this.buildError({
+      return this.left({
         error,
         message: 'Error in get car in database',
       });
@@ -33,15 +33,15 @@ export class CarsRepository extends Repository implements ICarsRepository {
 
   async createOrSave(
     createCarProps: ICreateCarDTO | Car,
-  ): Promise<Either<Car, IRepositoryError>> {
+  ): Promise<Either<IRepositoryError, Car>> {
     try {
       const car = this.repository.create(createCarProps);
 
       await this.repository.save(car);
 
-      return this.buildSuccess<Car>(car);
+      return this.right<Car>(car);
     } catch (error) {
-      return this.buildError({
+      return this.left({
         error,
         message: 'Error in create or save a car in database',
       });
@@ -50,7 +50,7 @@ export class CarsRepository extends Repository implements ICarsRepository {
 
   async findByLicensePlate(
     licensePlate: string,
-  ): Promise<Either<Car, IRepositoryError>> {
+  ): Promise<Either<IRepositoryError, Car>> {
     try {
       const car = await this.repository.findOne({
         where: {
@@ -58,9 +58,9 @@ export class CarsRepository extends Repository implements ICarsRepository {
         },
       });
 
-      return this.buildSuccess<Car | undefined>(car);
+      return this.right<Car | undefined>(car);
     } catch (error) {
-      return this.buildError({
+      return this.left({
         error,
         message: 'Error in get car in database',
       });
@@ -69,7 +69,7 @@ export class CarsRepository extends Repository implements ICarsRepository {
 
   async list(
     listCarsProps: IListCarsDTO,
-  ): Promise<Either<[Car[], number], IRepositoryError>> {
+  ): Promise<Either<IRepositoryError, [Car[], number]>> {
     const {
       available,
       totalItemsPerPage,
@@ -122,10 +122,10 @@ export class CarsRepository extends Repository implements ICarsRepository {
 
       const responseQuery = await query.getManyAndCount();
 
-      return this.buildSuccess<[Car[], number]>(responseQuery);
+      return this.right<[Car[], number]>(responseQuery);
     } catch (error) {
       console.log(error);
-      return this.buildError({
+      return this.left({
         error,
         message: 'Error in get list cars in database',
       });

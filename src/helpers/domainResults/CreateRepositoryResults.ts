@@ -2,7 +2,7 @@ import { Either, IRepositoryError } from './interfaces';
 
 export const createRepositorySuccess = <S>(
   data: S,
-): Either<S, IRepositoryError> => {
+): Either<IRepositoryError, S> => {
   return {
     data,
     isSuccess: true,
@@ -13,7 +13,7 @@ export const createRepositorySuccess = <S>(
 
 export const createRepositoryError = (
   error: IRepositoryError,
-): Either<null, IRepositoryError> => {
+): Either<IRepositoryError, null> => {
   return {
     data: null,
     isSuccess: false,

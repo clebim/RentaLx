@@ -9,11 +9,11 @@ import { Category } from '../typeorm/entities/Category';
 export interface ICategoriesRepository {
   create(
     createCategoryData: ICreateCategoryDTO,
-  ): Promise<Either<Category, IRepositoryError>>;
+  ): Promise<Either<IRepositoryError, Category>>;
   list(
     listCategoryFilters: IListCategoriesDTO,
-  ): Promise<Either<[Category[], number], IRepositoryError>>;
+  ): Promise<Either<IRepositoryError, [Category[], number]>>;
   findByName(
     name: string,
-  ): Promise<Either<Category | undefined, IRepositoryError>>;
+  ): Promise<Either<IRepositoryError, Category | undefined>>;
 }

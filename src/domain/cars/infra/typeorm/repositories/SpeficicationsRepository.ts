@@ -22,13 +22,13 @@ export class SpecificationsRepository
 
   async findByIds(
     ids: string[],
-  ): Promise<Either<Specification[], IRepositoryError>> {
+  ): Promise<Either<IRepositoryError, Specification[]>> {
     try {
       const specifications = await this.repository.findByIds(ids);
 
-      return this.buildSuccess<Specification[]>(specifications);
+      return this.right<Specification[]>(specifications);
     } catch (error) {
-      return this.buildError({
+      return this.left({
         error,
         message: 'Error list specifications by ids',
       });
@@ -37,16 +37,16 @@ export class SpecificationsRepository
 
   async create(
     createSpecificationData: ICreateSpecificationDTO,
-  ): Promise<Either<Specification, IRepositoryError>> {
+  ): Promise<Either<IRepositoryError, Specification>> {
     try {
       const { name, description } = createSpecificationData;
 
       const specification = this.repository.create({ name, description });
 
       await this.repository.save(specification);
-      return this.buildSuccess<Specification>(specification);
+      return this.right<Specification>(specification);
     } catch (error) {
-      return this.buildError({
+      return this.left({
         error,
         message: 'Error inserting category in database',
       });

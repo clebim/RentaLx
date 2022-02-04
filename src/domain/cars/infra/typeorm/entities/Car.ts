@@ -11,6 +11,7 @@ import {
   OneToMany,
 } from 'typeorm';
 
+import { Rental } from '../../../../rentals/infra/typeorm/entities/Rental';
 import { CarImage } from './CarImage';
 import { Category } from './Category';
 import { Specification } from './Specification';
@@ -66,5 +67,8 @@ export class Car {
   specifications: Specification[];
 
   @OneToMany(() => CarImage, carImage => carImage.car)
-  images: CarImage[];
+  images?: CarImage[];
+
+  @OneToMany(() => Rental, rental => rental.car)
+  rentals?: Rental[];
 }

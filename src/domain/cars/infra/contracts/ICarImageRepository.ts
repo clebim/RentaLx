@@ -8,5 +8,5 @@ import { CarImage } from '../typeorm/entities/CarImage';
 export interface ICarImageRepository {
   createOrSave(
     createCarImageProps: ICreateCarImageDTO | CarImage,
-  ): Promise<Either<CarImage, IRepositoryError>>;
+  ): Promise<Either<IRepositoryError, CarImage>>;
 }

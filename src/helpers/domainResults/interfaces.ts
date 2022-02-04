@@ -8,7 +8,7 @@ export type IUseCaseError = {
   message: string;
 };
 
-export type Either<S, F> = {
+export type Either<F, S> = {
   data: S | null;
   isSuccess: boolean;
   isFailure: boolean;

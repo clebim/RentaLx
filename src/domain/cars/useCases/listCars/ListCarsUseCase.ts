@@ -20,7 +20,7 @@ export class ListCarsUseCase extends UseCase {
 
   public async execute(
     listCarsProps: IListCarsDTO,
-  ): Promise<Either<IListCarsData, IUseCaseError>> {
+  ): Promise<Either<IUseCaseError, IListCarsData>> {
     const { order, page, totalItemsPerPage, orderBy } = listCarsProps;
 
     const currentPage = page || 1;
@@ -38,7 +38,7 @@ export class ListCarsUseCase extends UseCase {
       });
 
       if (isFailure) {
-        return this.buildError({ message: error.message, statusCode: 400 });
+        return this.left({ message: error.message, statusCode: 400 });
       }
 
       const [cars, count] = data;
@@ -53,7 +53,7 @@ export class ListCarsUseCase extends UseCase {
         totalPages,
       };
 
-      return this.buildSuccess<IListCarsData>(response);
+      return this.right<IListCarsData>(response);
     } catch (error) {
       this.logger({
         error,

@@ -20,7 +20,7 @@ export class ListCategoriesUseCase extends UseCase {
 
   async execute(
     listCategoriesProps: IListCategoriesDTO,
-  ): Promise<Either<IListCategoriesData, IUseCaseError>> {
+  ): Promise<Either<IUseCaseError, IListCategoriesData>> {
     try {
       const { order, page, totalItemsPerPage } = listCategoriesProps;
 
@@ -36,7 +36,7 @@ export class ListCategoriesUseCase extends UseCase {
       });
 
       if (isFailure) {
-        return this.buildError({ message: error.message, statusCode: 400 });
+        return this.left({ message: error.message, statusCode: 400 });
       }
 
       const [categories, count] = data;
@@ -51,7 +51,7 @@ export class ListCategoriesUseCase extends UseCase {
         totalPages,
       };
 
-      return this.buildSuccess<IListCategoriesData>(response);
+      return this.right<IListCategoriesData>(response);
     } catch (error) {
       this.logger({
         error,

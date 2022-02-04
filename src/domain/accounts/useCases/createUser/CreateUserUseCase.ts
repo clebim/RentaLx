@@ -34,12 +34,12 @@ export class CreateUserUseCase extends UseCase {
 
   async execute(
     createUserData: ICreateUserDTO,
-  ): Promise<Either<User, IUseCaseError>> {
+  ): Promise<Either<IUseCaseError, User>> {
     try {
       const { email } = createUserData;
 
       if (await this.userAlreadyExists(email)) {
-        return this.buildError({
+        return this.left({
           message: 'Email already registered on the platform',
           statusCode: 400,
         });
@@ -50,7 +50,7 @@ export class CreateUserUseCase extends UseCase {
       );
 
       if (isFailure) {
-        return this.buildError({
+        return this.left({
           message: error.message,
           statusCode: 400,
         });
@@ -58,7 +58,7 @@ export class CreateUserUseCase extends UseCase {
 
       delete data.password;
 
-      return this.buildSuccess<User>(data);
+      return this.right<User>(data);
     } catch (error) {
       this.logger({
         error,

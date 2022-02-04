@@ -20,20 +20,20 @@ export class CreateSpecificationUseCase extends UseCase {
 
   async execute(
     createCategoryData: ICreateSpecificationDTO,
-  ): Promise<Either<Specification, IUseCaseError>> {
+  ): Promise<Either<IUseCaseError, Specification>> {
     try {
       const { data, isFailure, error } = await this.repository.create(
         createCategoryData,
       );
 
       if (isFailure) {
-        return this.buildError({
+        return this.left({
           message: error.message,
           statusCode: 400,
         });
       }
 
-      return this.buildSuccess<Specification>(data);
+      return this.right<Specification>(data);
     } catch (error) {
       this.logger({
         error,

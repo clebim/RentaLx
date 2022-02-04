@@ -38,12 +38,12 @@ export class CreateCarSpecificationUseCase extends UseCase {
   async execute({
     carId,
     specificationsId,
-  }: ICreateCarSpecificationDTO): Promise<Either<Car, IUseCaseError>> {
+  }: ICreateCarSpecificationDTO): Promise<Either<IUseCaseError, Car>> {
     try {
       const carAlreadyExists = await this.carAlreadyExists(carId);
 
       if (!carAlreadyExists) {
-        return this.buildError({
+        return this.left({
           message: 'Car does not exists',
           statusCode: 400,
         });
@@ -56,14 +56,14 @@ export class CreateCarSpecificationUseCase extends UseCase {
       } = await this.specificationRepository.findByIds(specificationsId);
 
       if (isFailure) {
-        return this.buildError({
+        return this.left({
           message: error.message,
           statusCode: 400,
         });
       }
 
       if (specifications.length === 0) {
-        return this.buildError({
+        return this.left({
           message: 'Spefications does not exists',
           statusCode: 400,
         });
@@ -73,7 +73,7 @@ export class CreateCarSpecificationUseCase extends UseCase {
 
       await this.carRepository.createOrSave(carAlreadyExists);
 
-      return this.buildSuccess<Car>(carAlreadyExists);
+      return this.right<Car>(carAlreadyExists);
     } catch (error) {
       this.logger({
         error,

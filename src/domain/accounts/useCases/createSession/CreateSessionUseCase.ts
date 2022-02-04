@@ -24,12 +24,12 @@ export class CreateSessionUseCase extends UseCase {
   async execute({
     email,
     password,
-  }: ICreateSessionDTO): Promise<Either<ICreateSessionSuccess, IUseCaseError>> {
+  }: ICreateSessionDTO): Promise<Either<IUseCaseError, ICreateSessionSuccess>> {
     try {
       const { data: user } = await this.repository.findByEmail(email, true);
 
       if (!user) {
-        return this.buildError({
+        return this.left({
           message: 'Email or password incorrect!',
           statusCode: 400,
         });
@@ -38,7 +38,7 @@ export class CreateSessionUseCase extends UseCase {
       const passwordMatch = await compare(password, user.password);
 
       if (!passwordMatch) {
-        return this.buildError({
+        return this.left({
           message: 'Email or password incorrect!',
           statusCode: 400,
         });
@@ -61,7 +61,7 @@ export class CreateSessionUseCase extends UseCase {
         expiresIn: AppConfig.Auth.expiresIn,
       });
 
-      return this.buildSuccess<ICreateSessionSuccess>({
+      return this.right<ICreateSessionSuccess>({
         user,
         accessToken: token,
       });

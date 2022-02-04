@@ -8,9 +8,11 @@ import {
   BeforeInsert,
   AfterLoad,
   BeforeUpdate,
+  OneToMany,
 } from 'typeorm';
 
 import AppConfig from '../../../../../api/config/App';
+import { Rental } from '../../../../rentals/infra/typeorm/entities/Rental';
 
 @Entity('users')
 export class User {
@@ -40,6 +42,9 @@ export class User {
 
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp', select: false })
   updatedAt: Date;
+
+  @OneToMany(() => Rental, rental => rental.user)
+  rentals?: Rental[];
 
   @BeforeInsert()
   @BeforeUpdate()

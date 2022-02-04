@@ -23,7 +23,7 @@ export class CategoriesRepository
 
   async create(
     createCategoryData: ICreateCategoryDTO,
-  ): Promise<Either<Category, IRepositoryError>> {
+  ): Promise<Either<IRepositoryError, Category>> {
     try {
       const { name, description } = createCategoryData;
 
@@ -34,9 +34,9 @@ export class CategoriesRepository
 
       await this.repository.save(category);
 
-      return this.buildSuccess<Category>(category);
+      return this.right<Category>(category);
     } catch (error) {
-      return this.buildError({
+      return this.left({
         error,
         message: 'Error inserting category in database',
       });
@@ -45,7 +45,7 @@ export class CategoriesRepository
 
   async list(
     listCategoriesProps: IListCategoriesDTO,
-  ): Promise<Either<[Category[], number], IRepositoryError>> {
+  ): Promise<Either<IRepositoryError, [Category[], number]>> {
     const { name, description, order, page, totalItemsPerPage } =
       listCategoriesProps;
 
@@ -74,16 +74,16 @@ export class CategoriesRepository
 
       const responseQuery = await query.getManyAndCount();
 
-      return this.buildSuccess<[Category[], number]>(responseQuery);
+      return this.right<[Category[], number]>(responseQuery);
     } catch (error) {
-      return this.buildError({
+      return this.left({
         error,
         message: 'Error list categories in database',
       });
     }
   }
 
-  async findByName(name: string): Promise<Either<Category, IRepositoryError>> {
+  async findByName(name: string): Promise<Either<IRepositoryError, Category>> {
     try {
       const category = await this.repository.findOne({
         where: {
@@ -91,9 +91,9 @@ export class CategoriesRepository
         },
       });
 
-      return this.buildSuccess<Category>(category);
+      return this.right<Category>(category);
     } catch (error) {
-      return this.buildError({
+      return this.left({
         error,
         message: 'Error list categories by name in database',
       });

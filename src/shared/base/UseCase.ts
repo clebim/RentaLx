@@ -16,10 +16,10 @@ type ILoggerProps = {
 };
 
 export class UseCase {
-  public buildError({
+  public left({
     message,
     statusCode,
-  }: IBuildErrorProps): Either<null, IUseCaseError> {
+  }: IBuildErrorProps): Either<IUseCaseError, null> {
     return createUseCaseError({
       message,
       statusCode,
@@ -33,7 +33,7 @@ export class UseCase {
     });
   }
 
-  public buildSuccess<T>(data: T): Either<T, IUseCaseError> {
+  public right<T>(data: T): Either<IUseCaseError, T> {
     return createUseCaseSuccess<T>(data);
   }
 }
