@@ -20,8 +20,8 @@ describe('Create Rental UseCase', () => {
     createRentalProps = {
       carId: faker.datatype.uuid(),
       userId: faker.datatype.uuid(),
-      expectReturnDate: faker.date.recent(),
-      startDate: new Date(),
+      expectReturnDate: faker.date.recent().toISOString(),
+      startDate: new Date().toISOString(),
     };
     repositoryMock.prototype.list.mockRestore();
     repositoryMock.prototype.createOrSave.mockRestore();
