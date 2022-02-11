@@ -72,7 +72,6 @@ export class RentalRepository extends Repository implements IRentalRepository {
 
       return this.right<[Rental[], number]>(responseQuery);
     } catch (error) {
-      console.log(error);
       return this.left({
         error,
         message: 'Error in get list rentals in database',

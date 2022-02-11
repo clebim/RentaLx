@@ -1,5 +1,5 @@
 export interface IListRentalsDTO {
-  carId: string;
+  carId?: string;
   userId?: string;
   startDate?: string;
   endDate?: string;

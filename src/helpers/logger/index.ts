@@ -1,3 +1,5 @@
+import { format } from 'date-fns-tz';
+
 import AppConfig from '../../api/config/App';
 
 type ErrorProps = {
@@ -13,7 +15,9 @@ export const logger = (data: ErrorProps) => {
   };
   if (AppConfig.TEST !== true) {
     console.log(
-      `[${new Date().toISOString()}]`,
+      `[${format(new Date(), 'dd/MM/yyyy HH:mm:ss', {
+        timeZone: 'America/Sao_Paulo',
+      })}]`,
       `Error in server \n`,
       fullError,
     );
